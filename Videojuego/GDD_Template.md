@@ -46,15 +46,15 @@
 
 ### **Summary**
 
-Sum up your game idea in 2 sentences. A kind of elevator pitch. Keep it simple!
+This is a card game where players battle to destroy each other’s bases. The goal is to strategically use offensive, defensive, and spell cards to reduce the opponent’s base points to zero.
 
 ### **Gameplay**
 
-What should the gameplay be like? What is the goal of the game, and what kind of obstacles are in the way? What tactics should the player use to overcome them?
+The game should be strategic and engaging, with the primary goal of destroying the opponent's base while defending your own. Players must navigate through a dynamic battlefield using offensive, defensive, and spell cards to outmaneuver and outwit their opponents.
 
 ### **Mindset**
 
-What kind of mindset do you want to provoke in the player? Do you want them to feel powerful, or weak? Adventurous, or nervous? Hurried, or calm? How do you intend to provoke those emotions?
+The main obstacle players face is the opposing player's tactics and card choices, which may include powerful attacks, clever defenses, and unexpected spells. To overcome these obstacles, players must carefully manage their resources, anticipate their opponent's moves, and adapt their strategy on the fly.
 
 ## _Technical_
 
