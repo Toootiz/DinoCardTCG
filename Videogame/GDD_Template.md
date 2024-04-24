@@ -1,10 +1,10 @@
-# **Game Name Here**
+# **Dino Card TCG**
 
 ## _Game Design Document_
 
 ---
 
-##### **Copyright notice / author information / boring legal stuff nobody likes**
+##### **[Copyright license](/LICENSE) /[Authors information](#team)** 
 
 ##
 ## _Index_
@@ -64,27 +64,58 @@ The main obstacle players face is the opposing player's tactics and card choices
 
 1. Title Screen
     1. Options
-2. Level Select
-3. Game
-    1. Inventory
-    2. Assessment / Next Level
-4. End Credits
+        - Play
+        - Decks
+        - Credits
+        - Exit
+2. Game
+3. End Credits
+
 
 _(example)_
 
 ### **Controls**
 
-How will the player interact with the game? Will they be able to choose the controls? What kind of in-game events are they going to be able to trigger, and how? (e.g. pressing buttons, opening doors, etc.)
+Mouse Click 
 
 ### **Mechanics**
 
-Are there any interesting mechanics? If so, how are you going to accomplish them? Physics, algorithms, etc.
+--0
+
+- At the beginning of the game, the player is assigned 5 cards from the created deck, which will contain 20 cards, of which at least 3 must be spell-type cards, at least 5 for defense and 5 for attack.
+
+- Cards can be raised to the bench as long as you have enough elixir to be able to summon them. The minimum number of cards that can be raised to the bench does not exist, but the maximum number of cards in the bench is 5.
+
+- Up to 5 cards can be raised per turn if you have the necessary elixir.
+
+- Each turn the player will be assigned a certain amount of elixir points and this amount will increase to a maximum of 8 per round.
+
+- Once on the bench the next turn the player can decide whether to attack with the bank card or can choose between drawing one or more other cards or passing without doing anything in the turn.
+
+- In case of attacking or being attacked, you can only defend yourself if the person affected (the one being attacked) has cards on the bench.
+
+- There are three types of cards, attack which are cards that have more damage points but less life, defense cards which have more life but less attack points and spell type which have almost no attack points. and life but they have abilities that enhance or affect the other cards.
+
+- Within the costs of the letters, there are:
+  - Cards of 1 - 3 cost, are cards which are fine at the beginning of the game, these have almost no damage or life.
+  - Cards of 4 - 5 cost, are cards more focused on the defense and attack of other cards.
+  - Cards of 6 - 8 cost are cards that have special abilities which can mean the “win condition”.
+
+- After 15 turns you can select a card from a total of 8 possibilities that directly affect the game.
+
+- To win you have to destroy the enemy base, which has 20 life points.
+
+- There are cards that allow you to regenerate life in some way.
+
+- After turn 12 the base can no longer regenerate life.
+
+- Who starts the game is selected with a coin.
 
 ## _Level Design_
 
 ---
 
-_(Note : These sections can safely be skipped if they&#39;re not relevant, or you&#39;d rather go about it another way. For most games, at least one of them should be useful. But I&#39;ll understand if you don&#39;t want to use them. It&#39;ll only hurt my feelings a little bit.)_
+There are not levels, only games
 
 ### **Themes**
 
@@ -112,6 +143,8 @@ _(Note : These sections can safely be skipped if they&#39;re not relevant, or yo
             1. Guards
             2. Giant rats
             3. Chests
+          
+    1. 
 
 _(example)_
 
@@ -289,3 +322,12 @@ _(define the main activities and the expected dates when they should be finished
 7. design music
 
 _(example)_
+
+## _Team_ 
+
+---
+
+- Gabriel Muñoz Luna
+- Karen Nikole Morales Rosas
+- Felipe De Araújo Barbosa
+
