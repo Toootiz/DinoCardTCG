@@ -160,13 +160,13 @@ _(example)_
 
 ### **Game Flow**
 
-1. Player starts in forest
-2. Pond to the left, must move right
-3. To the right is a hill, player jumps to traverse it (&quot;jump&quot; taught)
-4. Player encounters castle - door&#39;s shut and locked
-5. There&#39;s a window within jump height, and a rock on the ground
-6. Player picks up rock and throws at glass (&quot;throw&quot; taught)
-7. … etc.
+1. Player starts with 5 cards
+2. Elixir is given to the player on their turn
+3. The player selects one or more cards and takes them to the bench. (If player has the amount of elixir necessary for all the cards)
+4. On the player's next turn he can draw cards to the bench again (if he has elixir) or draw cards from the bench to the board.
+5. In case of removing the cards to the board, the enemy can defend if he has cards, if he does not defend, do not defend, the damage goes to the base.
+6. Same situation in case the enemy attacks.
+7. Repeat the steps until your own or enemy base runs out of life.
 
 _(example)_
 
@@ -188,23 +188,17 @@ _(example)_
 ### **Derived Classes / Component Compositions**
 
 1. BasePlayer
-    1. PlayerMain
-    2. PlayerUnlockable
+    1. CardsMovement
+    2. PlayerMouse
 2. BaseEnemy
     1. EnemyAI
         - Enemy atack
         - Enemy defense
-3. BaseObject
+3. BoardObject
     1. ObjectBase
-    2. Object
-    3. ObjectGoldCoin (cha-ching!)
-    4. ObjectKey (pick-up-able, throwable)
-4. BaseObstacle
-    1. ObstacleWindow (destroyed with rock)
-    2. ObstacleWall
-    3. ObstacleGate (watches to see if certain buttons are pressed)
-5. BaseInteractable
-    1. InteractableButton
+    2. ObjectElixir
+    3. ObjectBanch
+    4. ObjectCardsonhand
 
 _(example)_
 
