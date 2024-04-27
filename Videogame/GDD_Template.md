@@ -69,7 +69,11 @@ The main obstacle players face is the opposing player's tactics and card choices
         - Credits
         - Exit
 2. Game
-3. End Credits
+3. Decks
+        - Deck Editor
+        - See all cards
+4. Credits
+5. Exit
 
 
 _(example)_
@@ -80,7 +84,9 @@ Mouse Click
 
 ### **Mechanics**
 
---0
+---
+
+(image) 
 
 - At the beginning of the game, the player is assigned 5 cards from the created deck, which will contain 20 cards, of which at least 3 must be spell-type cards, at least 5 for defense and 5 for attack.
 
