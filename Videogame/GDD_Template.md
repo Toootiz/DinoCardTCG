@@ -154,6 +154,10 @@ There are not levels, only games
 
 _(example)_
 
+### **List of assets**
+
+
+
 ### **Game Flow**
 
 1. Player starts in forest
@@ -187,14 +191,12 @@ _(example)_
     1. PlayerMain
     2. PlayerUnlockable
 2. BaseEnemy
-    1. EnemyWolf
-    2. EnemyGoblin
-    3. EnemyGuard (may drop key)
-    4. EnemyGiantRat
-    5. EnemyPrisoner
+    1. EnemyAI
+        - Enemy atack
+        - Enemy defense
 3. BaseObject
-    1. ObjectRock (pick-up-able, throwable)
-    2. ObjectChest (pick-up-able, throwable, spits gold coins with key)
+    1. ObjectBase
+    2. Object
     3. ObjectGoldCoin (cha-ching!)
     4. ObjectKey (pick-up-able, throwable)
 4. BaseObstacle
