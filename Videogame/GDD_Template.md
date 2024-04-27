@@ -75,6 +75,7 @@ The main obstacle players face is the opposing player's tactics and card choices
 4. Credits
 5. Exit
 
+![Example Image](img/board.png)
 
 ### **Controls**
 
@@ -84,7 +85,6 @@ Mouse Click
 
 ---
 
-(image) 
 
 - At the beginning of the game, the player is assigned 5 cards from the created deck, which will contain 20 cards, of which at least 3 must be spell-type cards, at least 5 for defense and 5 for attack.
 
@@ -116,6 +116,7 @@ Mouse Click
 - Who starts the game is selected with a coin.
 
 ## _Level Design_
+Within each game there will be no levels, the difficulty will increase as the time of the game progresses, but each player will have a level that refers to the level of experience and this will increase as they accumulate games won.
 
 ---
 
@@ -141,7 +142,10 @@ There are not levels, only games
 
 ### **List of assets**
 
-
+![Example Image](img/card2.png)
+![Example Image](img/card3.png)
+![Example Image](img/card4.png)
+![Example Image](img/card4.png)
 
 ### **Game Flow**
 
