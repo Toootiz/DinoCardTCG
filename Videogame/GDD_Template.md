@@ -76,8 +76,6 @@ The main obstacle players face is the opposing player's tactics and card choices
 5. Exit
 
 
-_(example)_
-
 ### **Controls**
 
 Mouse Click 
@@ -127,32 +125,19 @@ There are not levels, only games
 
 1. Forest
     1. Mood
-        1. Dark, calm, foreboding
+        1. Dark, active, dangeroud
     2. Objects
         1. _Ambient_
             1. Fireflies
             2. Beams of moonlight
             3. Tall grass
         2. _Interactive_
-            1. Wolves
-            2. Goblins
+            1. Drangons
+            2. Animals
             3. Rocks
-2. Castle
-    1. Mood
-        1. Dangerous, tense, active
-    2. Objects
-        1. _Ambient_
-            1. Rodents
-            2. Torches
-            3. Suits of armor
-        2. _Interactive_
-            1. Guards
-            2. Giant rats
-            3. Chests
+            4. Trees
           
-    1. 
-
-_(example)_
+       
 
 ### **List of assets**
 
@@ -168,7 +153,6 @@ _(example)_
 6. Same situation in case the enemy attacks.
 7. Repeat the steps until your own or enemy base runs out of life.
 
-_(example)_
 
 ## _Development_
 
@@ -183,7 +167,6 @@ _(example)_
 2. BaseObstacle
 3. BaseInteractable
 
-_(example)_
 
 ### **Derived Classes / Component Compositions**
 
@@ -200,7 +183,6 @@ _(example)_
     3. ObjectBanch
     4. ObjectCardsonhand
 
-_(example)_
 
 ## _Graphics_
 
@@ -245,7 +227,6 @@ Well-designed feedback, both good (e.g. leveling up) and bad (e.g. being hit), a
     3. Gate
     4. Button (matching Weathered Stone Bricks)
 
-_(example)_
 
 
 ## _Sounds/Music_
@@ -269,14 +250,13 @@ Stylistically, what kind of sound effects are you looking for? Do you want to ex
     4. Hard Landing (high vertical velocity)
     5. Glass Breaking
     6. Chest Opening
-    7. Door Opening
+
 2. Feedback
     1. Relieved &quot;Ahhhh!&quot; (health)
     2. Shocked &quot;Ooomph!&quot; (attacked)
     3. Happy chime (extra life)
     4. Sad chime (died)
 
-_(example)_
 
 ### **Music Needed**
 
@@ -285,8 +265,6 @@ _(example)_
 3. Creepy, slow &quot;dungeon&quot; track
 4. Happy ending credits track
 5. Rick Astley&#39;s hit #1 single &quot;Never Gonna Give You Up&quot;
-
-_(example)_
 
 
 ## _Schedule_
@@ -323,7 +301,6 @@ _(define the main activities and the expected dates when they should be finished
 6. design sounds
 7. design music
 
-_(example)_
 
 ## _Team_ 
 
