@@ -72,4 +72,4 @@
 
 ![Example Image](img_diagrams/Diagram1.png)
 
-
+![Example Image](img_diagrams/Diagram2.png)
