@@ -69,3 +69,7 @@
 |Actors:|User|
 |Main flow:|The user selects the cards from his hand that he will use for defense. The system checks if the user has the necessary points to play the selected cards. The system applies the effects of the cards on the self-defense, reducing or avoiding the damage received.|
 
+
+![Example Image](img_diagrams/Diagram1.png)
+
+
