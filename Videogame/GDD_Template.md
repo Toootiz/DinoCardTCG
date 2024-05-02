@@ -12,15 +12,16 @@
 ---
 
 1. [Index](#index)
-2. [Game Design](#game-design)
+2. [Team](#team)
+3. [Game Design](#game-design)
     1. [Summary](#summary)
     2. [Gameplay](#gameplay)
     3. [Mindset](#mindset)
-3. [Technical](#technical)
+4. [Technical](#technical)
     1. [Screens](#screens)
     2. [Controls](#controls)
     3. [Mechanics](#mechanics)
-4. [Level Design](#level-design)
+5. [Level Design](#level-design)
     1. [Themes](#themes)
         1. Ambience
         2. Objects
@@ -28,17 +29,27 @@
             2. Interactive
         3. Challenges
     2. [Game Flow](#game-flow)
-5. [Development](#development)
+6. [Development](#development)
     1. [Abstract Classes](#abstract-classes--components)
     2. [Derived Classes](#derived-classes--component-compositions)
-6. [Graphics](#graphics)
+7. [Graphics](#graphics)
     1. [Style Attributes](#style-attributes)
     2. [Graphics Needed](#graphics-needed)
-7. [Sounds/Music](#soundsmusic)
+8. [Sounds/Music](#soundsmusic)
     1. [Style Attributes](#style-attributes-1)
     2. [Sounds Needed](#sounds-needed)
     3. [Music Needed](#music-needed)
-8. [Schedule](#schedule)
+9. [Schedule](#schedule)
+
+
+## _Team_ 
+
+---
+
+- Gabriel Muñoz Luna
+- Karen Nikole Morales Rosas
+- Felipe De Araújo Barbosa
+
 
 ## _Game Design_
 
@@ -50,7 +61,11 @@ This is a card game where players battle to destroy each other’s bases. The go
 
 ### **Gameplay**
 
-The game should be strategic and engaging, with the primary goal of destroying the opponent's base while defending your own. Players must navigate through a dynamic battlefield using offensive, defensive, and spell cards to outmaneuver and outwit their opponents.
+In Dino Card a card trading game (TCG) involves a player pitting his deck, which has been pre-constructed from a wide selection of cards available in the game. Each card represents a dinosaur, which can be focused on attack, defense or spell, some of them with abilities to use. The main objective is to reduce the life of the opponent's base to zero through strategies that involve attack, defense, and specialized use of cards.
+
+The gameplay takes place in turns, where each player can play cards from their hand, using resources, in this case elixir that is awarded each turn. Interactions between cards, such as combat or spell effects, are governed by specific rules that determine how they affect the opponent or the game state.
+
+Strategy in Dino Card TCG is deep and complex, including deck construction before the game and tactical decisions during the game. Players must balance their decks well with a proper mix of attack, defense, and spell cards, anticipating enemy moves and adapting to the dynamics of the game.
 
 ### **Mindset**
 
@@ -105,7 +120,7 @@ Mouse Click
   - Cards of 4 - 5 cost, are cards more focused on the defense and attack of other cards.
   - Cards of 6 - 8 cost are cards that have special abilities which can mean the “win condition”.
 
-- After 15 turns you can select a card from a total of 8 possibilities that directly affect the game.
+<!-- - After 15 turns you can select a card from a total of 8 possibilities that directly affect the game. --->
 
 - To win you have to destroy the enemy base, which has 20 life points.
 
@@ -306,11 +321,5 @@ _(define the main activities and the expected dates when they should be finished
 7. design music
 
 
-## _Team_ 
 
----
-
-- Gabriel Muñoz Luna
-- Karen Nikole Morales Rosas
-- Felipe De Araújo Barbosa
 
