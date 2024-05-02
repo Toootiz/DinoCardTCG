@@ -141,17 +141,18 @@ There are not levels, only games
 
 1. Forest
     1. Mood
-        1. Dark, active, dangeroud
+        1. Green, active
     2. Objects
         1. _Ambient_
-            1. Fireflies
-            2. Beams of moonlight
-            3. Tall grass
+            1. Hand
+            2. Enemy hand
+            3. Base
+            4. Enemy base
+            5. Elixir
         2. _Interactive_
-            1. Drangons
-            2. Animals
-            3. Rocks
-            4. Trees
+            1. Cards
+            2. Cards on hand
+            3. End or pass button
           
        
 
@@ -183,8 +184,12 @@ There are not levels, only games
     1. BasePlayer
     2. BaseEnemy
     3. BaseObject
-2. BaseObstacle
-3. BaseInteractable
+2. Board
+3. Cards
+    1. Select and drop
+    2. Mana cost
+    3. Atack
+    4. Life
 
 
 ### **Derived Classes / Component Compositions**
@@ -209,42 +214,50 @@ There are not levels, only games
 
 ### **Style Attributes**
 
-What kinds of colors will you be using? Do you have a limited palette to work with? A post-processed HSV map/image? Consistency is key for immersion.
+In the game we want to use a green-brown color palette, because your setting in which it takes place is a forest-type environment.
 
-What kind of graphic style are you going for? Cartoony? Pixel-y? Cute? How, specifically? Solid, thick outlines with flat hues? Non-black outlines with limited tints/shades? Emphasize smooth curvatures over sharp angles? Describe a set of general rules depicting your style here.
+For the style of the game we are looking for the pixel style, we want the images on the cards to have a style like that, as well as the base or the buttons, we want the pixel style. We also want the background images, such as in the menus or in the game, to be pixel. We want the lines to be thin, or the least visible. When looking for the pixel style we don't want to have almost curves.
 
-Well-designed feedback, both good (e.g. leveling up) and bad (e.g. being hit), are great for teaching the player how to play through trial and error, instead of scripting a lengthy tutorial. What kind of visual feedback are you going to use to let the player know they&#39;re interacting with something? That they \*can\* interact with something?
+On the home screen you can implement a kind of tutorial with images to give players an idea of ​​what they can do.
 
 ### **Graphics Needed**
 
-1. Characters
-    1. Human-like
-        1. Goblin (idle, walking, throwing)
-        2. Guard (idle, walking, stabbing)
-        3. Prisoner (walking, running)
-    2. Other
-        1. Wolf (idle, walking, running)
-        2. Giant Rat (idle, scurrying)
-2. Blocks
-    1. Dirt
-    2. Dirt/Grass
-    3. Stone Block
-    4. Stone Bricks
-    5. Tiled Floor
-    6. Weathered Stone Block
-    7. Weathered Stone Bricks
-3. Ambient
-    1. Tall Grass
-    2. Rodent (idle, scurrying)
-    3. Torch
-    4. Armored Suit
-    5. Chains (matching Weathered Stone Bricks)
-    6. Blood stains (matching Weathered Stone Bricks)
-4. Other
-    1. Chest
-    2. Door (matching Stone Bricks)
-    3. Gate
-    4. Button (matching Weathered Stone Bricks)
+1. Cards
+    1. Dinos-like
+        1. T-Rex
+        2. Compy
+        3. Spinosaurus
+        4. Argentavis
+        5. Brontosaurus
+        6. Stegosaurus
+        7. Ankylosaurus
+        8. Allosaurus
+        9. Carnotaurus
+        10. Pteranodon
+        11. Triceratops
+        12. Velociraptor
+        13. Mosasaurus
+        14. Megalodon
+        15. Therizinosaurus
+        16. Giganotosaurus
+        17. Diplodocus
+        18. Parasaurolophus
+        19. Sabertooth
+        20. Woolly Mammoth
+        21. Direwolf
+        22. Baryonyx
+        23. Dodo
+        24. Kaprosuchus
+        25. Oviraptor
+        26. Giganoto
+        27. Gallimimus
+        28. Pulmonoscorpius
+        29. Archaeopteryx
+2. Map
+    1. Base
+    2. Background/ Board
+    3. Button
+    4. Hand
 
 
 
