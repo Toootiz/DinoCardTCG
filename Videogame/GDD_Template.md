@@ -131,7 +131,7 @@ Mouse Click
 - Who starts the game is selected with a coin.
 
 ## _Level Design_
-Within each game there will be no levels, the difficulty will increase as the time of the game progresses, but each player will have a level that refers to the level of experience and this will increase as they accumulate games won.
+<!-- Within each game there will be no levels, the difficulty will increase as the time of the game progresses, but each player will have a level that refers to the level of experience and this will increase as they accumulate games won. -->
 
 ---
 
@@ -276,18 +276,16 @@ Stylistically, what kind of sound effects are you looking for? Do you want to ex
 ### **Sounds Needed**
 
 1. Effects
-    1. Soft Footsteps (dirt floor)
-    2. Sharper Footsteps (stone floor)
-    3. Soft Landing (low vertical velocity)
-    4. Hard Landing (high vertical velocity)
-    5. Glass Breaking
-    6. Chest Opening
+    1. Drop a card
+    2. Card atack
+    3. Mana given
 
-2. Feedback
+<!-- 2. Feedback
     1. Relieved &quot;Ahhhh!&quot; (health)
     2. Shocked &quot;Ooomph!&quot; (attacked)
     3. Happy chime (extra life)
     4. Sad chime (died)
+    -->
 
 
 ### **Music Needed**
