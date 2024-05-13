@@ -1,16 +1,91 @@
 CREATE DATABASE  IF NOT EXISTS `dinocard_db`;
 USE `dinocard_db`;
 
-CREATE TABLE `DinoCard` (
-  `id` INT AUTO_INCREMENT PRIMARY KEY,
+
+CREATE TABLE `habilidad`(
+	`id_habilidad` INT,
+    `Descripcion` TEXT,
+    
+	PRIMARY KEY (id_habilidad)
+);
+
+
+CREATE TABLE `carta` (
+  `id_carta` INT,
   `Nombre` VARCHAR(255),
   `Puntos_de_Vida` INT,
   `Puntos_de_ataque` INT,
   `Coste_en_elixir` INT,
-  `Habilidad` TEXT
+  `Habilidad` INT,
+  
+  PRIMARY KEY (id_carta),
+  FOREIGN KEY (habilidad) REFERENCES habilidad(id_habilidad)
 );
 
-INSERT INTO `DinoCard` (`Nombre`, `Puntos_de_Vida`, `Puntos_de_ataque`, `Coste_en_elixir`, `Habilidad`) VALUES
+
+CREATE TABLE `deck`(
+
+	`id_deck` INT,
+    `cantidad_cartas` INT,
+    
+    PRIMARY KEY (id_deck)
+
+);
+
+
+CREATE TABLE `deck_jugador` (
+
+  `id_deck` INT,
+  `id_carta` INT,
+  `id_jugador` INT,
+  `Fecha_de_creacion` INT,
+  `Fecha_mod` INT,
+  
+  FOREIGN KEY (id_carta) REFERENCES carta(id_carta),
+  FOREIGN KEY (id_deck) REFERENCES deck(id_deck)
+  
+);
+
+
+CREATE TABLE `jugador`(
+
+	`id_jugador` INT,
+    `Nombre` VARCHAR(255),
+	`partidas_ganadas` INT,
+    `partidas_perdidas` INT,
+	`fecha_creacion` INT,
+	`fecha_mod` INT,
+    
+    PRIMARY KEY (id_jugador)
+
+);
+
+CREATE TABLE `credenciales`(
+
+	`id_credencial` VARCHAR(255),
+    `id_jugador` INT,
+    `Nombre` VARCHAR(255),
+    `contraseña` VARCHAR(255),
+    
+    FOREIGN KEY (id_jugador) REFERENCES jugador(id_jugador)
+
+);
+
+CREATE TABLE `partida`(
+	
+    `id_partida` INT,
+    `id_jugador` INT,
+    `id_ganador` INT,
+    `id_perdedor` INT,
+    `cantidad_turnos` INT,
+    
+    FOREIGN KEY (id_jugador) REFERENCES jugador(id_jugador)
+    
+
+);
+
+
+INSERT INTO `carta` (`Nombre`, `Puntos_de_Vida`, `Puntos_de_ataque`, `Coste_en_elixir`, `Habilidad`) VALUES
 ('T-Rex', 11, 6, 7, '1'),
 ('Compy', 1, 1, 1, '0'),
 ('Spinosaurus', 6, 4, 5, '0'),
