@@ -1,15 +1,35 @@
-# Dino Card TCG
+# DinoCardTCG
 
-## Game concept
-In a pre-Hispanic world, you seek to survive while gaining ground throughout your story, win battles against others using those creatures that you have tamed without your base being destroyed and proving to be the best!!
+---
 
-## Download local game
+## **Dino Card TCG: The Ultimate Dinosaur TCG Battle**
+
+In a simulated world where prehistoric giants were tamed, emerges **Dino Card TCG**, the collectible card game (TCG) that will transport you to an era of epic battles. In **Dino Card TCG**, each card represents a powerful dinosaur, from the imposing Tyrannosaurus Rex to the agile Velociraptors, each with unique and devastating characteristics.
+
+In the game, you can combine and pit your dinosaurs against each other in tactical battles, leveraging their special and unique traits to outmaneuver your opponents. Will you use the strength of the T-Rex or the speed of the Velociraptor? Customize your deck with attack, defense, and special cards to adapt your strategy to each battle.
+
+Immerse yourself in a world where only the strongest survive. Build your dinosaur deck, master the art of prehistoric warfare, and become the ultimate champion of **Dino Card TCG**.
+
+Get ready for the clash of titans in **Dino Card TCG**! Are you ready to command the most powerful dinosaurs in history and claim your place as the greatest tamer of prehistoric beasts?
+
+---
+
+## Download and install local game
 
 1. Clone the repository
 
 ```sh
 git clone git@github.com:Toootiz/TC2005B-Reto.git
 ```
+2. Open unity and add.
+   
+<img title="" alt="" src="https://i.imgur.com/LoZJXwm.png">
+
+3. Look for the repository folder, and within video games select "Dino CardTCG"
+
+<img title="" alt="" src="https://i.imgur.com/frbbT5j.png">
+
+
 
 ## Team
 - Gabriel Muñoz Luna
