@@ -1,0 +1,236 @@
+{
+    "cards": [
+        {
+            "id": 1,
+            "cardName": "T-Rex",
+            "attack": 6,
+            "life": 11,
+            "cost": 7,
+            "skill": 2
+        },
+        {
+            "id": 2,
+            "cardName": "Compy",
+            "attack": 1,
+            "life": 1,
+            "cost": 1,
+            "skill": 1
+        },
+        {
+            "id": 3,
+            "cardName": "Spinosaurus",
+            "attack": 4,
+            "life": 6,
+            "cost": 5,
+            "skill": 1
+        },
+        {
+            "id": 4,
+            "cardName": "Argentavis",
+            "attack": 4,
+            "life": 8,
+            "cost": 4,
+            "skill": 1
+        },
+        {
+            "id": 5,
+            "cardName": "Brontosaurus",
+            "attack": 4,
+            "life": 14,
+            "cost": 5,
+            "skill": 1
+        },
+        {
+            "id": 6,
+            "cardName": "Stegosaurus",
+            "attack": 3,
+            "life": 10,
+            "cost": 6,
+            "skill": 3
+        },
+        {
+            "id": 7,
+            "cardName": "Ankylosaurus",
+            "attack": 4,
+            "life": 3,
+            "cost": 4,
+            "skill": 1
+        },
+        {
+            "id": 8,
+            "cardName": "Allosaurus",
+            "attack": 5,
+            "life": 7,
+            "cost": 6,
+            "skill": 4
+        },
+        {
+            "id": 9,
+            "cardName": "Carnotaurus",
+            "attack": 4,
+            "life": 6,
+            "cost": 4,
+            "skill": 1
+        },
+        {
+            "id": 10,
+            "cardName": "Pteranodon",
+            "attack": 4,
+            "life": 6,
+            "cost": 3,
+            "skill": 1
+        },
+        {
+            "id": 11,
+            "cardName": "Triceratops",
+            "attack": 3,
+            "life": 12,
+            "cost": 3,
+            "skill": 1
+        },
+        {
+            "id": 12,
+            "cardName": "Velociraptor",
+            "attack": 3,
+            "life": 6,
+            "cost": 4,
+            "skill": 1
+        },
+        {
+            "id": 13,
+            "cardName": "Mosasaurus",
+            "attack": 4,
+            "life": 12,
+            "cost": 5,
+            "skill": 1
+        },
+        {
+            "id": 14,
+            "cardName": "Megalodon",
+            "attack": 5,
+            "life": 10,
+            "cost": 6,
+            "skill": 5
+        },
+        {
+            "id": 15,
+            "cardName": "Therizinosaurus",
+            "attack": 3,
+            "life": 8,
+            "cost": 4,
+            "skill": 8
+        },
+        {
+            "id": 17,
+            "cardName": "Giganotosaurus",
+            "attack": 8,
+            "life": 12,
+            "cost": 7,
+            "skill": 1
+        },
+        {
+            "id": 18,
+            "cardName": "Diplodocus",
+            "attack": 2,
+            "life": 10,
+            "cost": 4,
+            "skill": 1
+        },
+        {
+            "id": 19,
+            "cardName": "Parasaurolophus",
+            "attack": 2,
+            "life": 4,
+            "cost": 4,
+            "skill": 1
+        },
+        {
+            "id": 20,
+            "cardName": "Sabertooth",
+            "attack": 4,
+            "life": 6,
+            "cost": 3,
+            "skill": 1
+        },
+        {
+            "id": 21,
+            "cardName": "Woolly Mammoth",
+            "attack": 4,
+            "life": 12,
+            "cost": 5,
+            "skill": 1
+        },
+        {
+            "id": 22,
+            "cardName": "Direwolf",
+            "attack": 4,
+            "life": 6,
+            "cost": 3,
+            "skill": 1
+        },
+        {
+            "id": 23,
+            "cardName": "Baryonyx",
+            "attack": 4,
+            "life": 6,
+            "cost": 4,
+            "skill": 1
+        },
+        {
+            "id": 24,
+            "cardName": "Dodo",
+            "attack": 2,
+            "life": 3,
+            "cost": 1,
+            "skill": 1
+        },
+        {
+            "id": 25,
+            "cardName": "Kaprosuchus",
+            "attack": 5,
+            "life": 10,
+            "cost": 7,
+            "skill": 1
+        },
+        {
+            "id": 27,
+            "cardName": "Oviraptor",
+            "attack": 1,
+            "life": 2,
+            "cost": 3,
+            "skill": 6
+        },
+        {
+            "id": 28,
+            "cardName": "Giganoto",
+            "attack": 7,
+            "life": 14,
+            "cost": 7,
+            "skill": 1
+        },
+        {
+            "id": 29,
+            "cardName": "Gallimimus",
+            "attack": 2,
+            "life": 4,
+            "cost": 3,
+            "skill": 7
+        },
+        {
+            "id": 30,
+            "cardName": "Pulmonoscorpius",
+            "attack": 4,
+            "life": 8,
+            "cost": 4,
+            "skill": 1
+        },
+        {
+            "id": 31,
+            "cardName": "Archaeopteryx",
+            "attack": 1,
+            "life": 2,
+            "cost": 3,
+            "skill": 1
+        }
+    ]
+}

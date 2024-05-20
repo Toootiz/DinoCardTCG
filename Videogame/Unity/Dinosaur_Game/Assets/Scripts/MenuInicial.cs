@@ -14,4 +14,10 @@ public class MenuInicial : MonoBehaviour
         Debug.Log("Salir");
         Application.Quit();
     }
+
+    public void Deck()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
+    }
 }
