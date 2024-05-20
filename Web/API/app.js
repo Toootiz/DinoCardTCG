@@ -12,7 +12,7 @@ async function connectToDB() {
     return mysql.createConnection({
         host: "localhost",
         user: "root",
-        password: "root",
+        password: "1234567890",
         database: "dinocard_db"
     });
 }
@@ -60,7 +60,7 @@ app.post("/api/cards", async (req, res) => {
         connection = await connectToDB();
         const { Nombre, Puntos_de_Vida, Puntos_de_ataque, Coste_en_elixir, Habilidad } = req.body;
         const [results] = await connection.execute(
-            "INSERT INTO carta (Nombre, Puntos_de_Vida, Puntos_de_ataque, Coste_en_elixir, Habilidad) VALUES (?, ?, ?, ?, ?)",
+            "INSERT INTO carta (nombre, puntos_de_vida, puntos_de_ataque, coste_en_elixir, habilidad) VALUES (?, ?, ?, ?, ?)",
             [Nombre, Puntos_de_Vida, Puntos_de_ataque, Coste_en_elixir, Habilidad]
         );
         res.status(201).json({ message: "Card added successfully", id_carta: results.insertId });
@@ -72,6 +72,7 @@ app.post("/api/cards", async (req, res) => {
         }
     }
 });
+
 
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}/`);
