@@ -2,9 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class MenuInicial : MonoBehaviour
 {
+
+    
+    public AudioMixer audioMixer;
+
+
     public void Jugar()
     {
         SceneManager.LoadScene("Board");
@@ -20,4 +27,13 @@ public class MenuInicial : MonoBehaviour
         SceneManager.LoadScene("Deck");
 
     }
+
+    
+    public void SetVolume (float volume)
+    {
+        audioMixer.SetFloat("volume", volume);
+    }
+
+
+
 }
