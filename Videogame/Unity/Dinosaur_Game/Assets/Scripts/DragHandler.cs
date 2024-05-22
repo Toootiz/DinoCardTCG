@@ -3,17 +3,58 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DragHandler : MonoBehaviour
+public class DragHandler : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
-    // Start is called before the first frame update
-    void Start()
+    public static GameObject objBeingDraged;
+
+    private Vector3 startPosition;
+    private Transform startParent;
+    private CanvasGroup canvasGroup;
+    private Transform itemDraggerParent;
+
+    private void Start() 
     {
-        
+        canvasGroup = GetComponent<CanvasGroup>();
+        itemDraggerParent = GameObject.FindGameObjectWithTag("ItemDraggerParent").transform;
     }
 
-    // Update is called once per frame
-    void Update()
+    #region DragFunctions
+
+    public void OnBeginDrag(PointerEventData eventData)
     {
-        
+        Debug.Log("OnBeginDrag");
+        objBeingDraged = gameObject;
+
+        startPosition = transform.position;
+        startParent = transform.parent;
+        transform.SetParent(itemDraggerParent);
+
+        canvasGroup.blocksRaycasts = false;
+
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        transform.position = Input.mousePosition;
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        Debug.Log("OnEndDrag");
+        objBeingDraged = null;
+
+        canvasGroup.blocksRaycasts = true;
+        if (transform.parent == itemDraggerParent)
+        {
+            transform.position = startPosition;
+            transform.SetParent(startParent);
+        }
+    }
+
+    #endregion
+
+    private void Update()
+    {
+
     }
 }
