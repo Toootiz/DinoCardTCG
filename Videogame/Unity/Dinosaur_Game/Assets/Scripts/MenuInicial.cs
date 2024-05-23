@@ -14,7 +14,7 @@ public class MenuInicial : MonoBehaviour
 
     public void Jugar()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("Board");
     }
 
     public void Salir(){
@@ -24,7 +24,7 @@ public class MenuInicial : MonoBehaviour
 
     public void Deck()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("Deck");
 
     }
 
