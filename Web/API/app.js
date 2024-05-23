@@ -11,8 +11,8 @@ app.use(express.json());
 async function connectToDB() {
     return mysql.createConnection({
         host: "localhost",
-        user: "root",
-        password: "1234567890",
+        user: "p1",
+        password: "123456",
         database: "dinocard_db"
     });
 }
@@ -26,8 +26,9 @@ app.get("/api/cards", async (req, res) => {
     let connection = null;
     try {
         connection = await connectToDB();
-        const [results] = await connection.execute("SELECT * FROM carta");
-        res.status(200).json(results);
+        const [results, fields] = await connection.execute("SELECT * FROM carta");
+        const c={"cards":results};
+        res.status(200).json(c);
     } catch (error) {
         res.status(500).json(error);
     } finally {
