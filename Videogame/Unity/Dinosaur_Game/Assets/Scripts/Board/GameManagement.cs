@@ -1,3 +1,8 @@
+/*
+Código que controla las mecanicas del juego y recoge los datos del api.
+*/
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +22,7 @@ public class GameManagement : MonoBehaviour
    // Referencias a varios objetos del juego
     GameObject canvas;
     GameObject banca;
-    CardsData cards;
+    CardInfo cards;
     // APIConection aPIConection; de momento esto no se ocupa pero se puede ocupar para mandar datos.
     // Variables para controlar el estado del juego
     public bool gameActive = true;
@@ -37,10 +42,10 @@ public class GameManagement : MonoBehaviour
     {
         // Inicializar variables y UI
         ambar = 40; //establecer un valor inicial para pruebas
-        AmbarText.text = "Ambar: " + energy.ToString(); //mostrar el valor inical de ambar
+        AmbarText.text = "Ambar: " + ambar.ToString(); //mostrar el valor inical de ambar
         currentTurn = turn.Player; // Se inicia en jugador para las pruebas pero se cambia a random
         endTurnButton.onClick.AddListener(EndTurn); // Saber si se dio clic en el botón de turno
-        cards = GameObject.FindGameObjectWithTag("CardData").GetComponent<Cards>();
+        cards = GameObject.FindGameObjectWithTag("CardData").GetComponent<CardInfo>();
         canvas = GameObject.FindGameObjectWithTag("Canvas");
         banca = GameObject.FindGameObjectWithTag("Banca");
         GetData(url, getEndpoint); //Solicitar los datos del a base de datos.
@@ -97,7 +102,7 @@ public class GameManagement : MonoBehaviour
     }
 
     // Generar una mano de cartas aleatoria
-    public void generateRandomHand(int numberOfCards)
+    public void GenerateRandomHand(int numberOfCards)
     {
         numbers.Clear();
         for (int i = 0; i < numberOfCards; i++)
@@ -132,11 +137,11 @@ public class GameManagement : MonoBehaviour
         Image cardImage = newcard.transform.GetChild(5).GetComponent<Image>();
 
         Debug.Log(id);
-        nameText.text = cards.theCardList.cards[id].nombre;
-        lifeText.text = cards.theCardList.cards[id].puntos_de_vida.ToString();
-        attackText.text = cards.theCardList.cards[id].puntos_de_ataque.ToString();
-        costText.text = cards.theCardList.cards[id].coste_en_elixir.ToString();
-        HabilidadText.text = cards.theCardList.cards[id].habilidad.ToString();
+        nameText.text = cards.listaCartas.cards[id].nombre;
+        lifeText.text = cards.listaCartas.cards[id].puntos_de_vida.ToString();
+        attackText.text = cards.listaCartas.cards[id].puntos_de_ataque.ToString();
+        costText.text = cards.listaCartas.cards[id].coste_en_elixir.ToString();
+        HabilidadText.text = cards.listaCartas.cards[id].habilidad.ToString();
 
         // Cargar la imagen desde Resources usando el ID como nombre del archivo
         Sprite cardSprite = Resources.Load<Sprite>($"IMG/{id}");
@@ -151,13 +156,13 @@ public class GameManagement : MonoBehaviour
         }
 
         // Asignar datos a los atributos de la carta
-        newcard.GetComponent<Card>().CardId = id;
-        newcard.GetComponent<Card>().CardName = cards.theCardList.cards[id].nombre;
-        newcard.GetComponent<Card>().CardAttack = cards.theCardList.cards[id].puntos_de_ataque;
-        newcard.GetComponent<Card>().CardLife = cards.theCardList.cards[id].puntos_de_vida;
-        newcard.GetComponent<Card>().CardCost = cards.theCardList.cards[id].coste_en_elixir;
-        newcard.GetComponent<Card>().CardHabilidad = cards.theCardList.cards[id].habilidad;
-        newcard.GetComponent<Card>().CardArt = cardImage;
+        newcard.GetComponent<CardScript>().CardId = id;
+        newcard.GetComponent<CardScript>().CardName = cards.listaCartas.cards[id].nombre;
+        newcard.GetComponent<CardScript>().CardAttack = cards.listaCartas.cards[id].puntos_de_ataque;
+        newcard.GetComponent<CardScript>().CardLife = cards.listaCartas.cards[id].puntos_de_vida;
+        newcard.GetComponent<CardScript>().CardCost = cards.listaCartas.cards[id].coste_en_elixir;
+        newcard.GetComponent<CardScript>().CardHabilidad = cards.listaCartas.cards[id].habilidad;
+        newcard.GetComponent<CardScript>().CardArt = cardImage;
     }
 
     // Maneja la energía por turno da 3 y va aumentando
@@ -204,7 +209,7 @@ public class GameManagement : MonoBehaviour
         if (cardCount < 5)
         {
             int cardsToGenerate = 5 - cardCount;
-            generateRandomHand(cardsToGenerate);
+            GenerateRandomHand(cardsToGenerate);
         }
     }
 

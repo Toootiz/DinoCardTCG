@@ -29,7 +29,7 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     void Start()
     {
         // Obtener la referencia al componente con tag de GameController
-        gameManagement = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManagement>();
+        gameManagement = GameObject.FindGameObjectWithTag("GameManagement").GetComponent<GameManagement>();
         rectTransform = GetComponent<RectTransform>();
         originalParent = transform.parent; // solicitar el panel padre donde se genero la carta
     }
@@ -44,7 +44,7 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     public void OnBeginDrag(PointerEventData eventData)
     {
         // Se checa si la carta no ha sido jugada y hay suficiente energía
-        if (!isPlayed && gameManagement.energy >= CardCost)
+        if (!isPlayed && gameManagement.ambar >= CardCost)
         {
             canDrag = true;
             initialPosition = rectTransform.anchoredPosition; // Guardar la posición inicial
