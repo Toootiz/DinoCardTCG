@@ -10,6 +10,8 @@ TagManager:
   - Canvas
   - GameManagement
   - CardData
+  - Banca
+  - Juego
   layers:
   - Default
   - TransparentFX

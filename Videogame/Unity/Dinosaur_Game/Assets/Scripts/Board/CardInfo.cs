@@ -46,7 +46,7 @@ public class CardInfo : MonoBehaviour
     // Método para convertir el JSON recibido en una lista de cartas
     public void MakeList()
     {
-        Debug.Log("TEST: " + Data); // Imprime el JSON recibido en la consola para verificación
+       // Debug.Log("TEST: " + Data); // Imprime el JSON recibido en la consola para verificación
         listaCartas = JsonUtility.FromJson<CardList>(Data); // Convierte el JSON en una instancia de CardList
     }
 

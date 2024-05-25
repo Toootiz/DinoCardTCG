@@ -33,8 +33,8 @@ public class GameManagement : MonoBehaviour
     public int ambar; // Ambar lo que se utiliza como energía
     public string apiResult;  // Resultado de la llamada a la API
     // URLs y elementos de la UI
-    [SerializeField] string url; // URL para conectar con el api
-    [SerializeField] string getEndpoint; // Endpoint del api para sacar las cartas
+    // [SerializeField] string url; // URL para conectar con el api
+    // [SerializeField] string getEndpoint; // Endpoint del api para sacar las cartas
     [SerializeField] Button endTurnButton; // Botón para terminar turno
     [SerializeField] TMP_Text AmbarText; // Texto que muestra el ámbar que se tiene
 
@@ -48,36 +48,55 @@ public class GameManagement : MonoBehaviour
         cards = GameObject.FindGameObjectWithTag("CardData").GetComponent<CardInfo>();
         canvas = GameObject.FindGameObjectWithTag("Canvas");
         banca = GameObject.FindGameObjectWithTag("Banca");
-        GetData(url, getEndpoint); //Solicitar los datos del a base de datos.
+        //GetData(url, getEndpoint); //Solicitar los datos del a base de datos.
+        // Cargar los datos de las cartas desde PlayerPrefs
+        LoadCardData();
+
+        GenerateRandomHand(5); // Dar 5 cartas random del deck
+    }
+
+    // Cargar datos de las cartas desde PlayerPrefs
+    void LoadCardData()
+    {
+        if (PlayerPrefs.HasKey("CardData"))
+        {
+            apiResult = PlayerPrefs.GetString("CardData");
+            cards.Data = apiResult;
+            cards.MakeList();
+        }
+        else
+        {
+            Debug.LogError("No card data found in PlayerPrefs");
+        }
     }
 
     // Obtener datos de la API
-    public void GetData(string url, string getEndpoint)
-    {
-        StartCoroutine(RequestGet(url + getEndpoint));
-    }
+    // public void GetData(string url, string getEndpoint)
+    // {
+    //     StartCoroutine(RequestGet(url + getEndpoint));
+    // }
 
-    // Realizar una petición GET a la API
-    IEnumerator RequestGet(string url)
-    {
-        using (UnityWebRequest www = UnityWebRequest.Get(url))
-        {
-            yield return www.SendWebRequest();
+    // // Realizar una petición GET a la API
+    // IEnumerator RequestGet(string url)
+    // {
+    //     using (UnityWebRequest www = UnityWebRequest.Get(url))
+    //     {
+    //         yield return www.SendWebRequest();
 
-            if (www.result != UnityWebRequest.Result.Success)
-            {
-                Debug.Log("Request failed: " + www.error);
-            }
-            else
-            {
-                apiResult = www.downloadHandler.text;
-                Debug.Log("The response was: " + apiResult);
-                cards.Data = apiResult;
-                cards.MakeList();
-                GenerateRandomHand(5); // Dar 5 cartas random del deck
-            }
-        }
-    }
+    //         if (www.result != UnityWebRequest.Result.Success)
+    //         {
+    //             Debug.Log("Request failed: " + www.error);
+    //         }
+    //         else
+    //         {
+    //             apiResult = www.downloadHandler.text;
+    //             Debug.Log("The response was: " + apiResult);
+    //             cards.Data = apiResult;
+    //             cards.MakeList();
+    //             GenerateRandomHand(5); // Dar 5 cartas random del deck
+    //         }
+    //     }
+    // }
 
     // Contador de turnos
     public void countTourn()
@@ -116,8 +135,7 @@ public class GameManagement : MonoBehaviour
         }
         for (int i = 0; i < numberOfCards; i++)
         {
-            //int movetoside = 130 * i;
-            InstantiateCard(numbers[i], 0, 0); //-200+movetoside,0);
+            InstantiateCard(numbers[i], 0, 0);
         }
     }
 
@@ -126,7 +144,7 @@ public class GameManagement : MonoBehaviour
     {
         GameObject newcard = Instantiate(CardPrefab, new Vector3(posX, posY, 0), Quaternion.identity);
         newcard.transform.SetParent(banca.transform, false);
-        newcard.transform.localScale = new Vector3(3, 3, 3);
+        newcard.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
 
         // Asignar textos y datos a la carta
         TextMeshProUGUI nameText = newcard.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
@@ -136,7 +154,7 @@ public class GameManagement : MonoBehaviour
         TextMeshProUGUI HabilidadText = newcard.transform.GetChild(4).GetComponent<TextMeshProUGUI>();
         Image cardImage = newcard.transform.GetChild(5).GetComponent<Image>();
 
-        Debug.Log(id);
+        //Debug.Log(id);
         nameText.text = cards.listaCartas.cards[id].nombre;
         lifeText.text = cards.listaCartas.cards[id].puntos_de_vida.ToString();
         attackText.text = cards.listaCartas.cards[id].puntos_de_ataque.ToString();
@@ -144,7 +162,7 @@ public class GameManagement : MonoBehaviour
         HabilidadText.text = cards.listaCartas.cards[id].habilidad.ToString();
 
         // Cargar la imagen desde Resources usando el ID como nombre del archivo
-        Sprite cardSprite = Resources.Load<Sprite>($"IMG/{id}");
+        Sprite cardSprite = Resources.Load<Sprite>($"DinoImages/{id}");
 
         if (cardSprite != null)
         {
