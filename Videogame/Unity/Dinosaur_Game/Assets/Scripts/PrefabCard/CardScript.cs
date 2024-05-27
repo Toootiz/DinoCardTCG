@@ -8,6 +8,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
+
+
 
 public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
@@ -39,6 +42,9 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>(); // sacar el componente de canvas group
     }
+
+
+
 
     // Cuando inicias el arrastre
     public void OnBeginDrag(PointerEventData eventData)
@@ -107,23 +113,23 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
                 rectTransform.anchoredPosition = initialPosition;
                 transform.SetParent(originalParent);
             }
-            else if (newParent != originalParent)
-            {
-                Debug.Log("Card moved to another valid drop zone");
-            }
-            else
-            {
-                // Si no se mueve a una zona válida, revertir a la posición original
-                rectTransform.anchoredPosition = initialPosition;
-                transform.SetParent(originalParent);
-            }
+            // else if (newParent != originalParent)
+            // {
+            //     Debug.Log("Card moved to another valid drop zone");
+            // }
+            // else
+            // {
+            //     // Si no se mueve a una zona válida, revertir a la posición original
+            //     rectTransform.anchoredPosition = initialPosition;
+            //     transform.SetParent(originalParent);
+            // }
         }
         else
         {
             // Si no hay suficiente energía para arrastrar o la carta ya ha sido jugada, revertir a la posición original
-            rectTransform.anchoredPosition = initialPosition;
-            transform.SetParent(originalParent);
-            Debug.Log("Not enough energy to drag the card or card has already been played");
+            // rectTransform.anchoredPosition = initialPosition;
+            // transform.SetParent(originalParent);
+            // Debug.Log("Not enough energy to drag the card or card has already been played");
         }
     }
 
@@ -142,5 +148,7 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     {
         // Aun no se necesita  actualizar nada
     }
+
+
 }
 
