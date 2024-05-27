@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CardInfo : MonoBehaviour
+public class CardInfo2 : MonoBehaviour
 {
     public GameObject cardPrefab; // Prefab de la carta que se va a instanciar
     public Transform cardParent; // Padre que se tomara para instanciar las cartas 

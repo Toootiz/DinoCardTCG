@@ -19,7 +19,8 @@ public class MenuInicial : MonoBehaviour
 
     public void Salir(){
         Debug.Log("Salir");
-        Application.Quit();
+        SceneManager.LoadScene("Prueba");
+        //Application.Quit();
     }
 
     public void Deck()
