@@ -661,8 +661,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Log out
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aca525af861be46258bf396594a3e051, type: 2}
-  m_sharedMaterial: {fileID: 8681525120993073581, guid: aca525af861be46258bf396594a3e051, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6fe4d0723d8ab4a69ba3f1fd908c027a, type: 2}
+  m_sharedMaterial: {fileID: 8681525120993073581, guid: 6fe4d0723d8ab4a69ba3f1fd908c027a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -879,8 +879,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Dino Card
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aca525af861be46258bf396594a3e051, type: 2}
-  m_sharedMaterial: {fileID: 8681525120993073581, guid: aca525af861be46258bf396594a3e051, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6fe4d0723d8ab4a69ba3f1fd908c027a, type: 2}
+  m_sharedMaterial: {fileID: 8681525120993073581, guid: 6fe4d0723d8ab4a69ba3f1fd908c027a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1848,8 +1848,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Deck
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aca525af861be46258bf396594a3e051, type: 2}
-  m_sharedMaterial: {fileID: 8681525120993073581, guid: aca525af861be46258bf396594a3e051, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6fe4d0723d8ab4a69ba3f1fd908c027a, type: 2}
+  m_sharedMaterial: {fileID: 8681525120993073581, guid: 6fe4d0723d8ab4a69ba3f1fd908c027a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2394,8 +2394,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Play
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aca525af861be46258bf396594a3e051, type: 2}
-  m_sharedMaterial: {fileID: 8681525120993073581, guid: aca525af861be46258bf396594a3e051, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6fe4d0723d8ab4a69ba3f1fd908c027a, type: 2}
+  m_sharedMaterial: {fileID: 8681525120993073581, guid: 6fe4d0723d8ab4a69ba3f1fd908c027a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
