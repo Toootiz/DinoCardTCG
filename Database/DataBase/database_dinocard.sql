@@ -102,8 +102,79 @@ CREATE TABLE partida(
     FOREIGN KEY (id_jugador) REFERENCES jugador(id_jugador)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- VISTA CARTAS Y HABILIDADES 
+CREATE VIEW vista_detalles_cartas AS
+SELECT
+    c.id_carta,
+    c.nombre AS nombre_carta,
+    c.puntos_de_vida,
+    c.puntos_de_ataque,
+    c.coste_en_elixir,
+    h.descripcion AS habilidad
+FROM
+    carta c
+    LEFT JOIN habilidad h ON c.habilidad = h.id_habilidad;
+
+-- VISTA INFORMACION JUGADORES Y ESTADISTICAS
+CREATE VIEW vista_estadisticas_jugadores AS
+SELECT
+    j.id_jugador,
+    j.nombre AS nombre_jugador,
+    j.partidas_ganadas,
+    j.partidas_perdidas,
+    j.fecha_creacion,
+    j.fecha_modificacion
+FROM
+    jugador j;
+    
+    
+-- VISTA PARA VER LOS DECKS Y SUS CARTAS
+CREATE VIEW vista_decks_cartas AS
+SELECT
+    dj.id_deck,
+    d.cantidad_cartas,
+    dj.id_carta,
+    c.nombre AS nombre_carta,
+    c.puntos_de_vida,
+    c.puntos_de_ataque,
+    c.coste_en_elixir,
+    dj.fecha_de_creacion,
+    dj.fecha_modificacion
+FROM
+    deck_jugador dj
+    LEFT JOIN deck d ON dj.id_deck = d.id_deck
+    LEFT JOIN carta c ON dj.id_carta = c.id_carta;
 
 
+-- VISTA PARA OBTENER PARTIDAS Y RESULTADOS 
+CREATE VIEW vista_resultados_partidas AS
+SELECT
+    p.id_partida,
+    p.id_jugador,
+    j.nombre AS nombre_jugador,
+    p.id_ganador,
+    jg.nombre AS nombre_ganador,
+    p.id_perdedor,
+    jp.nombre AS nombre_perdedor,
+    p.cantidad_turnos
+FROM
+    partida p
+    LEFT JOIN jugador j ON p.id_jugador = j.id_jugador
+    LEFT JOIN jugador jg ON p.id_ganador = jg.id_jugador
+    LEFT JOIN jugador jp ON p.id_perdedor = jp.id_jugador;
+
+
+-- VISTA PAR AVER LAS CREDENCIALES DE LOS JUGADORES 
+CREATE VIEW vista_credenciales_jugadores AS
+SELECT
+    c.id_credencial,
+    c.id_jugador,
+    j.nombre AS nombre_jugador,
+    c.nombre AS nombre_credencial,
+    c.contraseña
+FROM
+    credenciales c
+    LEFT JOIN jugador j ON c.id_jugador = j.id_jugador;
 
 
 
