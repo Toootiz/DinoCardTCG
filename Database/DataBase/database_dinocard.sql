@@ -12,18 +12,17 @@ CREATE TABLE habilidad (
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE habilidadData (
-    id_habilidad INT NOT NULL AUTO_INCREMENT,
+    id_habilidad INT,
     venenodmg INT,
-    quemado INT,
-    sangrado INT,
-    mordida INT,
-    colatazo INT,
+    quemadodmg INT,
+    sangradodmg INT,
+    mordidadmg INT,
+    colatazodmg INT,
     boostvida INT,
-    boostataque INT,
+    boostataquedmg INT,
     boostcosto INT,
-    
-    
-    
+    duracion INT,
+        
     FOREIGN KEY (id_habilidad) REFERENCES habilidad(id_habilidad)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -53,10 +52,11 @@ CREATE TABLE deck (
 -- Table for `deck de jugador`
 
 CREATE TABLE deck_jugador (
-
   id_deck INT,
   id_carta INT,
   id_jugador INT,
+  nombre_deck VARCHAR(255),
+  descripcion_deck VARCHAR(255),
   fecha_de_creacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   fecha_modificacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   
@@ -78,12 +78,12 @@ CREATE TABLE jugador(
     PRIMARY KEY (id_jugador)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+
 -- Table for `credenciales`
 
 CREATE TABLE credenciales(
 	id_credencial INT NOT NULL AUTO_INCREMENT,
     id_jugador INT,
-    nombre VARCHAR(255),
     contraseña VARCHAR(255),
     
     PRIMARY KEY (id_credencial),
