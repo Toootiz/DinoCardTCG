@@ -1,4 +1,8 @@
-// app.js
+
+//Esta parte es para que funcione el gráfico 
+//(cuando tengamos de donde sacar los datos)
+
+/*
 document.addEventListener('DOMContentLoaded', function() {
     fetch('http://localhost:3000/api/cards') // La URL de tu API para obtener todas las cartas
         .then(response => response.json())
@@ -38,3 +42,4 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => console.error('Error al cargar los datos:', error));
 });
+*/
