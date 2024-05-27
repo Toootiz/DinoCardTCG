@@ -12,6 +12,10 @@ TagManager:
   - CardData
   - Banca
   - Juego
+  - AllCards
+  - SelectedCards
+  - DeckManagment
+  - CardsDesck
   layers:
   - Default
   - TransparentFX

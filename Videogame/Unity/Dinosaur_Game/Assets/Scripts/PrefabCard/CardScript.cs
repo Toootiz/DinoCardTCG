@@ -8,6 +8,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
+
+
 
 public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
@@ -39,6 +42,9 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>(); // sacar el componente de canvas group
     }
+
+
+
 
     // Cuando inicias el arrastre
     public void OnBeginDrag(PointerEventData eventData)
@@ -142,5 +148,7 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     {
         // Aun no se necesita  actualizar nada
     }
+
+
 }
 
