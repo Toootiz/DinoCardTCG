@@ -1,5 +1,5 @@
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Jaro', sans-serif;
     background-color: #f4f4f9;
     color: #333333;
     margin: 0;
@@ -26,7 +26,7 @@ form {
     background-color: #ffffff;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px black;
 }
 
 label {
@@ -38,15 +38,25 @@ label {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-evenly;
     
 }
 
+.spacing {
+    flex: 1;
+}
+/*
 div, nav {
     border: solid 2px black;
     margin: 10px;
     padding : 10px;
 }
+*/
 
 
-
-
+* {
+  font-family: "Jaro", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
