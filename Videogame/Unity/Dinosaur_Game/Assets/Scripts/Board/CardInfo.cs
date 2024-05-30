@@ -1,5 +1,7 @@
 /*
 Código que guarda la información del api.
+La carga y la manda a GameManagment
+29/05/24
 */
 
 using System.Collections;
@@ -10,20 +12,29 @@ using UnityEngine.UI;
 public class CardInfo : MonoBehaviour
 {
     public GameObject cardPrefab; // Prefab de la carta que se va a instanciar
-    public Transform cardParent; // Padre que se tomara para instanciar las cartas 
+    public Transform cardParent; // Padre que se toma para instanciar las cartas 
     public string Data; // Texto que contiene los datos JSON recibidos de la API
-
     // Clase interna para representar una carta
     [System.Serializable]
     public class Card
     {
         // Atributos de la carta
         public int id_carta;
-        public string nombre;
-        public int puntos_de_vida;
-        public int puntos_de_ataque;
-        public int coste_en_elixir;
-        public int habilidad;
+        public string Nombre;
+        public int Puntos_de_Vida;
+        public int Puntos_de_ataque;
+        public int Coste_en_elixir;
+        public int HabilidadDescripcion;
+        public int id_habilidad;
+        public int venenodmg;
+        public int quemadodmg;
+        public int sangradodmg;
+        public int mordidadmg; 
+        public int colatazodmg;
+        public int boostvida;
+        public int boostataquedmg;
+        public int boostcosto;
+        public int duracion;
         public string imagen;
     }
 
