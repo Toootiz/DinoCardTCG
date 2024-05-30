@@ -26,7 +26,44 @@ app.get("/api/cards", async (req, res) => {
     let connection = null;
     try {
         connection = await connectToDB();
-        const [results, fields] = await connection.execute("SELECT * FROM carta");
+        const [results, fields] = await connection.execute("SELECT * FROM carta_habilidad_detalle ORDER BY id_carta;");
+        const c={"cards":results};
+        res.status(200).json(c);
+    } catch (error) {
+        res.status(500).json(error);
+    } finally {
+        if (connection) {
+            connection.end();
+        }
+    }
+});
+
+app.get("/", (req, res) => {
+    res.status(200).send("API is running");
+});
+
+// Fetch all cards
+app.get("/api/deck2", async (req, res) => {
+    let connection = null;
+    try {
+        connection = await connectToDB();
+        const [results, fields] = await connection.execute("SELECT * FROM cartas_deck_2;");
+        const c={"cards":results};
+        res.status(200).json(c);
+    } catch (error) {
+        res.status(500).json(error);
+    } finally {
+        if (connection) {
+            connection.end();
+        }
+    }
+});
+
+app.get("/api/deck1", async (req, res) => {
+    let connection = null;
+    try {
+        connection = await connectToDB();
+        const [results, fields] = await connection.execute("SELECT * FROM cartas_deck_1;");
         const c={"cards":results};
         res.status(200).json(c);
     } catch (error) {

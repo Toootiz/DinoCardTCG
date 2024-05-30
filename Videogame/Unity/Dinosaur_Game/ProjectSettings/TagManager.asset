@@ -16,6 +16,9 @@ TagManager:
   - SelectedCards
   - DeckManagment
   - CardsDesck
+  - BancaEnemigo
+  - ab
+  - JuegoEnemigo
   layers:
   - Default
   - TransparentFX
