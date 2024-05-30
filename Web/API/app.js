@@ -2,11 +2,13 @@
 
 import express from "express";
 import mysql from "mysql2/promise";
+import bodyParser from 'body-parser';
 
 const app = express();
 const port = 3000;
 
 app.use(express.json());
+app.use(bodyParser.urlencoded({extended:true}));
 
 async function connectToDB() {
     return mysql.createConnection({
@@ -26,9 +28,8 @@ app.get("/api/cards", async (req, res) => {
     let connection = null;
     try {
         connection = await connectToDB();
-        const [results, fields] = await connection.execute("SELECT * FROM carta");
-        const c={"cards":results};
-        res.status(200).json(c);
+        const [results] = await connection.execute("SELECT * FROM carta");
+        res.status(200).json({ cards: results });
     } catch (error) {
         res.status(500).json(error);
     } finally {
@@ -74,6 +75,45 @@ app.post("/api/cards", async (req, res) => {
     }
 });
 
+// Register a new user
+app.post('/register', async (req, res) => {
+    let connection = null;
+    try {
+        connection = await connectToDB();
+        const { nombre, contrasena } = req.body;
+        const [results] = await connection.execute('INSERT INTO jugador (nombre, contrasena) VALUES (?, ?)', [nombre, contrasena]);
+        res.send('Usuario registrado exitosamente');
+    } catch (error) {
+        res.status(500).json(error);
+    } finally {
+        if (connection) {
+            connection.end();
+        }
+    }
+});
+
+// Login a user
+app.post('/login', async (req, res) => {
+    let connection = null;
+    try {
+        connection = await connectToDB();
+        const { nombre, contrasena } = req.body;
+        console.log(req.body);
+        const [results] = await connection.execute('SELECT * FROM jugador WHERE nombre = ? AND contrasena = ?', [nombre, contrasena]);
+        
+        if (results.length > 0) {
+            res.send('Usuario autenticado');
+        } else {
+            res.send('Usuario no autenticado');
+        }
+    } catch (error) {
+        res.status(500).json(error);
+    } finally {
+        if (connection) {
+            connection.end();
+        }
+    }
+});
 
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}/`);
