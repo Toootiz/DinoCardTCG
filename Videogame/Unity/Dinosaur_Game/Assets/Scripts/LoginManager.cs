@@ -3,34 +3,45 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Collections;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class LoginManager : MonoBehaviour
 {
     public TMP_InputField usernameInputField;
     public TMP_InputField passwordInputField;
-    public Button register;
+    public Button registerButton;
+    public Button loginButton;
 
     void Start()
     {
-        register.onClick.AddListener(Register);
+        registerButton.onClick.AddListener(Register);
+        loginButton.onClick.AddListener(Login);
     }
 
     void Register()
     {
-        string username = usernameInputField.text;
-        string password = passwordInputField.text;
+        string nombre = usernameInputField.text;
+        string contrasena = passwordInputField.text;
 
-        StartCoroutine(RegisterUser(username, password));
+        StartCoroutine(RegisterUser(nombre, contrasena));
     }
 
-    IEnumerator RegisterUser(string username, string password)
+    void Login()
     {
-        WWWForm form = new WWWForm();
-        form.AddField("username", username);
-        form.AddField("password", password);
+        string nombre = usernameInputField.text;
+        string contrasena = passwordInputField.text;
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:3000/register", form))
+        StartCoroutine(LoginUser(nombre, contrasena));
+    }
+
+    IEnumerator RegisterUser(string nombre, string contrasena)
+    {
+        string payload = "{\"nombre\":\"" + nombre + "\",\"contrasena\":\"" + contrasena + "\"}";
+
+        using (UnityWebRequest www = UnityWebRequest.Put("http://localhost:3000/register", payload))
         {
+            www.method = "POST";
+            www.SetRequestHeader("Content-Type", "application/json");
             yield return www.SendWebRequest();
 
             if (www.result != UnityWebRequest.Result.Success)
@@ -40,6 +51,35 @@ public class LoginManager : MonoBehaviour
             else
             {
                 Debug.Log("Usuario registrado exitosamente");
+            }
+        }
+    }
+
+    IEnumerator LoginUser(string nombre, string contrasena)
+    {
+        string payload = "{\"nombre\":\"" + nombre + "\",\"contrasena\":\"" + contrasena + "\"}";
+
+        using (UnityWebRequest www = UnityWebRequest.Put("http://localhost:3000/login", payload))
+        {
+            www.method = "POST";
+            www.SetRequestHeader("Content-Type", "application/json");
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                if (www.downloadHandler.text == "Usuario autenticado")
+                {
+                    Debug.Log("Usuario autenticado");
+                    SceneManager.LoadScene("MenuInicial");
+                }
+                else
+                {
+                    Debug.Log("Usuario no autenticado");
+                }
             }
         }
     }
