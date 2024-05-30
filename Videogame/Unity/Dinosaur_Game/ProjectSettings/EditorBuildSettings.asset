@@ -12,9 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Board.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/Deck.unity
+    path: Assets/Scenes/idk.unity
     guid: 52111a2d05af243ffa30ae88f9f9eb89
   - enabled: 1
-    path: Assets/Scenes/Prueba.unity
+    path: Assets/Scenes/Deck.unity
     guid: 773ce38c1ce2ed44fbd0e863ab2851eb
+  - enabled: 1
+    path: Assets/Scenes/SelectedDeck.unity
+    guid: f6809ea4de1f247b19b87bf8329ccd65
   m_configObjects: {}
