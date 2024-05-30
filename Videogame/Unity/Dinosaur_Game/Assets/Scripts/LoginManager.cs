@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Collections;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class LoginManager : MonoBehaviour
 {
@@ -73,6 +74,7 @@ public class LoginManager : MonoBehaviour
                 if (www.downloadHandler.text == "Usuario autenticado")
                 {
                     Debug.Log("Usuario autenticado");
+                    SceneManager.LoadScene("MenuInicial");
                 }
                 else
                 {
