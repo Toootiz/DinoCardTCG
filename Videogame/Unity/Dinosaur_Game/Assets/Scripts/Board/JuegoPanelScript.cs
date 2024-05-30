@@ -1,45 +1,43 @@
+/*
+Codigo para manejar el panel de zona de jugego (cartas que van a atacar otras cartas)
+Panel con TAG "Juego"
+29/05/24
+*/
+
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class JuegoPanelScript : MonoBehaviour, IDropHandler
+public class JuegoPanelScript : MonoBehaviour, IDropHandler //manejo de eventos drop
 {
+    // Lista para almacenar las cartas en el panel.
     public List<GameObject> cards = new List<GameObject>();
-    public int maxCards = 5; // Maximum number of cards allowed in the GamePanel
+    // Número máximo de cartas permitidas en el panel.
+    public int maxCards = 5;
 
+    // Lo que pasa al soltar la carta en el panel
     public void OnDrop(PointerEventData eventData)
+{
+    CardScript card = eventData.pointerDrag.GetComponent<CardScript>();
+    if (card != null && card.isEnemyCard)
     {
-        Debug.Log("OnDrop to GamePanel");
-        if (eventData.pointerDrag != null)
-        {
-            if (cards.Count >= maxCards)
-            {
-                Debug.Log("No se pueden agregar mas cartas.");
-                return; // Prevent adding more cards if the limit is reached
-            }
-
-            RectTransform draggedRectTransform = eventData.pointerDrag.GetComponent<RectTransform>();
-            if (draggedRectTransform != null)
-            {
-                // Re-parent the dragged card to the new panel (GamePanel)
-                draggedRectTransform.SetParent(transform, false);
-                // Add the card to the list of cards in this panel
-                cards.Add(eventData.pointerDrag);
-                // Position the cards in a centered line
-                // PositionCardsInLine();
-            }
-        }
+        Debug.Log("No se pueden soltar cartas enemigas aquí.");
+        return;  // Impide que las cartas enemigas se suelten en el panel de juego.
     }
 
-    // private void PositionCardsInLine()
-    // {
-    //     float totalWidth = (cards.Count - 1);
-    //     float startX = -totalWidth / 2;
+    // Continúa con la lógica existente si la carta es del jugador
+    if (cards.Count >= maxCards)
+    {
+        Debug.Log("No se pueden agregar más cartas.");
+        return;
+    }
 
-    //     for (int i = 0; i < cards.Count; i++)
-    //     {
-    //         RectTransform cardRectTransform = cards[i].GetComponent<RectTransform>();
-    //         cardRectTransform.anchoredPosition = new Vector2(startX + i, 0);
-    //     }
-    // }
+    RectTransform draggedRectTransform = eventData.pointerDrag.GetComponent<RectTransform>();
+    if (draggedRectTransform != null)
+    {
+        draggedRectTransform.SetParent(transform, false);
+        cards.Add(eventData.pointerDrag);
+        Debug.Log("Carta agregada al panel de juego.");
+    }
 }
+}   

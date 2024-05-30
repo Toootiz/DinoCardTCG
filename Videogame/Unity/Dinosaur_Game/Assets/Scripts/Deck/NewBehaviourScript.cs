@@ -14,7 +14,6 @@ public class CardScript2 : MonoBehaviour, IPointerClickHandler
     public Image CardArt;
     private RectTransform rectTransform;
     private Transform originalParent;
-    private bool isPlayed = false;
 
     // Referencia al script de gestión del juego
     DeckManagment gameManagement;

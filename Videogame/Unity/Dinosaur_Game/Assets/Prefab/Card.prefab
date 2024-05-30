@@ -739,7 +739,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 9011613347400429062}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7080053359447646228}
+        m_TargetAssemblyTypeName: CardScript, Assembly-CSharp
+        m_MethodName: OnClic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!225 &4424633190614830142
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -769,6 +781,15 @@ MonoBehaviour:
   CardAttack: 0
   CardCost: 0
   CardHabilidad: 0
+  Cardvenenodmg: 0
+  Cardquemadodmg: 0
+  Cardsangradodmg: 0
+  Cardmordidadmg: 0
+  Cardcolatazodmg: 0
+  Cardboostvida: 0
+  Cardboostataquedmg: 0
+  Cardboostcosto: 0
+  Cardduracion: 0
   CardName: 
   CardArt: {fileID: 0}
 --- !u!1 &8301776485559587946

@@ -37,7 +37,7 @@ public class DeckManagment : MonoBehaviour
 
     public void GenerateAllCards()
     {
-        for (int i = 0; i < cards.listaCartas.cards.Length-1; i++)
+        for (int i = 0; i < cards.listaCartas.cards.Length; i++)
         {
             InstantiateCard(i, 0, 0);
         }
