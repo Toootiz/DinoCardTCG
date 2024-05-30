@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Prueba.unity
     guid: 773ce38c1ce2ed44fbd0e863ab2851eb
+  - enabled: 1
+    path: Assets/Scenes/SelectedDeck.unity
+    guid: f6809ea4de1f247b19b87bf8329ccd65
   m_configObjects: {}

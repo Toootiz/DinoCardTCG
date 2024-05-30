@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DeckManagment : MonoBehaviour
 {
@@ -128,4 +129,20 @@ public class DeckManagment : MonoBehaviour
             child.SetParent(allCards);
         }
     }
+
+     public void SaveAndChangeScene()
+    {
+        SaveSelectedCards();
+        SceneManager.LoadScene("SelectedDeck");
+    }
+
+
+
+    public void DeckScene()
+    {
+        SceneManager.LoadScene("SelectedDeck");
+    }
+
+
+
 }
