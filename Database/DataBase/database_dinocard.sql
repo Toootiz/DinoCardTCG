@@ -1,4 +1,4 @@
-DROP SCHEMA IF EXISTS dinocard_db;
+	DROP SCHEMA IF EXISTS dinocard_db;
 CREATE SCHEMA dinocard_db;
 USE dinocard_db;
 
@@ -70,6 +70,7 @@ CREATE TABLE jugador(
 
 	id_jugador INT NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(255),
+    contrasena VARCHAR(255),
 	partidas_ganadas INT,
     partidas_perdidas INT,
 	fecha_creacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -78,17 +79,6 @@ CREATE TABLE jugador(
     PRIMARY KEY (id_jugador)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
--- Table for `credenciales`
-
-CREATE TABLE credenciales(
-	id_credencial INT NOT NULL AUTO_INCREMENT,
-    id_jugador INT,
-    contraseña VARCHAR(255),
-    
-    PRIMARY KEY (id_credencial),
-    FOREIGN KEY (id_jugador) REFERENCES jugador(id_jugador)
-)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Table for `partida`
 
@@ -164,17 +154,6 @@ FROM
     LEFT JOIN jugador jp ON p.id_perdedor = jp.id_jugador;
 
 
--- VISTA PAR AVER LAS CREDENCIALES DE LOS JUGADORES 
-CREATE VIEW vista_credenciales_jugadores AS
-SELECT
-    c.id_credencial,
-    c.id_jugador,
-    j.nombre AS nombre_jugador,
-    c.nombre AS nombre_credencial,
-    c.contraseña
-FROM
-    credenciales c
-    LEFT JOIN jugador j ON c.id_jugador = j.id_jugador;
 
 
 
