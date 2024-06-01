@@ -71,8 +71,8 @@ CREATE TABLE jugador(
 	id_jugador INT NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(255),
     contrasena VARCHAR(255),
-	partidas_ganadas INT,
-    partidas_perdidas INT,
+	partidas_ganadas INT DEFAULT 0,
+    partidas_perdidas INT DEFAULT 0,
 	fecha_creacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	fecha_modificacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     
