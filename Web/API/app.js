@@ -28,7 +28,6 @@ app.get("/api/cards", async (req, res) => {
     let connection = null;
     try {
         connection = await connectToDB();
-<<<<<<< HEAD
         const [results, fields] = await connection.execute("SELECT * FROM carta_habilidad_detalle ORDER BY id_carta;");
         const c={"cards":results};
         res.status(200).json(c);
@@ -69,10 +68,6 @@ app.get("/api/deck1", async (req, res) => {
         const [results, fields] = await connection.execute("SELECT * FROM cartas_deck_1;");
         const c={"cards":results};
         res.status(200).json(c);
-=======
-        const [results] = await connection.execute("SELECT * FROM carta");
-        res.status(200).json({ cards: results });
->>>>>>> 6c6ca13592ba0c919906aa8ef84946631e92ae08
     } catch (error) {
         res.status(500).json(error);
     } finally {
