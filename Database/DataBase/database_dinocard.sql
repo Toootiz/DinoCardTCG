@@ -153,6 +153,98 @@ FROM
     LEFT JOIN jugador jg ON p.id_ganador = jg.id_jugador
     LEFT JOIN jugador jp ON p.id_perdedor = jp.id_jugador;
 
+CREATE VIEW carta_habilidad_detalle AS
+SELECT 
+	c.id_carta,
+    c.Nombre,
+    c.Puntos_de_Vida,
+    c.Puntos_de_ataque,
+    c.Coste_en_elixir,
+    h.descripcion,
+    h.id_habilidad,
+    hd.venenodmg,
+    hd.quemadodmg,
+    hd.sangradodmg,
+    hd.mordidadmg,
+    hd.colatazodmg,
+    hd.boostvida,
+    hd.boostataquedmg,
+    hd.boostcosto,
+    hd.duracion
+FROM 
+    carta c
+JOIN 
+    habilidad h ON c.Habilidad = h.id_habilidad
+JOIN 
+    habilidadData hd ON h.id_habilidad = hd.id_habilidad;
+
+    
+SELECT *
+FROM carta_habilidad_detalle
+ORDER BY id_carta;
+
+CREATE VIEW cartas_deck_1 AS
+SELECT 
+	c.id_carta,
+    c.Nombre,
+    c.Puntos_de_Vida,
+    c.Puntos_de_ataque,
+    c.Coste_en_elixir,
+    h.descripcion AS HabilidadDescripcion,
+    h.id_habilidad,
+    hd.venenodmg,
+    hd.quemadodmg,
+    hd.sangradodmg,
+    hd.mordidadmg,
+    hd.colatazodmg,
+    hd.boostvida,
+    hd.boostataquedmg,
+    hd.boostcosto,
+    hd.duracion
+FROM 
+    deck_jugador dj
+JOIN 
+    carta c ON dj.id_carta = c.id_carta
+JOIN 
+    habilidad h ON c.Habilidad = h.id_habilidad
+JOIN 
+    habilidadData hd ON h.id_habilidad = hd.id_habilidad
+WHERE 
+    dj.id_deck = 1;
+    
+CREATE VIEW cartas_deck_2 AS
+SELECT 
+	c.id_carta,
+    c.Nombre,
+    c.Puntos_de_Vida,
+    c.Puntos_de_ataque,
+    c.Coste_en_elixir,
+    h.descripcion AS HabilidadDescripcion,
+    h.id_habilidad,
+    hd.venenodmg,
+    hd.quemadodmg,
+    hd.sangradodmg,
+    hd.mordidadmg,
+    hd.colatazodmg,
+    hd.boostvida,
+    hd.boostataquedmg,
+    hd.boostcosto,
+    hd.duracion
+FROM 
+    deck_jugador dj
+JOIN 
+    carta c ON dj.id_carta = c.id_carta
+JOIN 
+    habilidad h ON c.Habilidad = h.id_habilidad
+JOIN 
+    habilidadData hd ON h.id_habilidad = hd.id_habilidad
+WHERE 
+    dj.id_deck = 2;
+
+
+SELECT * FROM cartas_deck_2;
+
+SELECT * FROM carta;
 
 
 

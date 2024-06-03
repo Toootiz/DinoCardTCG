@@ -56,10 +56,10 @@ INSERT INTO carta (Nombre, Puntos_de_Vida, Puntos_de_ataque, Coste_en_elixir, Ha
 ('Wyvern', 5, 6, 7, 5);
 
 
-INSERT INTO jugador (nombre, contrasena, partidas_ganadas, partidas_perdidas) VALUES 
-("Mesc", "123456", 2, 3),
-("Jose", "A0132@", 2, 1),
-("Gatuno7000", "098765", 2, 1);
+INSERT INTO jugador (nombre, partidas_ganadas, partidas_perdidas) VALUES 
+("Mesc", 2, 3),
+("Jose", 2, 1),
+("Gatuno7000", 2, 1);
 
 INSERT INTO deck (cantidad_cartas) VALUES
 (20),
@@ -149,95 +149,6 @@ INSERT INTO deck_jugador (id_deck, id_carta, id_jugador) VALUES
 (4, 19, 2),
 (4, 20, 2);
 
-CREATE VIEW carta_habilidad_detalle AS
-SELECT 
-	c.id_carta,
-    c.Nombre,
-    c.Puntos_de_Vida,
-    c.Puntos_de_ataque,
-    c.Coste_en_elixir,
-    h.descripcion,
-    h.id_habilidad,
-    hd.venenodmg,
-    hd.quemadodmg,
-    hd.sangradodmg,
-    hd.mordidadmg,
-    hd.colatazodmg,
-    hd.boostvida,
-    hd.boostataquedmg,
-    hd.boostcosto,
-    hd.duracion
-FROM 
-    carta c
-JOIN 
-    habilidad h ON c.Habilidad = h.id_habilidad
-JOIN 
-    habilidadData hd ON h.id_habilidad = hd.id_habilidad;
-    
-SELECT * FROM carta_habilidad_detalle;
-
-CREATE VIEW cartas_deck_1 AS
-SELECT 
-	c.id_carta,
-    c.Nombre,
-    c.Puntos_de_Vida,
-    c.Puntos_de_ataque,
-    c.Coste_en_elixir,
-    h.descripcion AS HabilidadDescripcion,
-    h.id_habilidad,
-    hd.venenodmg,
-    hd.quemadodmg,
-    hd.sangradodmg,
-    hd.mordidadmg,
-    hd.colatazodmg,
-    hd.boostvida,
-    hd.boostataquedmg,
-    hd.boostcosto,
-    hd.duracion
-FROM 
-    deck_jugador dj
-JOIN 
-    carta c ON dj.id_carta = c.id_carta
-JOIN 
-    habilidad h ON c.Habilidad = h.id_habilidad
-JOIN 
-    habilidadData hd ON h.id_habilidad = hd.id_habilidad
-WHERE 
-    dj.id_deck = 1;
-    
-CREATE VIEW cartas_deck_2 AS
-SELECT 
-	c.id_carta,
-    c.Nombre,
-    c.Puntos_de_Vida,
-    c.Puntos_de_ataque,
-    c.Coste_en_elixir,
-    h.descripcion AS HabilidadDescripcion,
-    h.id_habilidad,
-    hd.venenodmg,
-    hd.quemadodmg,
-    hd.sangradodmg,
-    hd.mordidadmg,
-    hd.colatazodmg,
-    hd.boostvida,
-    hd.boostataquedmg,
-    hd.boostcosto,
-    hd.duracion
-FROM 
-    deck_jugador dj
-JOIN 
-    carta c ON dj.id_carta = c.id_carta
-JOIN 
-    habilidad h ON c.Habilidad = h.id_habilidad
-JOIN 
-    habilidadData hd ON h.id_habilidad = hd.id_habilidad
-WHERE 
-    dj.id_deck = 2;
-
-
-SELECT * FROM cartas_deck_2;
-
-SELECT * FROM carta;
 
 
 

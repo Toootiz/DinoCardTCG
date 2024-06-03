@@ -14,23 +14,6 @@ Get ready for the clash of titans in **Dino Card TCG**! Are you ready to command
 
 ---
 
-## Download and install local game
-
-1. Clone the repository
-
-```sh
-git clone git@github.com:Toootiz/TC2005B-Reto.git
-```
-2. Open unity and add.
-   
-<img title="" alt="" src="https://i.imgur.com/LoZJXwm.png">
-
-3. Look for the repository folder, and within video games select "Dino CardTCG"
-
-<img title="" alt="" src="https://i.imgur.com/frbbT5j.png">
-
-
-
 ## Team
 - Gabriel Muñoz Luna
 - Felipe De Araújo Barbosa

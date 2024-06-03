@@ -1,7 +1,3 @@
-/*
-Código que guarda la información del api.
-*/
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,11 +15,21 @@ public class CardInfo2 : MonoBehaviour
     {
         // Atributos de la carta
         public int id_carta;
-        public string nombre;
-        public int puntos_de_vida;
-        public int puntos_de_ataque;
-        public int coste_en_elixir;
-        public int habilidad;
+        public string Nombre;
+        public int Puntos_de_Vida;
+        public int Puntos_de_ataque;
+        public int Coste_en_elixir;
+        public int HabilidadDescripcion;
+        public int id_habilidad;
+        public int venenodmg;
+        public int quemadodmg;
+        public int sangradodmg;
+        public int mordidadmg; 
+        public int colatazodmg;
+        public int boostvida;
+        public int boostataquedmg;
+        public int boostcosto;
+        public int duracion;
         public string imagen;
     }
 
@@ -46,7 +52,6 @@ public class CardInfo2 : MonoBehaviour
     // Método para convertir el JSON recibido en una lista de cartas
     public void MakeList()
     {
-       // Debug.Log("TEST: " + Data); // Imprime el JSON recibido en la consola para verificación
         listaCartas = JsonUtility.FromJson<CardList>(Data); // Convierte el JSON en una instancia de CardList
     }
 
@@ -61,4 +66,3 @@ public class CardInfo2 : MonoBehaviour
         }
     }
 }
-

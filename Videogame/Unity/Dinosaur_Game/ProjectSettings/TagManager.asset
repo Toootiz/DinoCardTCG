@@ -19,6 +19,8 @@ TagManager:
   - BancaEnemigo
   - ab
   - JuegoEnemigo
+  - BaseEnemiga
+  - BasePropia
   layers:
   - Default
   - TransparentFX

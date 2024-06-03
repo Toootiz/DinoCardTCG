@@ -41,3 +41,4 @@ public class JuegoPanelScript : MonoBehaviour, IDropHandler //manejo de eventos 
     }
 }
 }   
+
