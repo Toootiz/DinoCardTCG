@@ -18,6 +18,7 @@ public class LoginManager : MonoBehaviour
         loginButton.onClick.AddListener(Login);
     }
 
+
     void Register()
     {
         string nombre = usernameInputField.text;
@@ -25,6 +26,7 @@ public class LoginManager : MonoBehaviour
 
         StartCoroutine(RegisterUser(nombre, contrasena));
     }
+
 
     void Login()
     {

@@ -50,7 +50,7 @@ public class DeckLoader : MonoBehaviour
     {
         foreach (var cardData in cardList.cards)
         {
-            GameObject newCard = Instantiate(cardPrefab, cardParent);
+            GameObject newCard = Instantiate(cardPrefab);
             newCard.transform.localScale = Vector3.one; // Ajustar la escala a 1 para evitar problemas de escala
 
             // Asignar textos y datos a la carta

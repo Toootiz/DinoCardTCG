@@ -110,6 +110,7 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
                 rectTransform.anchoredPosition = initialPosition;
                 transform.SetParent(originalParent);
             }
+            
         }
     }
 
