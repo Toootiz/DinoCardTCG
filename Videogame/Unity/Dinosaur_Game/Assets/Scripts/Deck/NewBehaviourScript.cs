@@ -9,7 +9,7 @@ using TMPro;
 public class CardScript2 : MonoBehaviour, IPointerClickHandler
 {
     // Variables para guardar los datos que la carta recibe
-    public int CardId, CardLife, CardAttack, CardCost, CardHabilidad;
+    public int CardId, CardLife, CardAttack, CardCost, CardHabilidad, Cardvenenodmg, Cardquemadodmg, Cardsangradodmg, Cardmordidadmg, Cardcolatazodmg, Cardboostvida, Cardboostataquedmg, Cardboostcosto, Cardduracion;
     public string CardName;
     public Image CardArt;
     private RectTransform rectTransform;

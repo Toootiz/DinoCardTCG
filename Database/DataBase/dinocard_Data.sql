@@ -149,10 +149,6 @@ INSERT INTO deck_jugador (id_deck, id_carta, id_jugador) VALUES
 (4, 19, 2),
 (4, 20, 2);
 
-INSERT INTO credenciales (id_jugador, contraseña) VALUES 
-(1, "1234"),
-(2, "1234"),
-(3, "1234");
 
 
 
