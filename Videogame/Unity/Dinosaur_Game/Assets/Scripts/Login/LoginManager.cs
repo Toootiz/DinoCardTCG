@@ -26,17 +26,7 @@ public class LoginManager : MonoBehaviour
 
         StartCoroutine(RegisterUser(nombre, contrasena));
     }
-    
-/*
-    //public bool l;
-    public void SignIn(){
-        //string nombre;
-        //string password;
 
-        Debug.Log(APIManager.instance.karen);
-        APIManager.instance.PostRequest("http://localhost:3000/login", "{nombre:nombre, password:password}", null);
-    }
-    */
 
     void Login()
     {
