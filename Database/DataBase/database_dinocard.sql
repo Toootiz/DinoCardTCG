@@ -1,4 +1,4 @@
-	DROP SCHEMA IF EXISTS dinocard_db;
+DROP SCHEMA IF EXISTS dinocard_db;
 CREATE SCHEMA dinocard_db;
 USE dinocard_db;
 
