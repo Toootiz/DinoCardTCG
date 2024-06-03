@@ -27,13 +27,13 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     private Transform originalParent;
     private bool isPlayed = false; // para indicar si la carta ha sido jugada
     private static CardScript selectedAttacker;
-    private GameManagement gameManagement;
+    //private GameManagement gameManagement;
 
     public TextMeshProUGUI LifeText;
     void Start()
     {
         // Obtener la referencia al componente con tag de GameController
-        gameManagement = GameObject.FindGameObjectWithTag("GameManagement").GetComponent<GameManagement>();
+        //gameManagement = GameObject.FindGameObjectWithTag("GameManagement").GetComponent<GameManagement>();
         rectTransform = GetComponent<RectTransform>();
         LifeText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         originalParent = transform.parent; // solicitar el panel padre donde se genero la carta
@@ -43,7 +43,6 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     {
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>(); // sacar el componente de canvas group
-        gameManagement = GameObject.FindGameObjectWithTag("GameManagement").GetComponent<GameManagement>();
         
     }
 
@@ -57,7 +56,7 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         return;  // Termina la ejecución para no permitir arrastrar.
     }
 
-    if (!isPlayed && gameManagement.ambar >= CardCost)
+    if (!isPlayed /*&& gameManagement.ambar >= CardCost*/)
     {
         canDrag = true;
         initialPosition = rectTransform.anchoredPosition; // Guardar la posición inicial
@@ -102,7 +101,7 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
 
         if ((isEnemyCard && newParent.CompareTag("JuegoEnemigo")) || (!isEnemyCard && newParent.CompareTag("Juego")))
         {
-            if (gameManagement.SpendEnergy(CardCost))
+            /*if (gameManagement.SpendEnergy(CardCost))
             {
                 isPlayed = true; // Marcar la carta como jugada
                 originalParent = newParent; // Actualizar el panel padre
@@ -114,6 +113,7 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
                 rectTransform.anchoredPosition = initialPosition; // Revertir si no hay suficiente ámbar
                 transform.SetParent(originalParent);
             }
+            */
         }
         else
         {
@@ -201,9 +201,10 @@ private void DeselectCard()
 }
     public void AttackCard(CardScript target)
 {
-    if (target != null && gameManagement.ambar >= CardCost)
+    if (target != null /*&& gameManagement.ambar >= CardCost*/)
     {
         // Verificar si hay suficiente ámbar para realizar el ataque
+        /*
         if (gameManagement.SpendEnergy(CardCost))  // Intentar gastar el ámbar
         {
             target.CardLife -= this.CardAttack;
@@ -221,7 +222,7 @@ private void DeselectCard()
         else
         {
             Debug.Log("No hay suficiente ámbar para atacar.");
-        }
+        }*/
     }
     else
     {

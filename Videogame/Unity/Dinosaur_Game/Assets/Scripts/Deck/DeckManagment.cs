@@ -116,11 +116,13 @@ public class DeckManagment : MonoBehaviour
 
         CardInfo2.CardList cardList = new CardInfo2.CardList { cards = selectedCardsList.ToArray() };
         string json = JsonUtility.ToJson(cardList);
-        Debug.Log("Selected Cards JSON: " + json);
+        Debug.Log(cardList);
+        //Debug.Log("Selected Cards JSON: " + json);
 
         PlayerPrefs.SetString("SelectedCards", json);
         PlayerPrefs.Save();
     }
+
 
     public void ClearSelectedCards()
     {
