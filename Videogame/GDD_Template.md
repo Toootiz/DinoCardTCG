@@ -57,19 +57,20 @@
 
 ### **Summary**
 
-This is a card game where players battle to destroy each other’s bases. The goal is to strategically use offensive, defensive, and spell cards to reduce the opponent’s base points to zero.
+Summary
+This is a card game where players fight to destroy the enemy's base. The goal is to strategically use your cards to reduce the opponent's base points to zero.
 
 ### **Gameplay**
 
-In Dino Card a card trading game (TCG) involves a player pitting his deck, which has been pre-constructed from a wide selection of cards available in the game. Each card represents a dinosaur, which can be focused on attack, defense or spell, some of them with abilities to use. The main objective is to reduce the life of the opponent's base to zero through strategies that involve attack, defense, and specialized use of cards.
+In Dino Card a card trading game (TCG) involves a player pitting his deck, which has been pre-constructed from a wide selection of cards available in the game. Each card represents a dinosaur, which can be focused on attack or defense, some of them with abilities to use. The main objective is to reduce the life of the opponent's base to zero through strategies that involve attack, defense, and specialized use of cards.
 
-The gameplay takes place in turns, where each player can play cards from their hand, using resources, in this case elixir that is awarded each turn. Interactions between cards, such as combat or spell effects, are governed by specific rules that determine how they affect the opponent or the game state.
+The gameplay takes place in turns, where each player can play cards from their hand, using resources, in this case ambar that is awarded each turn. Interactions between cards, such as combat, are governed by specific rules that determine how they affect the opponent or the game state.
 
 Strategy in Dino Card TCG is deep and complex, including deck construction before the game and tactical decisions during the game. Players must balance their decks well with a proper mix of attack, defense, and spell cards, anticipating enemy moves and adapting to the dynamics of the game.
 
 ### **Mindset**
 
-The main obstacle players face is the opposing player's tactics and card choices, which may include powerful attacks, clever defenses, and unexpected spells. To overcome these obstacles, players must carefully manage their resources, anticipate their opponent's moves, and adapt their strategy on the fly.
+The main obstacle players face is the opposing player's tactics and card choices, which may include powerful attacks and clever defenses. To overcome these obstacles, players must carefully manage their resources, anticipate their opponent's moves, and adapt their strategy on the fly.
 
 ## _Technical_
 
@@ -84,11 +85,20 @@ The main obstacle players face is the opposing player's tactics and card choices
         - Credits
         - Exit
 2. Game
-3. Decks
-        - Deck Editor
-        - See all cards
-4. Credits
-5. Exit
+    - Where the battle between cards takes place to see who is stronger.
+4. Decks
+    - Deck Editor
+    - Select Deck
+    - Save Deck
+    - See all cards
+6. Credits
+7. Game Over
+    - Statistics of the game
+    - Score
+8. Login
+    - Regsiter
+    - Login
+9. Exit
 
 ![Example Image](img/board.png)
 
@@ -101,37 +111,32 @@ Mouse Click
 ---
 
 
-- At the beginning of the game, the player is assigned 5 cards from the created deck, which will contain 20 cards, of which at least 3 must be spell-type cards, at least 5 for defense and 5 for attack.
+- At the beginning of the game, the player is assigned 5 cards from the created deck, which will contain 20 cards.
 
-- Cards can be raised to the bench as long as you have enough elixir to be able to summon them. The minimum number of cards that can be raised to the bench does not exist, but the maximum number of cards in the bench is 5.
+- The 5 cards are spawn on bench.
 
-- Up to 5 cards can be raised per turn if you have the necessary elixir.
+- Up to 5 cards can be raised to game zone per turn if you have the necessary amber.
 
-- Each turn the player will be assigned a certain amount of elixir points and this amount will increase to a maximum of 8 per round.
+- Each turn the player will be assigned a certain amount of amber points and this amount will increase to a maximum of 8 per round.
 
-- Once on the bench the next turn the player can decide whether to attack with the bank card or can choose between drawing one or more other cards or passing without doing anything in the turn.
+- You can play and attack the cards as long as you have the necessary amount of amber.
+
+- Passing a card to the play area has the cost of the card in amber, and attacking also costs you amber.
 
 - In case of attacking or being attacked, you can only defend yourself if the person affected (the one being attacked) has cards on the bench.
 
-- There are three types of cards, attack which are cards that have more damage points but less life, defense cards which have more life but less attack points and spell type which have almost no attack points. and life but they have abilities that enhance or affect the other cards.
-
 - Within the costs of the letters, there are:
-  - Cards of 1 - 3 cost, are cards which are fine at the beginning of the game, these have almost no damage or life.
+  - Cards of 1 - 3 cost, are cards which are fine at the beginning of the game, these have almost no much damage or life.
   - Cards of 4 - 5 cost, are cards more focused on the defense and attack of other cards.
-  - Cards of 6 - 8 cost are cards that have special abilities which can mean the “win condition”.
+  - Cards of 6 - 8 cost are cards that have special abilities.
 
-<!-- - After 15 turns you can select a card from a total of 8 possibilities that directly affect the game. --->
+- To win you have to destroy the enemy base.
 
-- To win you have to destroy the enemy base, which has 20 life points.
+- There are cards that allow you to regenerate life.
 
-- There are cards that allow you to regenerate life in some way.
-
-- After turn 12 the base can no longer regenerate life.
-
-- Who starts the game is selected with a coin.
+- Who starts the game is selected random.
 
 ## _Level Design_
-<!-- Within each game there will be no levels, the difficulty will increase as the time of the game progresses, but each player will have a level that refers to the level of experience and this will increase as they accumulate games won. -->
 
 ---
 
@@ -153,30 +158,43 @@ There are not levels, only games
             1. Cards
             2. Cards on hand
             3. End or pass button
+            4. Bases
           
        
 
 ### **List of assets**
-
-![Example Image](img/card2.png)
-![Example Image](img/card3.png)
-![Example Image](img/card4.png)
-![Example Image](img/card4.png)
+| Cards Images                                                                       |                                                                                 |                                                                               |
+| ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/0.png" width="20%">      | <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/1.png" width="20%">   | <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/2.png" width="20%"> |
+| <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/3.png" width="20%">      | <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/4.png" width="20%">   | <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/5.png" width="20%"> |
+| <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/6.png" width="20%">      | <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/7.png" width="20%">   | <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/8.png" width="20%"> |
+| <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/9.png" width="20%">      | <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/10.png" width="20%">  | <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/11.png" width="20%">|
+| <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/12.png" width="20%">     | <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/13.png" width="20%">  | <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/14.png" width="20%">|
+| <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/15.png" width="20%">     | <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/16.png" width="20%">  | <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/17.png" width="20%">|
+| <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/18.png" width="20%">     | <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/19.png" width="20%">  | <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/20.png" width="20%">|
+| <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/21.png" width="20%">     | <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/22.png" width="20%">  | <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/23.png" width="20%">|
+| <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/24.png" width="20%">     | <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/25.png" width="20%">  | <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/26.png" width="20%">|
+| <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/27.png" width="20%">     | <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/28.png" width="20%">  | <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/29.png" width="20%">|
+| <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/30.png" width="20%">     | <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/31.png" width="20%">  | <img src="Unity/Dinosaur_Game/Assets/Resources/DinoImages/32.png" width="20%">|
 
 ### **Game Flow**
 
 1. Player starts with 5 cards
-2. Elixir is given to the player on their turn
-3. The player selects one or more cards and takes them to the bench. (If player has the amount of elixir necessary for all the cards)
-4. On the player's next turn he can draw cards to the bench again (if he has elixir) or draw cards from the bench to the board.
-5. In case of removing the cards to the board, the enemy can defend if he has cards, if he does not defend, do not defend, the damage goes to the base.
+2. Amber is given to the player on their turn
+3. The player selects one or more cards and takes them to the game zone. (If player has the amount of amber necessary for all the cards)
+4. On the player's next turn he can draw cards to game zone again (if he has elixir).
 6. Same situation in case the enemy attacks.
 7. Repeat the steps until your own or enemy base runs out of life.
-
 
 ## _Development_
 
 ---
+
+- Set unity scenes.
+- Make the database with dummy data.
+- Make an API that connects to the database.
+- Connect the api with unity.
+- Login, create decks and play with the data in the database
 
 ### **Abstract Classes / Components**
 
@@ -185,6 +203,7 @@ There are not levels, only games
     2. BaseEnemy
     3. BaseObject
 2. Board
+   - Pass bench card to game
 3. Cards
     1. Select and drop
     2. Mana cost
@@ -218,7 +237,7 @@ In the game we want to use a green-brown color palette, because your setting in 
 
 For the style of the game we are looking for the pixel style, we want the images on the cards to have a style like that, as well as the base or the buttons, we want the pixel style. We also want the background images, such as in the menus or in the game, to be pixel. We want the lines to be thin, or the least visible. When looking for the pixel style we don't want to have almost curves.
 
-On the home screen you can implement a kind of tutorial with images to give players an idea of ​​what they can do.
+On the home screen implement a kind of tutorial with images to give players an idea of ​​what they can do.
 
 ### **Graphics Needed**
 
@@ -275,18 +294,12 @@ Stylistically, what kind of sound effects are you looking for? Do you want to ex
 
 ### **Sounds Needed**
 
+Calm music that matches the atmosphere of the game
+
 1. Effects
     1. Drop a card
     2. Card atack
     3. Mana given
-
-<!-- 2. Feedback
-    1. Relieved &quot;Ahhhh!&quot; (health)
-    2. Shocked &quot;Ooomph!&quot; (attacked)
-    3. Happy chime (extra life)
-    4. Sad chime (died)
-    -->
-
 
 ### **Music Needed**
 
