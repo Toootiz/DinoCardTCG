@@ -195,8 +195,7 @@ public class DeckManagment : MonoBehaviour
                 boostvida = card.boostvida,
                 boostataquedmg = card.boostataquedmg,
                 boostcosto = card.boostcosto,
-                duracion = card.duracion,
-                imagen = card.imagen
+                duracion = card.duracion
             }).ToArray() }
         };
 
