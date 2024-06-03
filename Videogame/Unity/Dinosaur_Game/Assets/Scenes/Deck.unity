@@ -1013,7 +1013,7 @@ GameObject:
   - component: {fileID: 614858019}
   - component: {fileID: 614858018}
   m_Layer: 0
-  m_Name: dECKmANAGMENT
+  m_Name: Deck Managment
   m_TagString: DeckManagment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2218,7 +2218,7 @@ GameObject:
   - component: {fileID: 1401516383}
   - component: {fileID: 1401516384}
   m_Layer: 0
-  m_Name: cARDdATA
+  m_Name: CardData
   m_TagString: CardData
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
