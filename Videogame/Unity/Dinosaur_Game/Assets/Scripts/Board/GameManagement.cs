@@ -18,8 +18,8 @@ public class GameManagement : MonoBehaviour
     GameObject zonaDeJuego;
     public List<GameObject> enemyCards;
     public BaseEnemiga baseEnemiga;
-    public BasePropia basePropia;
 
+    public BasePropia basePropia;
     GameObject bancaenemigo;
     GameObject ab;
     CardInfo cards;
@@ -45,7 +45,7 @@ public class GameManagement : MonoBehaviour
     {
         JugadorContadorTurno = 1;
         EnemigoContadorTurno = 5;
-        ambar = 40;
+        ambar = 3;
         ambarEnemy = 40;
         AmbarText.text = "Ambar: " + ambar.ToString();
         currentTurn = turn.Player;
@@ -60,11 +60,6 @@ public class GameManagement : MonoBehaviour
         GetDataEnemigo(urlEnemigo, getEndpointEnemgo);
         baseEnemiga = GameObject.FindGameObjectWithTag("BaseEnemiga").GetComponent<BaseEnemiga>();
         basePropia = GameObject.FindGameObjectWithTag("ab").GetComponent<BasePropia>();
-        if (basePropia == null)
-        {
-            Debug.LogError("No se encontró el objeto BasePropia. Asegúrate de que el objeto tiene el tag 'BasePropia'.");
-        }
-        
     }
 
 
@@ -125,13 +120,13 @@ public class GameManagement : MonoBehaviour
         turnCount++;
     }
 
-    public bool SpendEnergy(int amount)
+    public bool SpendEnergy(int cantidad)
     {
-        if (ambar >= amount)
+        if (ambar >= cantidad)
         {
-            ambar -= amount;
+            ambar -= cantidad;
             AmbarText.text = "Ambar: " + ambar.ToString();
-            Debug.Log($"Se gastaron {amount} de ámbar. Ámbar restante: {ambar}");
+            Debug.Log($"Se gastaron {cantidad} de ámbar. Ámbar restante: {ambar}");
             return true;
         }
         else
@@ -141,12 +136,12 @@ public class GameManagement : MonoBehaviour
         }
     }
 
-    public bool SpendEnemyEnergy(int amount)
+    public bool SpendEnemyEnergy(int cantidad)
     {
-        if (ambarEnemy >= amount)
+        if (ambarEnemy >= cantidad)
         {
-            ambarEnemy -= amount;
-            Debug.Log($"El enemigo gastó {amount} de ámbar. Ámbar restante del enemigo: {ambarEnemy}");
+            ambarEnemy -= cantidad;
+            Debug.Log($"El enemigo gastó {cantidad} de ámbar. Ámbar restante del enemigo: {ambarEnemy}");
             return true;
         }
         else
@@ -292,14 +287,19 @@ public class GameManagement : MonoBehaviour
 
     public void AmbarTurn()
     {
-        if (turnCount <= 3)
+        if (turnCount <= 4)
         {
-            ambar = 130;
+            ambar = ambar + 3;
             AmbarText.text = "Ambar: " + ambar.ToString();
         }
-        else if (turnCount <= 6)
+        else if (turnCount <= 8)
         {
-            ambar = 6;
+            ambar = ambar + 6;
+            AmbarText.text = "Ambar: " + ambar.ToString();
+        }
+        else if (turnCount >= 14)
+        {
+            ambar = ambar + 8;
             AmbarText.text = "Ambar: " + ambar.ToString();
         }
     }
@@ -329,7 +329,16 @@ public class GameManagement : MonoBehaviour
     countTourn();
     EnemigoContadorTurno += 1;
 
-    bool enemyWillAttack = UnityEngine.Random.Range(0, 2) == 0;
+    // Aumenta la probabilidad de ataque si la zona de juego enemigo tiene 5 cartas
+    bool enemyWillAttack;
+    if (ab.transform.childCount >= 5)
+    {
+        enemyWillAttack = UnityEngine.Random.Range(0, 100) < 85;  // 85% de probabilidad de ataque
+    }
+    else
+    {
+        enemyWillAttack = UnityEngine.Random.Range(0, 2) == 0;  // 50% de probabilidad de ataque
+    }
 
     if (ambarEnemy < 6)
     {
@@ -355,6 +364,7 @@ public class GameManagement : MonoBehaviour
         foreach (Transform child in bancaenemigo.transform)
         {
             if (cardsPlayed >= cardsToPlay) break;
+            if (ab.transform.childCount >= 5) break;
 
             CardScript card = child.GetComponent<CardScript>();
 

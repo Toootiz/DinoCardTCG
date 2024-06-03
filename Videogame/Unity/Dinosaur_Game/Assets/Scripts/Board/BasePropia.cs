@@ -1,5 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+/*
+Codigo que maneja la vida e interaccion con la base del jugador.
+TAG del panel "Juego"
+29/05/24
+*/
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -8,41 +11,45 @@ using UnityEngine.SceneManagement;
 
 public class BasePropia : MonoBehaviour, IPointerClickHandler
 {
-    public int maxHealth = 100;
-    public int currentHealth;
-    public TextMeshProUGUI healthText;
-    public Slider healthBar; 
-    private GameManagement gameManagement;
+    public int maxHealth = 100; // Salud máxima de la base.
+    public int vidaActual; // Salud actual de la base.
+    public TextMeshProUGUI vidaTexto; // Componente UI para mostrar la salud.
+    public Slider healthBar; // Componente UI para mostrar la barra de salud visualmente. (De momento no se ha agregado)
+    private GameManagement gameManagement; // Referencia al gestor del juego.
 
     void Start()
     {
-        currentHealth = maxHealth;
-        UpdateHealthDisplay();
+        vidaActual = maxHealth; // Establece la salud actual a la máxima inicialmente.
+        UpdateHealthDisplay(); // Actualiza la visualización de la salud.
+        // Busca el objeto de gestión del juego por etiqueta.
         gameManagement = GameObject.FindGameObjectWithTag("GameManagement").GetComponent<GameManagement>();
     }
 
+    // Aqui se hace el daño recibido por el enemigo.
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
-        UpdateHealthDisplay();
-        if (currentHealth <= 0)
+        vidaActual -= damage; // Reduce la salud actual según el daño recibido.
+        UpdateHealthDisplay(); // Actualiza la visualización de la salud.
+        if (vidaActual <= 0) // Chequea si la salud ha llegado a cero o menos.
         {
             Debug.Log("La base del jugador ha sido destruida!");
-            // Puedes agregar lo que sucede cuando la base es destruida aquí.
+            // Carga la escena de 'GameOver' cuando la base es destruida.
             SceneManager.LoadScene("GameOver");
         }
     }
 
+    // Método para actualizar los elementos de UI que muestran la salud.
     public void UpdateHealthDisplay()
     {
-        healthText.text = "Vida: " + currentHealth;
+        vidaTexto.text = "Vida: " + vidaActual; // Actualiza el texto de la salud.
         if (healthBar != null)
-            healthBar.value = (float)currentHealth / maxHealth;
+            healthBar.value = (float)vidaActual / maxHealth; // Actualiza la barra de salud.
     }
 
+    // Método que se invoca cuando se hace clic en la base.
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("Has seleccionado tu base.");
-        // El ataque a la base del jugador se maneja en GameManagement.
+        // La lógica específica cuando se selecciona la base puede ser manejada por GameManagement.
     }
 }
