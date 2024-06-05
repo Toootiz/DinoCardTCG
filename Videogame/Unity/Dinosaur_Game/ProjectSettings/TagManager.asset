@@ -21,6 +21,7 @@ TagManager:
   - JuegoEnemigo
   - BaseEnemiga
   - BasePropia
+  - DeckName
   layers:
   - Default
   - TransparentFX

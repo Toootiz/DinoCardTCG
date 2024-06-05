@@ -2180,8 +2180,8 @@ GameObject:
   - component: {fileID: 1943808347}
   - component: {fileID: 1943808349}
   - component: {fileID: 1943808348}
-  - component: {fileID: 1943808350}
   - component: {fileID: 1943808351}
+  - component: {fileID: 1943808352}
   m_Layer: 5
   m_Name: JuegoEnemigo
   m_TagString: JuegoEnemigo
@@ -2246,20 +2246,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1943808346}
   m_CullTransparentMesh: 1
---- !u!114 &1943808350
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1943808346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8d348c6f16e1414aadd6392a5c9e6e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cards: []
-  maxCards: 5
 --- !u!114 &1943808351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2286,6 +2272,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
+--- !u!114 &1943808352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943808346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce6a31450188bae478f8b156647dce32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cards: []
+  maxCards: 5
 --- !u!1 &2058867123
 GameObject:
   m_ObjectHideFlags: 0
