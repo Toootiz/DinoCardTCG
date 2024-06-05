@@ -172,33 +172,38 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     }
 
     public void AttackCard(CardScript target)
+{
+    if (target != null && gameManagement.ambar >= CardCost)
     {
-        if (target != null && gameManagement.ambar >= CardCost)
+        if (gameManagement.SpendEnergy(CardCost))
         {
-            if (gameManagement.SpendEnergy(CardCost))
-            {
-                target.CardLife -= this.CardAttack;
-                target.UpdateLifeDisplay();
-                Debug.Log($"Atacando a {target.CardName} con {CardName}. Vida restante: {target.CardLife}");
+            target.CardLife -= this.CardAttack;
+            target.UpdateLifeDisplay();
+            Debug.Log($"Atacando a {target.CardName} con {CardName}. Vida restante: {target.CardLife}");
 
-                if (target.CardLife <= 0)
+            if (target.CardLife <= 0)
+            {
+                Debug.Log($"{target.CardName} ha sido destruida.");
+                JuegoEnemigoPanelScript enemyPanel = GameObject.FindGameObjectWithTag("JuegoEnemigo").GetComponent<JuegoEnemigoPanelScript>();
+                if (enemyPanel != null && target.isEnemyCard)
                 {
-                    Debug.Log($"{target.CardName} ha sido destruida.");
-                    Destroy(target.gameObject);
+                    enemyPanel.RemoveEnemyCard(target.gameObject);
                 }
+                Destroy(target.gameObject);
+            }
 
-                DeselectCard();
-            }
-            else
-            {
-                Debug.Log("No hay suficiente ámbar para atacar.");
-            }
+            DeselectCard();
         }
         else
         {
-            Debug.Log("Objetivo no válido o ámbar insuficiente.");
+            Debug.Log("No hay suficiente ámbar para atacar.");
         }
     }
+    else
+    {
+        Debug.Log("Objetivo no válido o ámbar insuficiente.");
+    }
+}
 
     public void TakeDamage(int damage)
     {

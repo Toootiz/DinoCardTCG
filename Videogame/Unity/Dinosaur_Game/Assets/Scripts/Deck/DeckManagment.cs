@@ -11,6 +11,8 @@ public class DeckManagment : MonoBehaviour
     public GameObject CardPrefab; // Referencia al prefab de la carta
     public Transform selectedCards; // Panel para cartas seleccionadas
     public Transform allCards; // Panel para todas las cartas
+    public TMP_InputField deckNameInput; // Campo de texto para el nombre del deck
+    public TMP_InputField deckDescriptionInput; // Campo de texto para la descripción del deck
     CardInfo2 cards;
     public string apiResult;  // Resultado de la llamada a la API
 
@@ -74,21 +76,23 @@ public class DeckManagment : MonoBehaviour
             Debug.LogError($"Image {id} not found in Resources/IMG/");
         }
 
-        newcard.GetComponent<CardScript2>().CardName = cards.listaCartas.cards[id].Nombre;
-        newcard.GetComponent<CardScript2>().CardAttack = cards.listaCartas.cards[id].Puntos_de_ataque;
-        newcard.GetComponent<CardScript2>().CardLife = cards.listaCartas.cards[id].Puntos_de_Vida;
-        newcard.GetComponent<CardScript2>().CardCost = cards.listaCartas.cards[id].Coste_en_elixir;
-        newcard.GetComponent<CardScript2>().CardHabilidad = cards.listaCartas.cards[id].HabilidadDescripcion;
-        newcard.GetComponent<CardScript2>().Cardvenenodmg = cards.listaCartas.cards[id].venenodmg;
-        newcard.GetComponent<CardScript2>().Cardquemadodmg = cards.listaCartas.cards[id].quemadodmg;
-        newcard.GetComponent<CardScript2>().Cardsangradodmg = cards.listaCartas.cards[id].sangradodmg;
-        newcard.GetComponent<CardScript2>().Cardmordidadmg = cards.listaCartas.cards[id].mordidadmg;
-        newcard.GetComponent<CardScript2>().Cardcolatazodmg = cards.listaCartas.cards[id].colatazodmg;
-        newcard.GetComponent<CardScript2>().Cardboostvida = cards.listaCartas.cards[id].boostvida;
-        newcard.GetComponent<CardScript2>().Cardboostataquedmg = cards.listaCartas.cards[id].boostataquedmg;
-        newcard.GetComponent<CardScript2>().Cardboostcosto = cards.listaCartas.cards[id].boostcosto;
-        newcard.GetComponent<CardScript2>().Cardduracion = cards.listaCartas.cards[id].duracion;
-        newcard.GetComponent<CardScript2>().CardArt = cardImage;
+        CardScript2 cardScript = newcard.GetComponent<CardScript2>();
+        cardScript.CardId = cards.listaCartas.cards[id].id_carta; // Asigna el id de la carta
+        cardScript.CardName = cards.listaCartas.cards[id].Nombre;
+        cardScript.CardAttack = cards.listaCartas.cards[id].Puntos_de_ataque;
+        cardScript.CardLife = cards.listaCartas.cards[id].Puntos_de_Vida;
+        cardScript.CardCost = cards.listaCartas.cards[id].Coste_en_elixir;
+        cardScript.CardHabilidad = cards.listaCartas.cards[id].HabilidadDescripcion;
+        cardScript.Cardvenenodmg = cards.listaCartas.cards[id].venenodmg;
+        cardScript.Cardquemadodmg = cards.listaCartas.cards[id].quemadodmg;
+        cardScript.Cardsangradodmg = cards.listaCartas.cards[id].sangradodmg;
+        cardScript.Cardmordidadmg = cards.listaCartas.cards[id].mordidadmg;
+        cardScript.Cardcolatazodmg = cards.listaCartas.cards[id].colatazodmg;
+        cardScript.Cardboostvida = cards.listaCartas.cards[id].boostvida;
+        cardScript.Cardboostataquedmg = cards.listaCartas.cards[id].boostataquedmg;
+        cardScript.Cardboostcosto = cards.listaCartas.cards[id].boostcosto;
+        cardScript.Cardduracion = cards.listaCartas.cards[id].duracion;
+        cardScript.CardArt = cardImage;
     }
 
     public void AddCardToSelected(CardScript2 card)
@@ -102,129 +106,103 @@ public class DeckManagment : MonoBehaviour
     }
 
     [System.Serializable]
-    public class Card
-    {
-        public int id_carta;
-        public string Nombre;
-        public int Puntos_de_Vida;
-        public int Puntos_de_ataque;
-        public int Coste_en_elixir;
-        public int HabilidadDescripcion;
-        public int id_habilidad;
-        public int venenodmg;
-        public int quemadodmg;
-        public int sangradodmg;
-        public int mordidadmg;
-        public int colatazodmg;
-        public int boostvida;
-        public int boostataquedmg;
-        public int boostcosto;
-        public int duracion;
-        public string imagen;
-    }
-
-    [System.Serializable]
-    public class CardList
-    {
-        public Card[] cards;
-    }
-
-    [System.Serializable]
     public class DeckData
     {
         public int id_jugador;
         public string nombre_deck;
         public string descripcion_deck;
-        public CardList cards;
+        public int id_carta1;
+        public int id_carta2;
+        public int id_carta3;
+        public int id_carta4;
+        public int id_carta5;
+        public int id_carta6;
+        public int id_carta7;
+        public int id_carta8;
+        public int id_carta9;
+        public int id_carta10;
     }
 
     public void SaveSelectedCards()
     {
-        List<CardInfo2.Card> selectedCardsList = new List<CardInfo2.Card>();
+        string deckName = deckNameInput.text;
+        string deckDescription = deckDescriptionInput.text;
+
+        if (string.IsNullOrEmpty(deckName))
+        {
+            Debug.LogError("Falta nombre del deck");
+            return;
+        }
+
+        if (string.IsNullOrEmpty(deckDescription))
+        {
+            Debug.LogError("Falta descripción del deck");
+            return;
+        }
+
+        if (selectedCards.childCount != 10)
+        {
+            Debug.LogError("Debe seleccionar exactamente 10 cartas");
+            return;
+        }
+
+        List<int> selectedCardIds = new List<int>();
+
         foreach (Transform cardTransform in selectedCards)
         {
             CardScript2 cardScript = cardTransform.GetComponent<CardScript2>();
-            CardInfo2.Card card = new CardInfo2.Card
+            if (cardScript != null)
             {
-                id_carta = cardScript.CardId,
-                Nombre = cardScript.CardName,
-                Puntos_de_Vida = cardScript.CardLife,
-                Puntos_de_ataque = cardScript.CardAttack,
-                Coste_en_elixir = cardScript.CardCost,
-                HabilidadDescripcion = cardScript.CardHabilidad,
-                venenodmg = cardScript.Cardvenenodmg,
-                quemadodmg = cardScript.Cardquemadodmg,
-                sangradodmg = cardScript.Cardsangradodmg,
-                mordidadmg = cardScript.Cardmordidadmg,
-                colatazodmg = cardScript.Cardcolatazodmg,
-                boostvida = cardScript.Cardboostvida,
-                boostataquedmg = cardScript.Cardboostataquedmg,
-                boostcosto = cardScript.Cardboostcosto,
-                duracion = cardScript.Cardduracion
-            };
-            selectedCardsList.Add(card);
+                selectedCardIds.Add(cardScript.CardId);
+            }
         }
 
-        CardInfo2.CardList cardList = new CardInfo2.CardList { cards = selectedCardsList.ToArray() };
-        string json = JsonUtility.ToJson(cardList);
-        //Debug.Log(cardList);
-        //Debug.Log("Selected Cards JSON: " + json);
-        Debug.Log(json);
+        DeckData deckData = new DeckData
+        {
+            id_jugador = 1, // Asigna el id del jugador según corresponda
+            nombre_deck = deckName,
+            descripcion_deck = deckDescription,
+            id_carta1 = selectedCardIds[0],
+            id_carta2 = selectedCardIds[1],
+            id_carta3 = selectedCardIds[2],
+            id_carta4 = selectedCardIds[3],
+            id_carta5 = selectedCardIds[4],
+            id_carta6 = selectedCardIds[5],
+            id_carta7 = selectedCardIds[6],
+            id_carta8 = selectedCardIds[7],
+            id_carta9 = selectedCardIds[8],
+            id_carta10 = selectedCardIds[9]
+        };
+
+        string json = JsonUtility.ToJson(deckData);
+        Debug.Log("Selected Cards JSON: " + json);
 
         PlayerPrefs.SetString("SelectedCards", json);
         PlayerPrefs.Save();
 
-        DeckData deckData = new DeckData
+        StartCoroutine(PostDeckData("http://localhost:3000/api/guardardeck", json));
+    }
+
+    IEnumerator PostDeckData(string url, string json)
+    {
+        UnityWebRequest request = new UnityWebRequest(url, "POST");
+        byte[] bodyRaw = new System.Text.UTF8Encoding().GetBytes(json);
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
         {
-            id_jugador = 1, // Asumiendo que el ID del jugador es 1, reemplazar con el ID real del jugador
-            //nombre_deck = "Mi Deck",
-            //escripcion_deck = "Este es mi deck personalizado",
-            cards = new CardList { cards = selectedCardsList.ConvertAll(card => new DeckManagment.Card {
-                id_carta = card.id_carta,
-                Nombre = card.Nombre,
-                Puntos_de_Vida = card.Puntos_de_Vida,
-                Puntos_de_ataque = card.Puntos_de_ataque,
-                Coste_en_elixir = card.Coste_en_elixir,
-                HabilidadDescripcion = card.HabilidadDescripcion,
-                id_habilidad = card.id_habilidad,
-                venenodmg = card.venenodmg,
-                quemadodmg = card.quemadodmg,
-                sangradodmg = card.sangradodmg,
-                mordidadmg = card.mordidadmg,
-                colatazodmg = card.colatazodmg,
-                boostvida = card.boostvida,
-                boostataquedmg = card.boostataquedmg,
-                boostcosto = card.boostcosto,
-                duracion = card.duracion
-            }).ToArray() }
-        };
-
-        string deckJson = JsonUtility.ToJson(deckData);
-        Debug.Log(deckJson);
-        StartCoroutine(PostDeckData("http://localhost:3000/api/guardardecks", deckJson));
+            Debug.Log("Error: " + request.error);
+            Debug.Log("Response: " + request.downloadHandler.text); // Imprimir la respuesta del servidor
+        }
+        else
+        {
+            Debug.Log("Deck saved successfully: " + request.downloadHandler.text);
+        }
     }
-
-   IEnumerator PostDeckData(string url, string json)
-{
-    UnityWebRequest request = new UnityWebRequest(url, "POST");
-    byte[] bodyRaw = new System.Text.UTF8Encoding().GetBytes(json);
-    request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-    request.downloadHandler = new DownloadHandlerBuffer();
-    request.SetRequestHeader("Content-Type", "application/json");
-
-    yield return request.SendWebRequest();
-
-    if (request.result != UnityWebRequest.Result.Success)
-    {
-        Debug.Log("Error: " + request.error);
-        Debug.Log("Response: " + request.downloadHandler.text); // Imprimir la respuesta del servidor
-    }
-    else
-    {
-        Debug.Log("Deck saved successfully: " + request.downloadHandler.text);
-    }
-}
-
 
     public void ClearSelectedCards()
     {

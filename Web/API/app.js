@@ -40,16 +40,14 @@ app.get("/api/cards", async (req, res) => {
     }
 });
 
-
-
-// Fetch all cards from deck 2
-app.get("/api/deck2", async (req, res) => {
+// Fetch decks for a specific player
+app.get("/api/deckss/:id_jugador", async (req, res) => {
     let connection = null;
     try {
         connection = await connectToDB();
-        const [results, fields] = await connection.execute("SELECT * FROM cartas_deck_2;");
-        const c = { "cards": results };
-        res.status(200).json(c);
+        const [results, fields] = await connection.execute("SELECT * FROM vista_decks_cartas WHERE id_jugador = ?", [req.params.id_jugador]);
+        const decks = { "decks": results };
+        res.status(200).json(decks);
     } catch (error) {
         res.status(500).json(error);
     } finally {
@@ -59,14 +57,15 @@ app.get("/api/deck2", async (req, res) => {
     }
 });
 
-// Fetch all cards from deck 1
-app.get("/api/deck1", async (req, res) => {
+
+// Fetch decks for a specific player
+app.get("/api/decks/:id_jugador", async (req, res) => {
     let connection = null;
     try {
         connection = await connectToDB();
-        const [results, fields] = await connection.execute("SELECT * FROM cartas_deck_1;");
-        const c = { "cards": results };
-        res.status(200).json(c);
+        const [results, fields] = await connection.execute("SELECT *     FROM vista_cartas_habilidades_deck WHERE id_jugador = ?", [req.params.id_jugador]);
+        const decks = { "decks": results };
+        res.status(200).json(decks);
     } catch (error) {
         res.status(500).json(error);
     } finally {
@@ -75,6 +74,32 @@ app.get("/api/deck1", async (req, res) => {
         }
     }
 });
+
+app.post("/api/guardardeck", async (req, res) => {
+    const { id_jugador, nombre_deck, descripcion_deck, id_carta1, id_carta2, id_carta3, id_carta4, id_carta5, id_carta6, id_carta7, id_carta8, id_carta9, id_carta10 } = req.body;
+
+    let connection = null;
+    try {
+        connection = await connectToDB();
+        const query = `
+            INSERT INTO deck (
+                id_jugador, nombre_deck, descripcion_deck, id_carta1, id_carta2, id_carta3, id_carta4, id_carta5, id_carta6, id_carta7, id_carta8, id_carta9, id_carta10
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `;
+        const values = [id_jugador, nombre_deck, descripcion_deck, id_carta1, id_carta2, id_carta3, id_carta4, id_carta5, id_carta6, id_carta7, id_carta8, id_carta9, id_carta10];
+        const [results] = await connection.execute(query, values);
+
+        res.status(201).json({ message: "Deck created successfully", deckId: results.insertId });
+    } catch (error) {
+        res.status(500).json(error);
+    } finally {
+        if (connection) {
+            await connection.end();  // Asegúrate de usar await aquí
+        }
+    }
+});
+
+
 
 // Fetch a single card by ID
 app.get("/api/cards/:id", async (req, res) => {
@@ -93,7 +118,7 @@ app.get("/api/cards/:id", async (req, res) => {
 });
 
 // Insert a new card
-app.post("/api/cards", async (req, res) => {
+app.post("/api/cards/add", async (req, res) => {
     let connection = null;
     try {
         connection = await connectToDB();
