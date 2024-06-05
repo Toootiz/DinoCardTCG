@@ -167,6 +167,8 @@ public class DeckManagment : MonoBehaviour
 
         CardInfo2.CardList cardList = new CardInfo2.CardList { cards = selectedCardsList.ToArray() };
         string json = JsonUtility.ToJson(cardList);
+        //Debug.Log(cardList);
+        //Debug.Log("Selected Cards JSON: " + json);
         Debug.Log(json);
 
         PlayerPrefs.SetString("SelectedCards", json);
@@ -193,8 +195,7 @@ public class DeckManagment : MonoBehaviour
                 boostvida = card.boostvida,
                 boostataquedmg = card.boostataquedmg,
                 boostcosto = card.boostcosto,
-                duracion = card.duracion,
-                imagen = card.imagen
+                duracion = card.duracion
             }).ToArray() }
         };
 
