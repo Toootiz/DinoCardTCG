@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1783462989388828693}
-  - component: {fileID: 4912973797264227650}
+  - component: {fileID: 1545752505094487630}
   m_Layer: 0
   m_Name: DeckPrefab
   m_TagString: Untagged
@@ -17,16 +17,15 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1783462989388828693
-Transform:
+--- !u!224 &1783462989388828693
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2234057211373048290}
-  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 213.76917, y: 660.32104, z: -12.682881}
+  m_LocalPosition: {x: 0, y: 0, z: -12.682881}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -35,7 +34,12 @@ Transform:
   - {fileID: 4063534555358725057}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4912973797264227650
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -58.576538, y: 96.49573}
+  m_SizeDelta: {x: 1500, y: 2}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1545752505094487630
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,12 +48,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2234057211373048290}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5d7f232de817804e9f7b97589ebd581, type: 3}
+  m_Script: {fileID: 11500000, guid: d007fa466cd91df49b7a7366a5544e17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   deckNameText: {fileID: 2354430775036239525}
   deckDescriptionText: {fileID: 9030113412173450646}
-  cardsPanel: {fileID: 4063534555358725057}
+  cardContainer: {fileID: 4063534555358725057}
+  cardPrefab: {fileID: 2907078447231389919, guid: 7f42d62ee65e2c3458c1267b6b4feecf, type: 3}
 --- !u!1 &3199864623048177018
 GameObject:
   m_ObjectHideFlags: 0
@@ -82,10 +87,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1783462989388828693}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -82.68567, y: -200}
-  m_SizeDelta: {x: 1216.6287, y: 50}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 890.6898, y: -25}
+  m_SizeDelta: {x: 1051.8777, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7716119875513833944
 CanvasRenderer:
@@ -195,6 +200,7 @@ GameObject:
   - component: {fileID: 4063534555358725057}
   - component: {fileID: 5198801811681299969}
   - component: {fileID: 1624270980744919106}
+  - component: {fileID: 2577731702682742324}
   m_Layer: 5
   m_Name: CardsPanel
   m_TagString: Untagged
@@ -216,10 +222,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1783462989388828693}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -240.7472, y: -385.4981}
-  m_SizeDelta: {x: 1511.0835, y: 250.8154}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 750, y: -175}
+  m_SizeDelta: {x: 1500, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5198801811681299969
 CanvasRenderer:
@@ -259,6 +265,32 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2577731702682742324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4904573323700175280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: -60
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 1
+  m_ChildScaleHeight: 1
+  m_ReverseArrangement: 0
 --- !u!1 &6391195364545665511
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,10 +323,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1783462989388828693}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -889, y: -200}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 182.37555, y: -25}
+  m_SizeDelta: {x: 364.7511, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9084634242314610097
 CanvasRenderer:
