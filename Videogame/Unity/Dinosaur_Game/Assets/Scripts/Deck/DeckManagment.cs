@@ -222,4 +222,9 @@ public class DeckManagment : MonoBehaviour
     {
         SceneManager.LoadScene("SelectedDeck");
     }
+
+    public void Volver()
+    {
+        SceneManager.LoadScene("MenuInicial");
+    }
 }
