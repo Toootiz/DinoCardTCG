@@ -57,9 +57,9 @@ INSERT INTO carta (Nombre, Puntos_de_Vida, Puntos_de_ataque, Coste_en_elixir, Ha
 
 
 INSERT INTO jugador (nombre, partidas_ganadas, partidas_perdidas) VALUES 
-("Mesc", 2, 3),
-("Jose", 2, 1),
-("Gatuno7000", 2, 1);
+("Mesc", 42, 14),
+("Jose", 31, 57),
+("Gatuno7000", 147, 56);
 
 INSERT INTO deck (cantidad_cartas) VALUES
 (20),
