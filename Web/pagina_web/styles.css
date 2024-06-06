@@ -10,16 +10,38 @@ header {
     background-color: #355c7d;
     color: #ffffff;
     padding: 10px 20px;
-    text-align: center
+    text-align: center;
 }
 
 h1 {
     margin: 10px;
 }
 
-div {
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.text-column {
+    width: 50%;
     padding: 20px;
-    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.image-column {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-column img {
+    max-width: 80%;
+    margin-bottom: 20px;
 }
 
 form {
@@ -34,25 +56,16 @@ label {
     display: block;
 }
 
-#flex-container{
+#flex-container {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
-    
 }
 
 .spacing {
     flex: 1;
 }
-/*
-div, nav {
-    border: solid 2px black;
-    margin: 10px;
-    padding : 10px;
-}
-*/
-
 
 * {
   font-family: "Jaro", sans-serif;
