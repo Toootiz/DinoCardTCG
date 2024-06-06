@@ -43,7 +43,6 @@ app.get("/api/cards", async (req, res) => {
     }
 });
 
-<<<<<<< HEAD
 app.post("/api/guardardecks", async (req, res) => {
     let connection = null;
     try {
@@ -82,11 +81,8 @@ app.post("/api/guardardecks", async (req, res) => {
     }
 });
 
-=======
-
 
 // Fetch all cards from deck 2
->>>>>>> 091760bde2e64327127b34f3f712cf6652d95707
 app.get("/api/deck2", async (req, res) => {
     let connection = null;
     try {
