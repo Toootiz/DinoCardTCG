@@ -56,17 +56,23 @@ INSERT INTO carta (Nombre, Puntos_de_Vida, Puntos_de_ataque, Coste_en_elixir, Ha
 ('Wyvern', 5, 6, 7, 5);
 
 
-INSERT INTO jugador (nombre, partidas_ganadas, partidas_perdidas) VALUES 
-("Mesc", 2, 3),
-("Jose", 2, 1),
-("Gatuno7000", 2, 1);
+INSERT INTO jugador (nombre, contrasena, partidas_ganadas, partidas_perdidas) VALUES 
+("Mesc", "1234", 2, 3),
+("Jose", "1234", 2, 1),
+("Gatuno7000","1234", 2, 1),
+("Enemigo", "Enemigo", 1, 1);
 
+select * from jugador;
 
 INSERT INTO deck (id_jugador, nombre_deck, descripcion_deck, id_carta1, id_carta2, id_carta3, id_carta4, id_carta5, id_carta6, id_carta7, id_carta8, id_carta9, id_carta10) VALUES
 (1,"Deck Chispa", "Para jugar de chill", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
 (2, "Deck Uno", "Para jugar mucho", 1, 2, 4, 6, 8, 10, 12, 14, 16, 18),
 (3,"Deck Dos", "Para jugar rapido", 2, 3, 4, 5, 8, 10, 15, 18, 20, 21),
-(1,"Deck Tres", "Para jugar feliz", 10, 11, 12, 13, 14, 15, 16, 17, 18, 19);
+(4,"Deck Enemigo 1", "Primer deck del enemigo", 10, 11, 12, 13, 14, 15, 16, 17, 18, 19),
+(4, "Deck Enemigo 2", "Segundo deck del enemigo", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
+(4, "Deck Enemigo 3", "Tercer deck del enemigo", 11, 12, 13, 14, 15, 16, 17, 18, 19, 20),
+(4, "Deck Enemigo 4", "Cuarto deck del enemigo", 21, 22, 23, 24, 25, 26, 27, 28, 1, 2),
+(4, "Deck Enemigo 5", "Quinto deck del enemigo", 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
 
 
 select * from deck;

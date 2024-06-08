@@ -542,7 +542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cards: []
-  maxCards: 5
+  maxCards: 4
 --- !u!114 &527899071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1372,7 +1372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cea184040f3d994a998d517132bcea1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 40
   vidaActual: 0
   vidaTexto: {fileID: 54508429}
   healthBar: {fileID: 0}
@@ -2095,7 +2095,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a136ecef200483e478c0567ea22bef34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 40
   currentHealth: 0
   healthText: {fileID: 1136155334}
   healthBar: {fileID: 0}
@@ -2285,7 +2285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cards: []
-  maxCards: 5
+  maxCards: 4
 --- !u!1 &2058867123
 GameObject:
   m_ObjectHideFlags: 0
@@ -2343,10 +2343,11 @@ MonoBehaviour:
   ambar: 0
   ambarEnemy: 0
   apiResultDedck1: 
+  apiResultDedck2: 
   url: http://localhost:3000
-  getEndpoint: /api/deck2
+  getEndpoint: 
   urlEnemigo: http://localhost:3000
-  getEndpointEnemgo: /api/deck1
+  getEndpointEnemgo: /api/deckjugador/2
   endTurnButton: {fileID: 1350392994}
   AmbarText: {fileID: 982531566}
   AmbarEnemyText: {fileID: 2083295707}

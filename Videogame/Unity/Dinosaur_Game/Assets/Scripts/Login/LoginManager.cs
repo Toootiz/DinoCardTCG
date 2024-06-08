@@ -18,7 +18,6 @@ public class LoginManager : MonoBehaviour
         loginButton.onClick.AddListener(Login);
     }
 
-
     void Register()
     {
         string nombre = usernameInputField.text;
@@ -26,7 +25,6 @@ public class LoginManager : MonoBehaviour
 
         StartCoroutine(RegisterUser(nombre, contrasena));
     }
-
 
     void Login()
     {
@@ -73,8 +71,12 @@ public class LoginManager : MonoBehaviour
             }
             else
             {
-                if (www.downloadHandler.text == "Usuario autenticado")
+                if (www.downloadHandler.text.Contains("Usuario autenticado"))
                 {
+                    // Extract user ID from response
+                    string userId = www.downloadHandler.text.Split(':')[1];
+                    PlayerPrefs.SetString("userId", userId);
+
                     Debug.Log("Usuario autenticado");
                     SceneManager.LoadScene("MenuInicial");
                 }

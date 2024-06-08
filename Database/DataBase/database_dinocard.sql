@@ -170,24 +170,17 @@ JOIN
 JOIN 
     habilidadData hd ON h.id_habilidad = hd.id_habilidad;
 
-    
-SELECT *
-FROM carta_habilidad_detalle
-ORDER BY id_carta;
 
-
-CREATE VIEW vista_cartas_habilidades_deck AS
+CREATE VIEW vista_cartas_habilidades_por_deck AS
 SELECT
     d.id_deck,
-    d.id_jugador,
-    d.nombre_deck,
-    d.descripcion_deck,
     c.id_carta,
-    c.nombre AS nombre_carta,
-    c.puntos_de_vida,
-    c.puntos_de_ataque,
-    c.coste_en_elixir,
-    h.descripcion AS habilidad_descripcion,
+    c.Nombre,
+    c.Puntos_de_Vida,
+    c.Puntos_de_ataque,
+    c.Coste_en_elixir,
+    h.descripcion,
+    h.id_habilidad,
     hd.venenodmg,
     hd.quemadodmg,
     hd.sangradodmg,
@@ -205,13 +198,24 @@ FROM
                   d.id_carta10 = c.id_carta
     LEFT JOIN habilidad h ON c.habilidad = h.id_habilidad
     LEFT JOIN habilidadData hd ON h.id_habilidad = hd.id_habilidad;
-
--- Ejemplo de consulta para obtener las cartas y habilidades de un jugador específico
-SELECT *
-FROM vista_cartas_habilidades_deck
-WHERE id_jugador = 1;
-
-
-
-
+    
+select
+    id_carta,
+    Nombre,
+    Puntos_de_Vida,
+    Puntos_de_ataque,
+    Coste_en_elixir,
+    id_habilidad,
+    descripcion,
+    venenodmg,
+    quemadodmg,
+    sangradodmg,
+    mordidadmg,
+    colatazodmg,
+    boostvida,
+    boostataquedmg,
+    boostcosto,
+    duracion
+FROM vista_cartas_habilidades_por_deck
+WHERE id_deck = 1;
 

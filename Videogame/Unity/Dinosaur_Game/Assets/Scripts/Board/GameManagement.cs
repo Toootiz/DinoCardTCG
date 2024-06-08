@@ -29,11 +29,11 @@ public class GameManagement : MonoBehaviour
     public int JugadorContadorTurno; // Contador de turnos del jugador.
     public int EnemigoContadorTurno; // Contador de turnos del enemigo.
 
-
     public int ambar; // Energía de ambar del jugador.
     public int ambarEnemy; // Energía de ambar del enemigo.
     public string apiResultDedck1; // Resultado de la API para las cartas.
-    [SerializeField] string url; // URL para la API de cartas del jugador.
+    public string apiResultDedck2; // Resultado de la API para las cartas.
+    [SerializeField] string url; // URL base para la API.
     [SerializeField] string getEndpoint; // Endpoint para obtener las cartas del jugador.
     [SerializeField] string urlEnemigo; // URL para la API de cartas del enemigo.
     [SerializeField] string getEndpointEnemgo; // Endpoint para obtener las cartas del enemigo.
@@ -60,15 +60,27 @@ public class GameManagement : MonoBehaviour
         zonaDeJuego = GameObject.FindGameObjectWithTag("Juego");
         ab = GameObject.FindGameObjectWithTag("JuegoEnemigo");
         bancaenemigo = GameObject.FindGameObjectWithTag("BancaEnemigo");
-        GetData(url, getEndpoint);
-        GetDataEnemigo(urlEnemigo, getEndpointEnemgo);
+
+        // Obtén el ID del deck seleccionado desde PlayerPrefs
+        int selectedDeckId = PlayerPrefs.GetInt("SelectedDeckId", 0);
+        Debug.Log(selectedDeckId);
+
+        int selectedDeckIdEnemigo = Random.Range(4, 9);
+        Debug.Log(selectedDeckIdEnemigo);
+
+        // Construye la URL completa utilizando el ID del deck seleccionado
+        string deckUrl = $"{url}/api/deckjugador/{selectedDeckId}";
+        string deckUrlEnemigo = $"{url}/api/deckjugador/{selectedDeckIdEnemigo}";
+        GetData(deckUrl);
+        GetDataEnemigo(deckUrlEnemigo);
+
         baseEnemiga = GameObject.FindGameObjectWithTag("BaseEnemiga").GetComponent<BaseEnemiga>();
         basePropia = GameObject.FindGameObjectWithTag("ab").GetComponent<BasePropia>();
     }
 
-    public void GetData(string url, string getEndpoint)
+    public void GetData(string fullUrl)
     {
-        StartCoroutine(RequestGet(url + getEndpoint));
+        StartCoroutine(RequestGet(fullUrl));
     }
 
     IEnumerator RequestGet(string url)
@@ -92,10 +104,11 @@ public class GameManagement : MonoBehaviour
         }
     }
 
-    public void GetDataEnemigo(string urlEnemigo, string getEndpointEnemgo)
-    {
-        StartCoroutine(RequestGetEnemigo(url + getEndpoint));
-    }
+        public void GetDataEnemigo(string fullUrlEnemigo)
+        {
+            StartCoroutine(RequestGetEnemigo(fullUrlEnemigo));
+        }
+
 
     IEnumerator RequestGetEnemigo(string url)
     {
@@ -109,9 +122,9 @@ public class GameManagement : MonoBehaviour
             }
             else
             {
-                apiResultDedck1 = www.downloadHandler.text;
-                Debug.Log("The response was: " + apiResultDedck1);
-                cards.Data = apiResultDedck1;
+                apiResultDedck2 = www.downloadHandler.text;
+                Debug.Log("The response was: " + apiResultDedck2);
+                cards.Data = apiResultDedck2;
                 cards.MakeList();
                 GenerateRandomHandEnemigo(5);
             }

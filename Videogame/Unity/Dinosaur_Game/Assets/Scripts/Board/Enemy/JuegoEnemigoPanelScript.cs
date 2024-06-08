@@ -6,7 +6,7 @@ public class JuegoEnemigoPanelScript : MonoBehaviour, IDropHandler
 {
     // Lista que almacena las cartas que se colocan en este panel.
     public List<GameObject> cards = new List<GameObject>();
-    public int maxCards = 5; // Máximo número de cartas permitidas en este panel.
+    public int maxCards = 4; // Máximo número de cartas permitidas en este panel.
 
     // Método que se utiliza cuando un objeto es soltado sobre este panel.
     public void OnDrop(PointerEventData eventData)
