@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 
 public class BasePropia : MonoBehaviour, IPointerClickHandler
 {
-    public int maxHealth = 100; // Salud máxima de la base.
+    public int maxHealth = 40; // Salud máxima de la base.
     public int vidaActual; // Salud actual de la base.
     public TextMeshProUGUI vidaTexto; // Componente UI para mostrar la salud.
     public Slider healthBar; // Componente UI para mostrar la barra de salud visualmente. (De momento no se ha agregado)

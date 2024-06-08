@@ -270,7 +270,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1726969194}
         m_TargetAssemblyTypeName: DeckSelectionManager, Assembly-CSharp
-        m_MethodName: VolveraDeck
+        m_MethodName: GoBack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1933,7 +1933,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1792809056}
   m_Direction: 2
   m_Value: -0.00000007647956
-  m_Size: 0.50121176
+  m_Size: 0.5012135
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

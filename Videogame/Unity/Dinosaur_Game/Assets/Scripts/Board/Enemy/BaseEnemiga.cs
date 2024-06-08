@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 public class BaseEnemiga : MonoBehaviour, IPointerClickHandler
 {
-    public int maxHealth = 100;
+    public int maxHealth = 40;
     public int currentHealth;
     public TextMeshProUGUI healthText;
     public Slider healthBar; 

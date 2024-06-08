@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
 
 public class DeckUI : MonoBehaviour, IPointerClickHandler
 {
@@ -10,6 +11,7 @@ public class DeckUI : MonoBehaviour, IPointerClickHandler
     public Transform cardContainer; // Contenedor para las cartas del deck
     public GameObject cardPrefab; // Prefab que representa una carta
     private string deckName;
+    private int deckId;
 
     // Referencia al GameManager o a un script que maneje la lógica del juego
     private DeckSelectionManager deckSelectionManager;
@@ -19,10 +21,12 @@ public class DeckUI : MonoBehaviour, IPointerClickHandler
         deckSelectionManager = FindObjectOfType<DeckSelectionManager>();
     }
 
-    public void SetDeckName(string name)
+    public void SetDeckName(string name, int id)
     {
         deckName = name;
+        deckId = id;
         deckNameText.text = name;
+        Debug.Log(deckName + deckId);
     }
 
     public void SetDeckDescription(string description)
@@ -67,7 +71,7 @@ public class DeckUI : MonoBehaviour, IPointerClickHandler
     {
         if (deckSelectionManager != null)
         {
-            deckSelectionManager.SelectDeck(deckName);
+            deckSelectionManager.SelectDeck(deckName, deckId);
         }
     }
 }
