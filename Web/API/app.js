@@ -43,7 +43,7 @@ app.get("/api/cards", async (req, res) => {
     }
 });
 
-<<<<<<< HEAD
+
 app.post("/api/guardardecks", async (req, res) => {
     let connection = null;
     try {
@@ -90,11 +90,10 @@ app.post("/api/guardardecks", async (req, res) => {
     }
 });
 
-=======
+
 
 
 // Fetch all cards from deck 2
->>>>>>> 091760bde2e64327127b34f3f712cf6652d95707
 app.get("/api/deck2", async (req, res) => {
     let connection = null;
     try {
@@ -112,7 +111,6 @@ app.get("/api/deck2", async (req, res) => {
 });
 
 
-<<<<<<< HEAD
 // Fetch decks for a specific player
 app.get("/api/decksss/:id_jugador", async (req, res) => {
     let connection = null;
@@ -130,8 +128,7 @@ app.get("/api/decksss/:id_jugador", async (req, res) => {
     }
 });
 
-=======
->>>>>>> 926a9521a7fc2d5c13c59d9227301c5827098db5
+
 app.post("/api/guardardeck", async (req, res) => {
     const { id_jugador, nombre_deck, descripcion_deck, id_carta1, id_carta2, id_carta3, id_carta4, id_carta5, id_carta6, id_carta7, id_carta8, id_carta9, id_carta10 } = req.body;
 

@@ -117,7 +117,7 @@ function random_color(alpha = 1.0) {
       const ctxDecks = document.getElementById("decksChart").getContext("2d");
       createChart(
         ctxDecks,
-        "bar",
+        "pie",
         {
           labels: deckLabels,
           datasets: [
