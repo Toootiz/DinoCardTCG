@@ -1,35 +1,44 @@
-
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 
-
 public class APIManager : MonoBehaviour
 {
     private static APIManager _instance;
+    public int id_jugador;
 
     private void Awake()
     {
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
-        } else {
+        }
+        else
+        {
             _instance = this;
         }
     }
 
-    public static APIManager instance {
-        get {return _instance;}
+    public static APIManager instance
+    {
+        get { return _instance; }
     }
-    
+
     public string apiResult; // Resultado de la llamada a la API
     [SerializeField] string url; // URL para conectar con el api
     [SerializeField] string getEndpoint; // Endpoint del api para sacar las cartas
 
     void Start()
     {
-        // Solicitar los datos de la API al iniciar
-        //GetData(url, getEndpoint);
+        id_jugador = 1;
+        SavePlayerID(id_jugador);
+    }
+
+    // Guardar el id_jugador en PlayerPrefs
+    public void SavePlayerID(int id)
+    {
+        PlayerPrefs.SetInt("PlayerID", id);
+        PlayerPrefs.Save();
     }
 
     // Obtener datos de la API
@@ -85,5 +94,3 @@ public class APIManager : MonoBehaviour
         }
     }
 }
-
-

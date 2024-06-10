@@ -3,12 +3,14 @@
 import express from "express";
 import mysql from "mysql2/promise";
 import bodyParser from 'body-parser';
+import cors from 'cors'; // Importar el paquete cors
 
 const app = express();
 const port = 3000;
 
+app.use(cors()); // Habilitar CORS
 app.use(express.json());
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 async function connectToDB() {
     return mysql.createConnection({
@@ -29,10 +31,11 @@ app.get("/api/cards", async (req, res) => {
     try {
         connection = await connectToDB();
         const [results, fields] = await connection.execute("SELECT * FROM carta_habilidad_detalle ORDER BY id_carta;");
-        const c={"cards":results};
+        const c = { "cards": results };
         res.status(200).json(c);
     } catch (error) {
-        res.status(500).json(error);
+        console.error("Error fetching cards:", error);
+        res.status(500).json({ error: error.message });
     } finally {
         if (connection) {
             connection.end();
@@ -40,38 +43,46 @@ app.get("/api/cards", async (req, res) => {
     }
 });
 
-app.get("/", (req, res) => {
-    res.status(200).send("API is running");
-});
 
-app.post("/api/guardardecks", async (req, res) => {
+// Fetch decks for a specific player
+app.get("/api/decks/:id_jugador", async (req, res) => {
     let connection = null;
     try {
         connection = await connectToDB();
-        const { id_jugador, nombre_deck, descripcion_deck, cards } = req.body;
-
-        // Insert the new deck
-        const [deckResult] = await connection.execute(
-            "INSERT INTO deck (cantidad_cartas) VALUES (?)", 
-            [cards.length]
-        );
-        const id_deck = deckResult.insertId;
-
-        // Insert the deck and player association
-        await connection.execute(
-            "INSERT INTO deck_jugador (id_deck, id_jugador, nombre_deck, descripcion_deck) VALUES (?, ?, ?, ?)", 
-            [id_deck, id_jugador, nombre_deck, descripcion_deck]
-        );
-
-        // Insert each card into the deck
-        for (const card of cards) {
-            await connection.execute(
-                "INSERT INTO deck_jugador (id_deck, id_carta, id_jugador) VALUES (?, ?, ?)", 
-                [id_deck, card.id_carta, id_jugador]
-            );
-        }
-
-        res.status(201).json({ message: "Deck created successfully", id_deck });
+        const [results, fields] = await connection.execute(`
+            SELECT d.id_deck, d.nombre_deck, d.descripcion_deck, c.id_carta, c.nombre AS Nombre, c.puntos_de_vida AS Puntos_de_Vida, 
+                   c.puntos_de_ataque AS Puntos_de_ataque, c.coste_en_elixir AS Coste_en_elixir, h.descripcion AS HabilidadDescripcion
+            FROM deck d
+            JOIN carta c ON (c.id_carta = d.id_carta1 OR c.id_carta = d.id_carta2 OR c.id_carta = d.id_carta3 OR 
+                             c.id_carta = d.id_carta4 OR c.id_carta = d.id_carta5 OR c.id_carta = d.id_carta6 OR 
+                             c.id_carta = d.id_carta7 OR c.id_carta = d.id_carta8 OR c.id_carta = d.id_carta9 OR 
+                             c.id_carta = d.id_carta10)
+            JOIN habilidad h ON c.habilidad = h.id_habilidad
+            WHERE d.id_jugador = ?
+        `, [req.params.id_jugador]);
+        
+        const decks = {};
+        
+        results.forEach(row => {
+            if (!decks[row.nombre_deck]) {
+                decks[row.nombre_deck] = {
+                    id_deck: row.id_deck,
+                    nombre_deck: row.nombre_deck,
+                    descripcion_deck: row.descripcion_deck,
+                    cards: []
+                };
+            }
+            decks[row.nombre_deck].cards.push({
+                id_carta: row.id_carta,
+                Nombre: row.Nombre,
+                Puntos_de_Vida: row.Puntos_de_Vida,
+                Puntos_de_ataque: row.Puntos_de_ataque,
+                Coste_en_elixir: row.Coste_en_elixir,
+                HabilidadDescripcion: row.HabilidadDescripcion
+            });
+        });
+        
+        res.status(200).json({ decks: Object.values(decks) });
     } catch (error) {
         res.status(500).json(error);
     } finally {
@@ -81,16 +92,16 @@ app.post("/api/guardardecks", async (req, res) => {
     }
 });
 
-// Fetch all cards
-app.get("/api/deck2", async (req, res) => {
+app.get("/api/deckjugador/:id_deck", async (req, res) => {
     let connection = null;
     try {
         connection = await connectToDB();
-        const [results, fields] = await connection.execute("SELECT * FROM cartas_deck_2;");
-        const c={"cards":results};
+        const [results, fields] = await connection.execute("select id_carta, Nombre, Puntos_de_Vida, Puntos_de_ataque, Coste_en_elixir, id_habilidad, descripcion, venenodmg, quemadodmg, sangradodmg, mordidadmg, colatazodmg, boostvida, boostataquedmg, boostcosto, duracion FROM vista_cartas_habilidades_por_deck WHERE id_deck = 1;", [req.params.id_deck]);
+        const c = { "cards": results };
         res.status(200).json(c);
     } catch (error) {
-        res.status(500).json(error);
+        console.error("Error fetching deck details:", error);
+        res.status(500).json({ error: error.message });
     } finally {
         if (connection) {
             connection.end();
@@ -98,21 +109,35 @@ app.get("/api/deck2", async (req, res) => {
     }
 });
 
-app.get("/api/deck1", async (req, res) => {
+
+
+app.post("/api/guardardeck", async (req, res) => {
+    const { id_jugador, nombre_deck, descripcion_deck, id_carta1, id_carta2, id_carta3, id_carta4, id_carta5, id_carta6, id_carta7, id_carta8, id_carta9, id_carta10 } = req.body;
+
     let connection = null;
     try {
         connection = await connectToDB();
-        const [results, fields] = await connection.execute("SELECT * FROM cartas_deck_1;");
-        const c={"cards":results};
-        res.status(200).json(c);
+        const query = `
+            INSERT INTO deck (
+                id_jugador, nombre_deck, descripcion_deck, id_carta1, id_carta2, id_carta3, id_carta4, id_carta5, id_carta6, id_carta7, id_carta8, id_carta9, id_carta10
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `;
+        const values = [id_jugador, nombre_deck, descripcion_deck, id_carta1, id_carta2, id_carta3, id_carta4, id_carta5, id_carta6, id_carta7, id_carta8, id_carta9, id_carta10];
+        const [results] = await connection.execute(query, values);
+
+        res.status(201).json({ message: "Deck created successfully", deckId: results.insertId });
     } catch (error) {
+        console.error("Error fetching deck1:", error);
         res.status(500).json(error);
     } finally {
         if (connection) {
-            connection.end();
+            await connection.end();  // Asegúrate de usar await aquí
         }
     }
 });
+
+
+
 
 // Fetch a single card by ID
 app.get("/api/cards/:id", async (req, res) => {
@@ -122,6 +147,7 @@ app.get("/api/cards/:id", async (req, res) => {
         const [results] = await connection.execute("SELECT * FROM carta WHERE id_carta = ?", [req.params.id]);
         results.length > 0 ? res.status(200).json(results[0]) : res.status(404).send("Card not found");
     } catch (error) {
+        console.error("Error fetching card by ID:", error);
         res.status(500).json(error);
     } finally {
         if (connection) {
@@ -130,7 +156,6 @@ app.get("/api/cards/:id", async (req, res) => {
     }
 });
 
-// Insert a new card
 app.post("/api/cards", async (req, res) => {
     let connection = null;
     try {
@@ -142,6 +167,7 @@ app.post("/api/cards", async (req, res) => {
         );
         res.status(201).json({ message: "Card added successfully", id_carta: results.insertId });
     } catch (error) {
+        console.error("Error adding card:", error);
         res.status(500).json(error);
     } finally {
         if (connection) {
@@ -150,7 +176,6 @@ app.post("/api/cards", async (req, res) => {
     }
 });
 
-// Register a new user
 app.post('/register', async (req, res) => {
     let connection = null;
     try {
@@ -159,6 +184,7 @@ app.post('/register', async (req, res) => {
         const [results] = await connection.execute('INSERT INTO jugador (nombre, contrasena) VALUES (?, ?)', [nombre, contrasena]);
         res.send('Usuario registrado exitosamente');
     } catch (error) {
+        console.error("Error registering user:", error);
         res.status(500).json(error);
     } finally {
         if (connection) {
@@ -167,7 +193,29 @@ app.post('/register', async (req, res) => {
     }
 });
 
-// Login a user
+// app.post('/login', async (req, res) => {
+//     let connection = null;
+//     try {
+//         connection = await connectToDB();
+//         const { nombre, contrasena } = req.body;
+//         console.log(req.body);
+//         const [results] = await connection.execute('SELECT * FROM jugador WHERE nombre = ? AND contrasena = ?', [nombre, contrasena]);
+
+//         if (results.length > 0) {
+//             res.send('Usuario autenticado');
+//         } else {
+//             res.send('Usuario no autenticado');
+//         }
+//     } catch (error) {
+//         console.error("Error logging in user:", error);
+//         res.status(500).json(error);
+//     } finally {
+//         if (connection) {
+//             connection.end();
+//         }
+//     }
+// });
+
 app.post('/login', async (req, res) => {
     let connection = null;
     try {
@@ -175,13 +223,67 @@ app.post('/login', async (req, res) => {
         const { nombre, contrasena } = req.body;
         console.log(req.body);
         const [results] = await connection.execute('SELECT * FROM jugador WHERE nombre = ? AND contrasena = ?', [nombre, contrasena]);
-        
+
         if (results.length > 0) {
-            res.send('Usuario autenticado');
+            const userId = results[0].id_jugador;
+            res.send(`Usuario autenticado:${userId}`);
         } else {
             res.send('Usuario no autenticado');
         }
     } catch (error) {
+        console.error("Error logging in user:", error);
+        res.status(500).json(error);
+    } finally {
+        if (connection) {
+            connection.end();
+        }
+    }
+});
+
+
+app.get("/api/players", async (req, res) => {
+    let connection = null;
+    try {
+        connection = await connectToDB();
+        const [results, fields] = await connection.execute("SELECT * FROM vista_estadisticas_jugadores;");
+        const c = { "players": results };
+        res.status(200).json(c);
+    } catch (error) {
+        console.error("Error fetching players:", error);
+        res.status(500).json(error);
+    } finally {
+        if (connection) {
+            connection.end();
+        }
+    }
+});
+
+app.get("/api/decks", async (req, res) => {
+    let connection = null;
+    try {
+        connection = await connectToDB();
+        const [results, fields] = await connection.execute("SELECT * FROM vista_decks_cartas;");
+        const c = { "decks": results };
+        res.status(200).json(c);
+    } catch (error) {
+        console.error("Error fetching decks:", error);
+        res.status(500).json(error);
+    } finally {
+        if (connection) {
+            connection.end();
+        }
+    }
+});
+
+app.get("/api/matches", async (req, res) => {
+    let connection = null;
+    try {
+        connection = await connectToDB();
+        const [results, fields] = await connection.execute("SELECT * FROM vista_resultados_partidas;");
+        const c = { "matches": results };
+        res.status(200).json(c);
+    } catch (error) {
+        console.error("Error fetching matches:", error);
         res.status(500).json(error);
     } finally {
         if (connection) {

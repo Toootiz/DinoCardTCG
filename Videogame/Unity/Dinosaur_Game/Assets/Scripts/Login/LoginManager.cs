@@ -35,7 +35,6 @@ public class LoginManager : MonoBehaviour
     }
 }
 
-
     void Register()
 {
     if (usernameInputFieldReg == null || passwordInputFieldReg == null)
@@ -96,8 +95,12 @@ public class LoginManager : MonoBehaviour
             }
             else
             {
-                if (www.downloadHandler.text == "Usuario autenticado")
+                if (www.downloadHandler.text.Contains("Usuario autenticado"))
                 {
+                    // Extract user ID from response
+                    string userId = www.downloadHandler.text.Split(':')[1];
+                    PlayerPrefs.SetString("userId", userId);
+
                     Debug.Log("Usuario autenticado");
                     SceneManager.LoadScene("MenuInicial");
                 }

@@ -511,7 +511,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.28627452, g: 0.54901963, b: 0.3254902, a: 0}
+  m_BackGroundColor: {r: 0.2862745, g: 0.8156863, b: 0.30585814, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1001,9 +1001,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Username
-
-'
+  m_text: ussername
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6fe4d0723d8ab4a69ba3f1fd908c027a, type: 2}
   m_sharedMaterial: {fileID: 8681525120993073581, guid: 6fe4d0723d8ab4a69ba3f1fd908c027a, type: 2}
@@ -1447,8 +1445,8 @@ MonoBehaviour:
   m_VerticalScrollbarEventHandler: {fileID: 0}
   m_LayoutGroup: {fileID: 0}
   m_ScrollSensitivity: 1
-  m_ContentType: 0
-  m_InputType: 0
+  m_ContentType: 7
+  m_InputType: 2
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
@@ -2393,8 +2391,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 798, y: 500}
+  m_AnchoredPosition: {x: -1.2892, y: 0}
+  m_SizeDelta: {x: 862.4576, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1907976845
 MonoBehaviour:
@@ -2409,7 +2407,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.19600001, b: 0.04481486, a: 0.7058824}
+  m_Color: {r: 0, g: 0.19600001, b: 0.04481486, a: 0.2784314}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

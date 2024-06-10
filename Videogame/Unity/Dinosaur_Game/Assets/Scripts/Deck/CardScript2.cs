@@ -30,13 +30,13 @@ public class CardScript2 : MonoBehaviour, IPointerClickHandler
     {
         if (transform.parent.CompareTag("CardsDesck"))
         {
-            if (gameManagement.selectedCards.childCount < 20)
+            if (gameManagement.selectedCards.childCount < 10)
             {
                 MoveToSelected();
             }
             else
             {
-                Debug.Log("No puedes seleccionar más de 20 cartas.");
+                Debug.Log("No puedes seleccionar más de 10 cartas.");
             }
         }
         else if (transform.parent.CompareTag("SelectedCards"))

@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -8,29 +5,29 @@ using TMPro;
 
 public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
+    // Variables públicas para configurar las propiedades de la carta.
     public int CardId, CardLife, CardAttack, CardCost, CardHabilidad, Cardvenenodmg, Cardquemadodmg, Cardsangradodmg, Cardmordidadmg, Cardcolatazodmg, Cardboostvida, Cardboostataquedmg, Cardboostcosto, Cardduracion;
     public string CardName;
     public Image CardArt;
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup; 
-    private bool canDrag = false; 
-    public bool isEnemyCard = false; 
+    private bool canDrag = false; // Controla si la carta puede ser arrastrada.
+    public bool isEnemyCard = false; // Indica si la carta pertenece al enemigo.
     private Vector3 initialPosition;
     private Transform originalParent;
 
-    private bool isPlayed = false; 
-    public static CardScript selectedAttacker;
+    private bool isPlayed = false; // Indica si la carta ya fue jugada.
+    public static CardScript selectedAttacker; // Referencia estática al atacante seleccionado.
     private GameManagement gameManagement;
-    private BaseEnemiga baseEnemiga;
-    //private BasePropia basePropia;
+    private BaseEnemiga baseEnemiga; // Referencia a la base enemiga.
 
     public TextMeshProUGUI LifeText;
 
     void Start()
     {
+        // Configuración inicial de la carta.
         gameManagement = GameObject.FindGameObjectWithTag("GameManagement").GetComponent<GameManagement>();
         baseEnemiga = GameObject.FindGameObjectWithTag("BaseEnemiga").GetComponent<BaseEnemiga>();
-        //basePropia = GameObject.FindGameObjectWithTag("BasePropia").GetComponent<BasePropia>();
         rectTransform = GetComponent<RectTransform>();
         LifeText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         originalParent = transform.parent;
@@ -43,6 +40,7 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         gameManagement = GameObject.FindGameObjectWithTag("GameManagement").GetComponent<GameManagement>();
     }
 
+    // Gestiona el inicio del arrastre de la carta.
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (isEnemyCard)
@@ -65,6 +63,7 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         }
     }
 
+    // Actualiza la posición de la carta durante el arrastre.
     public void OnDrag(PointerEventData eventData)
     {
         if (canDrag)
@@ -73,14 +72,24 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         }
     }
 
+    // Finaliza el arrastre de la carta.
     public void OnEndDrag(PointerEventData eventData)
     {
         canvasGroup.alpha = 1.0f;
         canvasGroup.blocksRaycasts = true;
 
+        // Gestión de colocación de la carta en un panel.
         if (canDrag)
         {
             Transform newParent = transform.parent;
+            JuegoPanelScript panelScript = newParent.GetComponent<JuegoPanelScript>();
+            if (panelScript != null && panelScript.cards.Count >= panelScript.maxCards)
+            {
+                Debug.Log("El panel ya tiene el máximo de cartas permitidas.");
+                rectTransform.anchoredPosition = initialPosition;
+                transform.SetParent(originalParent);
+                return;
+            }
 
             if (!isEnemyCard && newParent.CompareTag("JuegoEnemigo"))
             {
@@ -114,8 +123,10 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         }
     }
 
+    // Maneja el evento de clic en la carta.
     public void OnPointerDown(PointerEventData eventData)
     {
+        // Gestión de selección y deselección de la carta.
         if (isEnemyCard && selectedAttacker == null)
         {
             Debug.Log("No puedes seleccionar cartas del enemigo sin tener un atacante.");
@@ -138,6 +149,7 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         }
     }
 
+    // Métodos adicionales para gestionar la selección, deselección y ataque de cartas.
     private void SelectCard()
     {
         if (selectedAttacker != null)
@@ -160,42 +172,49 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     }
 
     public void AttackCard(CardScript target)
+{
+    if (target != null && gameManagement.ambar >= CardCost)
     {
-        if (target != null && gameManagement.ambar >= CardCost)
+        if (gameManagement.SpendEnergy(CardCost))
         {
-            if (gameManagement.SpendEnergy(CardCost))
-            {
-                target.CardLife -= this.CardAttack;
-                target.UpdateLifeDisplay();
-                Debug.Log($"Atacando a {target.CardName} con {CardName}. Vida restante: {target.CardLife}");
+            target.CardLife -= this.CardAttack;
+            target.UpdateLifeDisplay();
+            Debug.Log($"Atacando a {target.CardName} con {CardName}. Vida restante: {target.CardLife}");
 
-                if (target.CardLife <= 0)
+            if (target.CardLife <= 0)
+            {
+                Debug.Log($"{target.CardName} ha sido destruida.");
+                JuegoEnemigoPanelScript enemyPanel = GameObject.FindGameObjectWithTag("JuegoEnemigo").GetComponent<JuegoEnemigoPanelScript>();
+                if (enemyPanel != null && target.isEnemyCard)
                 {
-                    Debug.Log($"{target.CardName} ha sido destruida.");
-                    Destroy(target.gameObject);
+                    enemyPanel.RemoveEnemyCard(target.gameObject);
                 }
+                Destroy(target.gameObject);
+            }
 
-                DeselectCard();
-            }
-            else
-            {
-                Debug.Log("No hay suficiente ámbar para atacar.");
-            }
+            DeselectCard();
         }
         else
         {
-            Debug.Log("Objetivo no válido o ámbar insuficiente.");
+            Debug.Log("No hay suficiente ámbar para atacar.");
         }
     }
+    else
+    {
+        Debug.Log("Objetivo no válido o ámbar insuficiente.");
+    }
+}
 
     public void TakeDamage(int damage)
     {
+        // Método para recibir daño.
         CardLife -= damage;
         UpdateLifeDisplay();
     }
 
     private void UpdateLifeDisplay()
     {
+        // Actualiza la UI de la vida de la carta.
         if (LifeText != null)
             LifeText.text = CardLife.ToString();
         if (CardLife <= 0)
@@ -204,11 +223,11 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
 
     public void OnClic()
     {
-        // Aun no se le da una función a este
+        // Este método está vacío, puede ser eliminado o utilizado para otra función.
     }
 
     void Update()
     {
-        // Aun no se necesita actualizar nada
+        // Este método no tiene funcionalidad actualmente, puede ser eliminado o utilizado para actualizar elementos en tiempo real.
     }
 }

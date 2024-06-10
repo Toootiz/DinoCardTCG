@@ -63,6 +63,8 @@ public class CardInfo2 : MonoBehaviour
         {
             // Instancia el prefab de la carta como hijo del cardParent
             GameObject newCard = Instantiate(cardPrefab, cardParent);
+            // Asegúrate de que se configuran los datos de la carta correctamente
+            // Puedes añadir aquí la configuración específica de la carta (textos, imágenes, etc.)
         }
     }
 }
