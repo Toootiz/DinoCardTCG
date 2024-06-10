@@ -11,18 +11,20 @@ public class LoginManager : MonoBehaviour
     public TMP_InputField passwordInputField;
     public Button registerButton;
     public Button loginButton;
+    public TMP_Text Estado;
+    public CanvasGroup estadoCanvasGroup;
 
     void Start()
     {
         registerButton.onClick.AddListener(Register);
         loginButton.onClick.AddListener(Login);
+        estadoCanvasGroup.alpha = 0;
     }
 
     void Register()
     {
         string nombre = usernameInputField.text;
         string contrasena = passwordInputField.text;
-
         StartCoroutine(RegisterUser(nombre, contrasena));
     }
 
@@ -30,7 +32,6 @@ public class LoginManager : MonoBehaviour
     {
         string nombre = usernameInputField.text;
         string contrasena = passwordInputField.text;
-
         StartCoroutine(LoginUser(nombre, contrasena));
     }
 
@@ -46,11 +47,11 @@ public class LoginManager : MonoBehaviour
 
             if (www.result != UnityWebRequest.Result.Success)
             {
-                Debug.Log(www.error);
+                ShowMessage(www.error);
             }
             else
             {
-                Debug.Log("Usuario registrado exitosamente");
+                ShowMessage("Usuario registrado exitosamente");
             }
         }
     }
@@ -67,24 +68,38 @@ public class LoginManager : MonoBehaviour
 
             if (www.result != UnityWebRequest.Result.Success)
             {
-                Debug.Log(www.error);
+                ShowMessage(www.error);
             }
             else
             {
                 if (www.downloadHandler.text.Contains("Usuario autenticado"))
                 {
-                    // Extract user ID from response
-                    string userId = www.downloadHandler.text.Split(':')[1];
-                    PlayerPrefs.SetString("userId", userId);
+                    // Extraer ID de usuario de la respuesta y guardarlo como entero
+                    int userId = int.Parse(www.downloadHandler.text.Split(':')[1]);
+                    PlayerPrefs.SetInt("userId", userId);
+                    PlayerPrefs.Save();
 
-                    Debug.Log("Usuario autenticado");
+                    ShowMessage("Usuario autenticado");
                     SceneManager.LoadScene("MenuInicial");
                 }
                 else
                 {
-                    Debug.Log("Usuario no autenticado");
+                    ShowMessage("Usuario no autenticado");
                 }
             }
         }
+    }
+
+    void ShowMessage(string message)
+    {
+        Estado.text = message;
+        StartCoroutine(ShowMessageCoroutine());
+    }
+
+    IEnumerator ShowMessageCoroutine()
+    {
+        estadoCanvasGroup.alpha = 1;
+        yield return new WaitForSeconds(1);
+        estadoCanvasGroup.alpha = 0;
     }
 }
