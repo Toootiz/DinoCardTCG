@@ -7,31 +7,68 @@ using UnityEngine.SceneManagement;
 
 public class LoginManager : MonoBehaviour
 {
-    public TMP_InputField usernameInputField;
-    public TMP_InputField passwordInputField;
+    public TMP_InputField usernameInputFieldReg;
+    public TMP_InputField passwordInputFieldReg;
+    public TMP_InputField usernameInputFieldLog;
+    public TMP_InputField passwordInputFieldLog;
     public Button registerButton;
     public Button loginButton;
     public TMP_Text Estado;
     public CanvasGroup estadoCanvasGroup;
 
-    void Start()
+   void Start()
+{
+    if (registerButton != null)
     {
         registerButton.onClick.AddListener(Register);
+    }
+    else
+    {
+        Debug.LogError("registerButton no está asignado en el inspector.");
+    }
+
+    if (loginButton != null)
+    {
         loginButton.onClick.AddListener(Login);
         estadoCanvasGroup.alpha = 0;
     }
+    else
+    {
+        Debug.LogError("loginButton no está asignado en el inspector.");
+    }
+}
 
     void Register()
+{
+    if (usernameInputFieldReg == null || passwordInputFieldReg == null)
     {
+<<<<<<< HEAD
         string nombre = usernameInputField.text;
         string contrasena = passwordInputField.text;
         StartCoroutine(RegisterUser(nombre, contrasena));
+=======
+        Debug.LogError("Uno de los campos de registro es null.");
+        return;
+>>>>>>> aafab00af5f4efd09eab3f47f8972a6ac2afbdd9
     }
+
+    string nombre = usernameInputFieldReg.text;
+    string contrasena = passwordInputFieldReg.text;
+
+    StartCoroutine(RegisterUser(nombre, contrasena));
+}
+
 
     void Login()
     {
+<<<<<<< HEAD
         string nombre = usernameInputField.text;
         string contrasena = passwordInputField.text;
+=======
+        string nombre = usernameInputFieldLog.text;
+        string contrasena = passwordInputFieldLog.text;
+
+>>>>>>> aafab00af5f4efd09eab3f47f8972a6ac2afbdd9
         StartCoroutine(LoginUser(nombre, contrasena));
     }
 

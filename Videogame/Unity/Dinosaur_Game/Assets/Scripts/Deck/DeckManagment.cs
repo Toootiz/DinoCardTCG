@@ -244,10 +244,16 @@ public class DeckManagment : MonoBehaviour
         SceneManager.LoadScene("SelectedDeck");
     }
 
+<<<<<<< HEAD
     // Esta función cambia a la escena "SelectedDeck".
     public void DeckScene()
     {
         SceneManager.LoadScene("DeckSeleccionado");
+=======
+    public void PlayScene()
+    {
+        SceneManager.LoadScene("Board");
+>>>>>>> aafab00af5f4efd09eab3f47f8972a6ac2afbdd9
     }
 
     // Esta función vuelve al menú inicial.
