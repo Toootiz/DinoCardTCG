@@ -16,7 +16,7 @@ async function connectToDB() {
     return mysql.createConnection({
         host: "localhost",
         user: "p1",
-        password: "1234567",
+        password: "123456",
         database: "dinocard_db"
     });
 }
