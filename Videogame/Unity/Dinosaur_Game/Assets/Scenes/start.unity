@@ -286,8 +286,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c03b42047f7240dda8300e4496d94cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usernameInputField: {fileID: 392545066}
-  passwordInputField: {fileID: 1064018873}
+  usernameInputFieldReg: {fileID: 1077818795}
+  passwordInputFieldReg: {fileID: 567328663}
+  usernameInputFieldLog: {fileID: 392545066}
+  passwordInputFieldLog: {fileID: 1064018873}
   registerButton: {fileID: 503111347}
   loginButton: {fileID: 716172292}
 --- !u!4 &16590388
@@ -802,7 +804,6 @@ GameObject:
   - component: {fileID: 232167592}
   - component: {fileID: 232167591}
   - component: {fileID: 232167594}
-  - component: {fileID: 232167597}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -898,22 +899,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_registerUI: {fileID: 574082269}
   m_loginUI: {fileID: 1907976843}
---- !u!114 &232167597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 232167590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c03b42047f7240dda8300e4496d94cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  usernameInputField: {fileID: 392545066}
-  passwordInputField: {fileID: 1064018873}
-  registerButton: {fileID: 503111347}
-  loginButton: {fileID: 716172292}
 --- !u!1 &384371455
 GameObject:
   m_ObjectHideFlags: 0
@@ -1061,7 +1046,7 @@ GameObject:
   - component: {fileID: 392545064}
   - component: {fileID: 392545066}
   m_Layer: 5
-  m_Name: UsernameInput
+  m_Name: UsernameInputLog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1912,7 +1897,7 @@ GameObject:
   - component: {fileID: 567328664}
   - component: {fileID: 567328663}
   m_Layer: 5
-  m_Name: PasswordInput
+  m_Name: PasswordInputReg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3181,7 +3166,7 @@ GameObject:
   - component: {fileID: 1064018871}
   - component: {fileID: 1064018873}
   m_Layer: 5
-  m_Name: PasswordInput
+  m_Name: PasswordInputLog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3356,7 +3341,7 @@ GameObject:
   - component: {fileID: 1077818796}
   - component: {fileID: 1077818795}
   m_Layer: 5
-  m_Name: UsernameInput
+  m_Name: UsernameInputReg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3786,54 +3771,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1136332173}
   m_CullTransparentMesh: 1
---- !u!1 &1192119700
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1192119702}
-  - component: {fileID: 1192119701}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: GameManagement
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1192119701
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1192119700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c03b42047f7240dda8300e4496d94cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  usernameInputField: {fileID: 392545066}
-  passwordInputField: {fileID: 1064018873}
-  registerButton: {fileID: 878200624}
-  loginButton: {fileID: 716172292}
---- !u!4 &1192119702
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1192119700}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.473461, y: 235.17694, z: -5.3878345}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1214066099
 GameObject:
   m_ObjectHideFlags: 0
@@ -5534,8 +5471,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c03b42047f7240dda8300e4496d94cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usernameInputField: {fileID: 0}
-  passwordInputField: {fileID: 0}
+  usernameInputFieldReg: {fileID: 0}
+  passwordInputFieldReg: {fileID: 0}
+  usernameInputFieldLog: {fileID: 0}
+  passwordInputFieldLog: {fileID: 0}
   registerButton: {fileID: 0}
   loginButton: {fileID: 0}
 --- !u!1 &1970384950
@@ -5783,6 +5722,5 @@ SceneRoots:
   - {fileID: 232167593}
   - {fileID: 1690033503}
   - {fileID: 459573951}
-  - {fileID: 1192119702}
   - {fileID: 71808546}
   - {fileID: 16590388}
