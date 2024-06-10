@@ -6,7 +6,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors'; // Importar el paquete cors
 
 const app = express();
-const port = 3000;
+const port = 8000;
 
 app.use(cors()); // Habilitar CORS
 app.use(express.json());
