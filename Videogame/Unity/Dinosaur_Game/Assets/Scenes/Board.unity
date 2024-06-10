@@ -2001,7 +2001,7 @@ Canvas:
   m_GameObject: {fileID: 1435522189}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -2037,6 +2037,7 @@ RectTransform:
   - {fileID: 1677134444}
   - {fileID: 1056099963}
   - {fileID: 651228887}
+  - {fileID: 1364127415}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
