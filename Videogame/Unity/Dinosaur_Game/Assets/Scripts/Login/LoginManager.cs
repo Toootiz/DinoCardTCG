@@ -13,6 +13,8 @@ public class LoginManager : MonoBehaviour
     public TMP_InputField passwordInputFieldLog;
     public Button registerButton;
     public Button loginButton;
+    public TMP_Text Estado;
+    public CanvasGroup estadoCanvasGroup;
 
    void Start()
 {
@@ -28,6 +30,7 @@ public class LoginManager : MonoBehaviour
     if (loginButton != null)
     {
         loginButton.onClick.AddListener(Login);
+        estadoCanvasGroup.alpha = 0;
     }
     else
     {
@@ -39,8 +42,14 @@ public class LoginManager : MonoBehaviour
 {
     if (usernameInputFieldReg == null || passwordInputFieldReg == null)
     {
+<<<<<<< HEAD
+        string nombre = usernameInputField.text;
+        string contrasena = passwordInputField.text;
+        StartCoroutine(RegisterUser(nombre, contrasena));
+=======
         Debug.LogError("Uno de los campos de registro es null.");
         return;
+>>>>>>> aafab00af5f4efd09eab3f47f8972a6ac2afbdd9
     }
 
     string nombre = usernameInputFieldReg.text;
@@ -52,9 +61,14 @@ public class LoginManager : MonoBehaviour
 
     void Login()
     {
+<<<<<<< HEAD
+        string nombre = usernameInputField.text;
+        string contrasena = passwordInputField.text;
+=======
         string nombre = usernameInputFieldLog.text;
         string contrasena = passwordInputFieldLog.text;
 
+>>>>>>> aafab00af5f4efd09eab3f47f8972a6ac2afbdd9
         StartCoroutine(LoginUser(nombre, contrasena));
     }
 
@@ -70,11 +84,11 @@ public class LoginManager : MonoBehaviour
 
             if (www.result != UnityWebRequest.Result.Success)
             {
-                Debug.Log(www.error);
+                ShowMessage(www.error);
             }
             else
             {
-                Debug.Log("Usuario registrado exitosamente");
+                ShowMessage("Usuario registrado exitosamente");
             }
         }
     }
@@ -91,24 +105,38 @@ public class LoginManager : MonoBehaviour
 
             if (www.result != UnityWebRequest.Result.Success)
             {
-                Debug.Log(www.error);
+                ShowMessage(www.error);
             }
             else
             {
                 if (www.downloadHandler.text.Contains("Usuario autenticado"))
                 {
-                    // Extract user ID from response
-                    string userId = www.downloadHandler.text.Split(':')[1];
-                    PlayerPrefs.SetString("userId", userId);
+                    // Extraer ID de usuario de la respuesta y guardarlo como entero
+                    int userId = int.Parse(www.downloadHandler.text.Split(':')[1]);
+                    PlayerPrefs.SetInt("userId", userId);
+                    PlayerPrefs.Save();
 
-                    Debug.Log("Usuario autenticado");
+                    ShowMessage("Usuario autenticado");
                     SceneManager.LoadScene("MenuInicial");
                 }
                 else
                 {
-                    Debug.Log("Usuario no autenticado");
+                    ShowMessage("Usuario no autenticado");
                 }
             }
         }
+    }
+
+    void ShowMessage(string message)
+    {
+        Estado.text = message;
+        StartCoroutine(ShowMessageCoroutine());
+    }
+
+    IEnumerator ShowMessageCoroutine()
+    {
+        estadoCanvasGroup.alpha = 1;
+        yield return new WaitForSeconds(1);
+        estadoCanvasGroup.alpha = 0;
     }
 }
