@@ -218,9 +218,9 @@ public class DeckManagment : MonoBehaviour
         SceneManager.LoadScene("SelectedDeck");
     }
 
-    public void DeckScene()
+    public void PlayScene()
     {
-        SceneManager.LoadScene("SelectedDeck");
+        SceneManager.LoadScene("Board");
     }
 
     public void Volver()
