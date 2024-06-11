@@ -197,3 +197,46 @@ select
 FROM vista_cartas_habilidades_por_deck
 WHERE id_deck = 1;
 
+-- Crear vista para contar cuántas veces aparece cada carta en los decks
+CREATE VIEW vista_conteo_cartas AS
+SELECT 
+    id_carta, 
+    COUNT(*) AS cantidad_apariciones
+FROM (
+    SELECT id_carta1 AS id_carta FROM deck
+    UNION ALL
+    SELECT id_carta2 AS id_carta FROM deck
+    UNION ALL
+    SELECT id_carta3 AS id_carta FROM deck
+    UNION ALL
+    SELECT id_carta4 AS id_carta FROM deck
+    UNION ALL
+    SELECT id_carta5 AS id_carta FROM deck
+    UNION ALL
+    SELECT id_carta6 AS id_carta FROM deck
+    UNION ALL
+    SELECT id_carta7 AS id_carta FROM deck
+    UNION ALL
+    SELECT id_carta8 AS id_carta FROM deck
+    UNION ALL
+    SELECT id_carta9 AS id_carta FROM deck
+    UNION ALL
+    SELECT id_carta10 AS id_carta FROM deck
+) AS cartas_union
+GROUP BY id_carta;
+
+-- Crear vista para obtener el top 5 de cartas que más aparecen en los decks
+CREATE VIEW vista_top_5_cartas AS
+SELECT 
+    c.id_carta, 
+    c.nombre, 
+    vc.cantidad_apariciones
+FROM 
+    carta c
+JOIN 
+    vista_conteo_cartas vc ON c.id_carta = vc.id_carta
+ORDER BY 
+    vc.cantidad_apariciones DESC
+LIMIT 5;
+
+select * from vista_top_5_cartas;

@@ -22,7 +22,6 @@ INSERT INTO habilidad (descripcion) VALUES
 ('Hace un rugido el cual aumenta el ataque de un dinosaurio'),
 ('Disminuye el coste de una carta');
 
-
 -- Insertar datos de habilidades
 INSERT INTO habilidadData (id_habilidad, venenodmg, quemadodmg, sangradodmg, mordidadmg, colatazodmg, boostvida, boostataquedmg, boostcosto, duracion) VALUES
 (1, 0, 0, 0, 0, 0, 0, 0, 0, 0), -- Nada
@@ -44,8 +43,6 @@ INSERT INTO habilidadData (id_habilidad, venenodmg, quemadodmg, sangradodmg, mor
 (17, 0, 0, 0, 0, 0, 1, 0, 0, 1), -- Aumenta la vida de una carta
 (18, 0, 0, 0, 0, 0, 0, 1, 0, 1), -- Aumenta el ataque de un dinosaurio
 (19, 0, 0, 0, 0, 0, 0, 0, 1, 1); -- Disminuye el coste de una carta
-
-
 
 -- Insertar cartas con los datos proporcionados
 INSERT INTO carta (Nombre, Puntos_de_Vida, Puntos_de_ataque, Coste_en_elixir, Habilidad) VALUES
@@ -80,9 +77,7 @@ INSERT INTO carta (Nombre, Puntos_de_Vida, Puntos_de_ataque, Coste_en_elixir, Ha
 ('Archaeopteryx', 2, 1, 3, 1),
 ('Wyvern', 10, 12, 9, 9);
 
-
-
--- Insertar jugdores dummy y el enemigo
+-- Insertar jugadores dummy y el enemigo
 INSERT INTO jugador (nombre, contrasena, partidas_ganadas, partidas_perdidas) VALUES 
 ("Mesc", "1234", 2, 3),
 ("Jose", "1234", 2, 1),
@@ -92,15 +87,20 @@ INSERT INTO jugador (nombre, contrasena, partidas_ganadas, partidas_perdidas) VA
 ("WePlay", "1234", 100, 0),
 ("Oscar", "1234", 1, 1),
 ("Mitsu", "Mitsu",1, 6);
--- Insertar decks de los jugaodres y de los que puede usar el enemigo
+
+-- Insertar decks de los jugadores y de los que puede usar el enemigo
 INSERT INTO deck (id_jugador, nombre_deck, descripcion_deck, id_carta1, id_carta2, id_carta3, id_carta4, id_carta5, id_carta6, id_carta7, id_carta8, id_carta9, id_carta10) VALUES
-(1,"Deck Chispa", "Para jugar de chill", 1, 19, 14, 4, 5, 16, 7, 8, 9, 10),
+(1, "Deck Chispa", "Para jugar de chill", 1, 19, 14, 4, 5, 16, 7, 8, 9, 10),
 (2, "Deck Uno", "Para jugar mucho", 1, 19, 4, 14, 8, 10, 12, 14, 16, 18),
-(3,"Deck Dos", "Para jugar rapido", 2, 19, 4, 14, 8, 10, 15, 18, 16, 21),
-(4,"Deck Enemigo 1", "Primer deck del enemigo", 10, 11, 12, 13, 14, 15, 16, 17, 18, 19),
+(3, "Deck Dos", "Para jugar rapido", 2, 19, 4, 14, 8, 10, 15, 18, 16, 21),
+(4, "Deck Enemigo 1", "Primer deck del enemigo", 10, 11, 12, 13, 14, 15, 16, 17, 18, 19),
 (4, "Deck Enemigo 2", "Segundo deck del enemigo", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
 (4, "Deck Enemigo 3", "Tercer deck del enemigo", 11, 12, 13, 14, 15, 16, 17, 18, 19, 20),
 (4, "Deck Enemigo 4", "Cuarto deck del enemigo", 21, 22, 23, 24, 25, 26, 27, 28, 1, 2),
-(4, "Deck Enemigo 5", "Quinto deck del enemigo", 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+(4, "Deck Enemigo 5", "Quinto deck del enemigo", 3, 4, 5, 6, 7, 8, 9, 10, 11, 12),
+(5, "Mi primer deck", "Fua", 5, 2, 6, 17, 28, 26, 30, 4, 12, 10),
+(6, "Profe no nos repruebe", "Porfis", 8, 1, 4, 9, 3, 14, 18, 6, 11, 20),
+(7, "Wiiii", "Wiiiiii", 2, 7, 12, 13, 15, 19, 21, 23, 25, 27),
+(8, "El deck", "El deck", 30, 30, 30, 30, 30, 30, 30, 30, 30, 30);
 
 select * from jugador;
