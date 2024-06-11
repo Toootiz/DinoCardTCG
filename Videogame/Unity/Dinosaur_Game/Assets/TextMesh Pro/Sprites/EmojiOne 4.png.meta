@@ -1,5 +1,17 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+<<<<<<<< HEAD:Videogame/Unity/Dinosaur_Game/Assets/TextMesh Pro/Sprites/EmojiOne 4.png.meta
 guid: a40065d72609c41478beabfbfed61a74
+========
+guid: 12a43917fec31484f80eac5a3edefc5e
+>>>>>>>> main:Videogame/Unity/Dinosaur_Game/Assets/Sprites/Elements/hojas_cayendo 4.png.meta
+=======
+<<<<<<<< HEAD:Videogame/Unity/Dinosaur_Game/Assets/Img/Ambar.png.meta
+guid: 6f946569e4e4fae46b1b51cb9af8596e
+========
+guid: c4929a0252e8c493ab041110793b8fdb
+>>>>>>>> main:Videogame/Unity/Dinosaur_Game/Assets/TextMesh Pro/Sprites/EmojiOne 4.png.meta
+>>>>>>> main
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

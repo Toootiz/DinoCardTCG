@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Videogame/Unity/Dinosaur_Game/Assets/Img/Ambar.png.meta
 guid: 6f946569e4e4fae46b1b51cb9af8596e
+========
+guid: c4929a0252e8c493ab041110793b8fdb
+>>>>>>>> main:Videogame/Unity/Dinosaur_Game/Assets/TextMesh Pro/Sprites/EmojiOne 4.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
