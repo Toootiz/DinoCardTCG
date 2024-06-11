@@ -49,7 +49,7 @@ app.post("/api/guardardecks", async (req, res) => {
     try {
         connection = await connectToDB();
         const [results, fields] = await connection.execute(`
-            SELECT d.nombre_deck, d.descripcion_deck, c.id_carta, c.nombre AS Nombre, c.puntos_de_vida AS Puntos_de_Vida, 
+            SELECT d.id_deck, d.nombre_deck, d.descripcion_deck, c.id_carta, c.nombre AS Nombre, c.puntos_de_vida AS Puntos_de_Vida, 
                    c.puntos_de_ataque AS Puntos_de_ataque, c.coste_en_elixir AS Coste_en_elixir, h.descripcion AS HabilidadDescripcion
             FROM deck d
             JOIN carta c ON (c.id_carta = d.id_carta1 OR c.id_carta = d.id_carta2 OR c.id_carta = d.id_carta3 OR 
@@ -65,6 +65,7 @@ app.post("/api/guardardecks", async (req, res) => {
         results.forEach(row => {
             if (!decks[row.nombre_deck]) {
                 decks[row.nombre_deck] = {
+                    id_deck: row.id_deck,
                     nombre_deck: row.nombre_deck,
                     descripcion_deck: row.descripcion_deck,
                     cards: []
@@ -90,19 +91,16 @@ app.post("/api/guardardecks", async (req, res) => {
     }
 });
 
-
-
-
-// Fetch all cards from deck 2
-app.get("/api/deck2", async (req, res) => {
+app.get("/api/deckjugador/:id_deck", async (req, res) => {
     let connection = null;
     try {
         connection = await connectToDB();
-        const [results, fields] = await connection.execute("SELECT * FROM vista_decks_cartas WHERE id_jugador = ?", [req.params.id_jugador]);
-        const decks = { "decks": results };
-        res.status(200).json(decks);
+        const [results, fields] = await connection.execute("select id_carta, Nombre, Puntos_de_Vida, Puntos_de_ataque, Coste_en_elixir, id_habilidad, descripcion, venenodmg, quemadodmg, sangradodmg, mordidadmg, colatazodmg, boostvida, boostataquedmg, boostcosto, duracion FROM vista_cartas_habilidades_por_deck WHERE id_deck = 1;", [req.params.id_deck]);
+        const c = { "cards": results };
+        res.status(200).json(c);
     } catch (error) {
-        res.status(500).json(error);
+        console.error("Error fetching deck details:", error);
+        res.status(500).json({ error: error.message });
     } finally {
         if (connection) {
             connection.end();
@@ -211,6 +209,29 @@ app.post('/register', async (req, res) => {
     }
 });
 
+// app.post('/login', async (req, res) => {
+//     let connection = null;
+//     try {
+//         connection = await connectToDB();
+//         const { nombre, contrasena } = req.body;
+//         console.log(req.body);
+//         const [results] = await connection.execute('SELECT * FROM jugador WHERE nombre = ? AND contrasena = ?', [nombre, contrasena]);
+
+//         if (results.length > 0) {
+//             res.send('Usuario autenticado');
+//         } else {
+//             res.send('Usuario no autenticado');
+//         }
+//     } catch (error) {
+//         console.error("Error logging in user:", error);
+//         res.status(500).json(error);
+//     } finally {
+//         if (connection) {
+//             connection.end();
+//         }
+//     }
+// });
+
 app.post('/login', async (req, res) => {
     let connection = null;
     try {
@@ -220,7 +241,8 @@ app.post('/login', async (req, res) => {
         const [results] = await connection.execute('SELECT * FROM jugador WHERE nombre = ? AND contrasena = ?', [nombre, contrasena]);
 
         if (results.length > 0) {
-            res.send('Usuario autenticado');
+            const userId = results[0].id_jugador;
+            res.send(`Usuario autenticado:${userId}`);
         } else {
             res.send('Usuario no autenticado');
         }
@@ -233,6 +255,7 @@ app.post('/login', async (req, res) => {
         }
     }
 });
+
 
 app.get("/api/players", async (req, res) => {
     let connection = null;

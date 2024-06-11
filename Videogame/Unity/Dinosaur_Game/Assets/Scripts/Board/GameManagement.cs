@@ -29,11 +29,11 @@ public class GameManagement : MonoBehaviour
     public int JugadorContadorTurno; // Contador de turnos del jugador.
     public int EnemigoContadorTurno; // Contador de turnos del enemigo.
 
-
     public int ambar; // Energía de ambar del jugador.
     public int ambarEnemy; // Energía de ambar del enemigo.
     public string apiResultDedck1; // Resultado de la API para las cartas.
-    [SerializeField] string url; // URL para la API de cartas del jugador.
+    public string apiResultDedck2; // Resultado de la API para las cartas.
+    [SerializeField] string url; // URL base para la API.
     [SerializeField] string getEndpoint; // Endpoint para obtener las cartas del jugador.
     [SerializeField] string urlEnemigo; // URL para la API de cartas del enemigo.
     [SerializeField] string getEndpointEnemgo; // Endpoint para obtener las cartas del enemigo.
@@ -60,15 +60,27 @@ public class GameManagement : MonoBehaviour
         zonaDeJuego = GameObject.FindGameObjectWithTag("Juego");
         ab = GameObject.FindGameObjectWithTag("JuegoEnemigo");
         bancaenemigo = GameObject.FindGameObjectWithTag("BancaEnemigo");
-        GetData(url, getEndpoint);
-        GetDataEnemigo(urlEnemigo, getEndpointEnemgo);
+
+        // Obtén el ID del deck seleccionado desde PlayerPrefs
+        int selectedDeckId = PlayerPrefs.GetInt("SelectedDeckId", 0);
+        Debug.Log(selectedDeckId);
+
+        int selectedDeckIdEnemigo = Random.Range(4, 9);
+        Debug.Log(selectedDeckIdEnemigo);
+
+        // Construye la URL completa utilizando el ID del deck seleccionado
+        string deckUrl = $"{url}/api/deckjugador/{selectedDeckId}";
+        string deckUrlEnemigo = $"{url}/api/deckjugador/{selectedDeckIdEnemigo}";
+        GetData(deckUrl);
+        GetDataEnemigo(deckUrlEnemigo);
+
         baseEnemiga = GameObject.FindGameObjectWithTag("BaseEnemiga").GetComponent<BaseEnemiga>();
         basePropia = GameObject.FindGameObjectWithTag("ab").GetComponent<BasePropia>();
     }
 
-    public void GetData(string url, string getEndpoint)
+    public void GetData(string fullUrl)
     {
-        StartCoroutine(RequestGet(url + getEndpoint));
+        StartCoroutine(RequestGet(fullUrl));
     }
 
     IEnumerator RequestGet(string url)
@@ -92,10 +104,11 @@ public class GameManagement : MonoBehaviour
         }
     }
 
-    public void GetDataEnemigo(string urlEnemigo, string getEndpointEnemgo)
-    {
-        StartCoroutine(RequestGetEnemigo(url + getEndpoint));
-    }
+        public void GetDataEnemigo(string fullUrlEnemigo)
+        {
+            StartCoroutine(RequestGetEnemigo(fullUrlEnemigo));
+        }
+
 
     IEnumerator RequestGetEnemigo(string url)
     {
@@ -109,9 +122,9 @@ public class GameManagement : MonoBehaviour
             }
             else
             {
-                apiResultDedck1 = www.downloadHandler.text;
-                Debug.Log("The response was: " + apiResultDedck1);
-                cards.Data = apiResultDedck1;
+                apiResultDedck2 = www.downloadHandler.text;
+                Debug.Log("The response was: " + apiResultDedck2);
+                cards.Data = apiResultDedck2;
                 cards.MakeList();
                 GenerateRandomHandEnemigo(5);
             }
@@ -335,156 +348,152 @@ public class GameManagement : MonoBehaviour
         StartCoroutine(EnmyTourn());
     }
 
-    
     IEnumerator EnmyTourn()
-{
-    countTourn();
-    EnemigoContadorTurno += 1;
-
-    bool enemyWillAttack = UnityEngine.Random.Range(0, 2) == 0;
-
-    if (ambarEnemy < 6)
     {
-        Debug.Log("El enemigo no tiene suficiente ámbar para jugar cartas.");
-    }
-    else
-    {
-        int cardsToPlay = UnityEngine.Random.Range(1, 5);
-        int cardsPlayed = 0;
-        List<GameObject> playedCards = new List<GameObject>();
+        countTourn();
+        EnemigoContadorTurno += 1;
 
-        bool playerHasHighAttackCards = false;
-        foreach (Transform child in zonaDeJuego.transform)
+        bool enemyWillAttack = UnityEngine.Random.Range(0, 2) == 0;
+
+        if (ambarEnemy < 6)
         {
-            CardScript card = child.GetComponent<CardScript>();
-            if (card.CardAttack > 5)
-            {
-                playerHasHighAttackCards = true;
-                break;
-            }
+            Debug.Log("El enemigo no tiene suficiente ámbar para jugar cartas.");
         }
-
-        JuegoEnemigoPanelScript enemyPanel = GameObject.FindGameObjectWithTag("JuegoEnemigo").GetComponent<JuegoEnemigoPanelScript>();
-
-        foreach (Transform child in bancaenemigo.transform)
+        else
         {
-            if (cardsPlayed >= cardsToPlay || enemyPanel.cards.Count >= enemyPanel.maxCards) break;
+            int cardsToPlay = UnityEngine.Random.Range(1, 5);
+            int cardsPlayed = 0;
+            List<GameObject> playedCards = new List<GameObject>();
 
-            CardScript card = child.GetComponent<CardScript>();
-
-            if (playerHasHighAttackCards && card.CardLife > 5)
+            bool playerHasHighAttackCards = false;
+            foreach (Transform child in zonaDeJuego.transform)
             {
-                if (SpendEnemyEnergy(card.CardCost))
+                CardScript card = child.GetComponent<CardScript>();
+                if (card.CardAttack > 5)
+                {
+                    playerHasHighAttackCards = true;
+                    break;
+                }
+            }
+
+            JuegoEnemigoPanelScript enemyPanel = GameObject.FindGameObjectWithTag("JuegoEnemigo").GetComponent<JuegoEnemigoPanelScript>();
+
+            foreach (Transform child in bancaenemigo.transform)
+            {
+                if (cardsPlayed >= cardsToPlay || enemyPanel.cards.Count >= enemyPanel.maxCards) break;
+
+                CardScript card = child.GetComponent<CardScript>();
+
+                if (playerHasHighAttackCards && card.CardLife > 5)
+                {
+                    if (SpendEnemyEnergy(card.CardCost))
+                    {
+                        cardsPlayed++;
+                        Debug.Log($"Enemigo juega {card.CardName} con alta vida.");
+                        playedCards.Add(child.gameObject);
+                        if (enemyPanel != null)
+                        {
+                            enemyPanel.AddEnemyCard(child.gameObject);
+                        }
+                    }
+                }
+                else if (!playerHasHighAttackCards && SpendEnemyEnergy(card.CardCost))
                 {
                     cardsPlayed++;
-                    Debug.Log($"Enemigo juega {card.CardName} con alta vida.");
+                    Debug.Log($"Enemigo juega {card.CardName}.");
                     playedCards.Add(child.gameObject);
-                    // Agregar la carta al panel de juego enemigo.
                     if (enemyPanel != null)
                     {
                         enemyPanel.AddEnemyCard(child.gameObject);
                     }
                 }
             }
-            else if (!playerHasHighAttackCards && SpendEnemyEnergy(card.CardCost))
+
+            foreach (GameObject card in playedCards)
             {
-                cardsPlayed++;
-                Debug.Log($"Enemigo juega {card.CardName}.");
-                playedCards.Add(child.gameObject);
-                // Agregar la carta al panel de juego enemigo.
-                if (enemyPanel != null)
-                {
-                    enemyPanel.AddEnemyCard(child.gameObject);
-                }
+                card.transform.SetParent(ab.transform, false);
             }
         }
 
-        foreach (GameObject card in playedCards)
+        if (enemyWillAttack)
         {
-            card.transform.SetParent(ab.transform, false);
-        }
-    }
+            int attackCount = UnityEngine.Random.Range(1, 4);
+            int attacksPerformed = 0;
 
-    if (enemyWillAttack)
-    {
-        int attackCount = UnityEngine.Random.Range(1, 4);
-        int attacksPerformed = 0;
-
-        foreach (Transform enemyCardTransform in ab.transform)
-        {
-            if (attacksPerformed >= attackCount) break;
-
-            CardScript enemyCard = enemyCardTransform.GetComponent<CardScript>();
-            foreach (Transform playerCardTransform in zonaDeJuego.transform)
+            foreach (Transform enemyCardTransform in ab.transform)
             {
-                CardScript playerCard = playerCardTransform.GetComponent<CardScript>();
-                if (SpendEnemyEnergy(enemyCard.CardCost))
-                {
-                    playerCard.TakeDamage(enemyCard.CardAttack);
-                    Debug.Log($"Enemigo ataca {playerCard.CardName} con {enemyCard.CardName}.");
-                    
-                    // Verificar si la carta fue destruida y eliminarla de la lista del panel del jugador
-                    if (playerCard.CardLife <= 0)
-                    {
-                        JuegoPanelScript playerPanel = GameObject.FindGameObjectWithTag("Juego").GetComponent<JuegoPanelScript>();
-                        if (playerPanel != null)
-                        {
-                            playerPanel.cards.Remove(playerCard.gameObject);
-                        }
-                        Destroy(playerCard.gameObject);
-                        Debug.Log($"{playerCard.CardName} ha sido destruida.");
-                    }
-                    
-                    attacksPerformed++;
-                    break;
-                }
-            }
-        }
+                if (attacksPerformed >= attackCount) break;
 
-        if (EnemigoContadorTurno > 5 && zonaDeJuego.transform.childCount == 0)
-        {
-            if (basePropia != null)
-            {
-                foreach (Transform enemyCardTransform in ab.transform)
+                CardScript enemyCard = enemyCardTransform.GetComponent<CardScript>();
+                foreach (Transform playerCardTransform in zonaDeJuego.transform)
                 {
-                    if (attacksPerformed >= attackCount) break;
-
-                    CardScript enemyCard = enemyCardTransform.GetComponent<CardScript>();
+                    CardScript playerCard = playerCardTransform.GetComponent<CardScript>();
                     if (SpendEnemyEnergy(enemyCard.CardCost))
                     {
-                        basePropia.TakeDamage(enemyCard.CardAttack);
-                        Debug.Log($"Enemigo ataca la base del jugador con {enemyCard.CardName}.");
+                        playerCard.TakeDamage(enemyCard.CardAttack);
+                        Debug.Log($"Enemigo ataca {playerCard.CardName} con {enemyCard.CardName}.");
+
+                        if (playerCard.CardLife <= 0)
+                        {
+                            JuegoPanelScript playerPanel = GameObject.FindGameObjectWithTag("Juego").GetComponent<JuegoPanelScript>();
+                            if (playerPanel != null)
+                            {
+                                playerPanel.RemoveCard(playerCard.gameObject);
+                            }
+                            Destroy(playerCard.gameObject);
+                            Debug.Log($"{playerCard.CardName} ha sido destruida.");
+                        }
+
                         attacksPerformed++;
                         break;
                     }
                 }
             }
-            else
+
+            if (EnemigoContadorTurno > 5 && zonaDeJuego.transform.childCount == 0)
             {
-                Debug.LogError("No se encontró el objeto BasePropia. Asegúrate de que el objeto tiene el tag 'BasePropia'.");
+                if (basePropia != null)
+                {
+                    foreach (Transform enemyCardTransform in ab.transform)
+                    {
+                        if (attacksPerformed >= attackCount) break;
+
+                        CardScript enemyCard = enemyCardTransform.GetComponent<CardScript>();
+                        if (SpendEnemyEnergy(enemyCard.CardCost))
+                        {
+                            basePropia.TakeDamage(enemyCard.CardAttack);
+                            Debug.Log($"Enemigo ataca la base del jugador con {enemyCard.CardName}.");
+                            attacksPerformed++;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.LogError("No se encontró el objeto BasePropia. Asegúrate de que el objeto tiene el tag 'BasePropia'.");
+                }
             }
         }
-    }
-    else
-    {
-        Debug.Log("El enemigo decide no atacar este turno.");
-    }
+        else
+        {
+            Debug.Log("El enemigo decide no atacar este turno.");
+        }
 
-    int enemyCardCount = bancaenemigo.transform.childCount;
-    if (enemyCardCount < 5)
-    {
-        int cardsToGenerate = 5 - enemyCardCount;
-        GenerateRandomHandEnemigo(cardsToGenerate);
+        int enemyCardCount = bancaenemigo.transform.childCount;
+        if (enemyCardCount < 5)
+        {
+            int cardsToGenerate = 5 - enemyCardCount;
+            GenerateRandomHandEnemigo(cardsToGenerate);
+        }
+
+        yield return new WaitForSeconds(1.5f);
+
+        AmbarEnemyTurn();
+        currentTurn = turn.Player;
+        TurnoActualText.text = "Turno Actual: Jugador"; // Indica que el turno es del jugador.
+        EnablePlayerInteractions();
+        startPlayerTurn();
     }
-
-    yield return new WaitForSeconds(1.5f);
-
-    AmbarEnemyTurn();
-    currentTurn = turn.Player;
-    TurnoActualText.text = "Turno Actual: Jugador"; // Indica que el turno es del jugador.
-    EnablePlayerInteractions();
-    startPlayerTurn();
-}
 
     public void startPlayerTurn()
     {

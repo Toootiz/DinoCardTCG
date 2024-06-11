@@ -7,31 +7,53 @@ using UnityEngine.SceneManagement;
 
 public class LoginManager : MonoBehaviour
 {
-    public TMP_InputField usernameInputField;
-    public TMP_InputField passwordInputField;
+    public TMP_InputField usernameInputFieldReg;
+    public TMP_InputField passwordInputFieldReg;
+    public TMP_InputField usernameInputFieldLog;
+    public TMP_InputField passwordInputFieldLog;
     public Button registerButton;
     public Button loginButton;
 
-    void Start()
+   void Start()
+{
+    if (registerButton != null)
     {
         registerButton.onClick.AddListener(Register);
+    }
+    else
+    {
+        Debug.LogError("registerButton no está asignado en el inspector.");
+    }
+
+    if (loginButton != null)
+    {
         loginButton.onClick.AddListener(Login);
     }
-
+    else
+    {
+        Debug.LogError("loginButton no está asignado en el inspector.");
+    }
+}
 
     void Register()
+{
+    if (usernameInputFieldReg == null || passwordInputFieldReg == null)
     {
-        string nombre = usernameInputField.text;
-        string contrasena = passwordInputField.text;
-
-        StartCoroutine(RegisterUser(nombre, contrasena));
+        Debug.LogError("Uno de los campos de registro es null.");
+        return;
     }
+
+    string nombre = usernameInputFieldReg.text;
+    string contrasena = passwordInputFieldReg.text;
+
+    StartCoroutine(RegisterUser(nombre, contrasena));
+}
 
 
     void Login()
     {
-        string nombre = usernameInputField.text;
-        string contrasena = passwordInputField.text;
+        string nombre = usernameInputFieldLog.text;
+        string contrasena = passwordInputFieldLog.text;
 
         StartCoroutine(LoginUser(nombre, contrasena));
     }
@@ -73,9 +95,15 @@ public class LoginManager : MonoBehaviour
             }
             else
             {
-                if (www.downloadHandler.text == "Usuario autenticado")
+                if (www.downloadHandler.text.Contains("Usuario autenticado"))
                 {
+                    // Extract user ID from response
+                    string userId = www.downloadHandler.text.Split(':')[1];
+                    PlayerPrefs.SetString("userId", userId);
+                    PlayerPrefs.SetString("nombre", nombre);
+
                     Debug.Log("Usuario autenticado");
+                    
                     SceneManager.LoadScene("MenuInicial");
                 }
                 else

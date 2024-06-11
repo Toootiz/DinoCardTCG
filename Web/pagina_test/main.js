@@ -33,7 +33,7 @@ function random_color(alpha = 1.0) {
     const decksData = await fetchData("/api/decks");
     const matchesData = await fetchData("/api/matches");
   
-    console.log(cardsData, playersData, decksData, matchesData); // Verificar datos
+    // console.log(cardsData, playersData, decksData, matchesData); // Verificar datos
   
     if (cardsData && playersData && decksData && matchesData) {
       // Cartas y Habilidades
@@ -74,9 +74,11 @@ function random_color(alpha = 1.0) {
       );
   
       // Estadísticas de Jugadores
-      const playerLabels = playersData.players.map((player) => player.nombre);
+      const playerLabels = playersData.players.map((player) => player.nombre_jugador);
       const wins = playersData.players.map((player) => player.partidas_ganadas);
       const losses = playersData.players.map((player) => player.partidas_perdidas);
+      console.log('fijrjgri',playersData);
+      console.log('asdasdasdasdads',playerLabels, wins, losses);
   
       const ctxPlayers = document.getElementById("playersChart").getContext("2d");
       createChart(
@@ -113,6 +115,7 @@ function random_color(alpha = 1.0) {
       // Decks y Cartas
       const deckLabels = decksData.decks.map((deck) => deck.nombre_deck);
       const cardCounts = decksData.decks.map((deck) => deck.cantidad_cartas);
+      
   
       const ctxDecks = document.getElementById("decksChart").getContext("2d");
       createChart(
