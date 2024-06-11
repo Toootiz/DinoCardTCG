@@ -56,7 +56,7 @@ public class BaseEnemiga : MonoBehaviour, IPointerClickHandler
             }
             
             // Verifica si el contador de turnos del jugador es menor a 5
-            if (gameManagement.JugadorContadorTurno < 5)
+            if (gameManagement.JugadorContadorTurno < 2)
             {
                 Debug.Log("No puedes atacar antes del turno 5.");
                 return;

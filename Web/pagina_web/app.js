@@ -80,6 +80,7 @@ app.get("/", (req, res) => {
     res.status(200).send(file);
 });
 // Fetch all cards
+// Fetch all cards
 app.get("/api/cards", async (req, res) => {
     let connection = null;
     try {
@@ -344,8 +345,4 @@ app.get("/api/matches", async (req, res) => {
             connection.end();
         }
     }
-});
-
-app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}/`);
 });
