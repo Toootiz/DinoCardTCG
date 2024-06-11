@@ -623,10 +623,10 @@ GameObject:
   - component: {fileID: 1558960284017629883}
   - component: {fileID: 9011613347400429062}
   - component: {fileID: 5364687091451865018}
-  - component: {fileID: 1493817046952295138}
   - component: {fileID: 4424633190614830142}
+  - component: {fileID: 4420625263274445486}
   m_Layer: 5
-  m_Name: Card 1
+  m_Name: Card 2
   m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -752,34 +752,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1493817046952295138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5450965773582922932}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b73312b0faad3af4b90172f7c4cf693b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CardId: 0
-  CardLife: 0
-  CardAttack: 0
-  CardCost: 0
-  CardHabilidad: 0
-  Cardvenenodmg: 0
-  Cardquemadodmg: 0
-  Cardsangradodmg: 0
-  Cardmordidadmg: 0
-  Cardcolatazodmg: 0
-  Cardboostvida: 0
-  Cardboostataquedmg: 0
-  Cardboostcosto: 0
-  Cardduracion: 0
-  CardName: 
-  CardArt: {fileID: 0}
 --- !u!225 &4424633190614830142
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -792,6 +764,30 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &4420625263274445486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5450965773582922932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953e7103260314b43bded9144efa0258, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardId: 0
+  CardLife: 0
+  CardAttack: 0
+  CardCost: 0
+  CardHabilidad: 0
+  CardName: 
+  CardArt: {fileID: 0}
+  cardNameText: {fileID: 0}
+  cardLifeText: {fileID: 0}
+  cardAttackText: {fileID: 0}
+  cardCostText: {fileID: 0}
+  cardHabilidadText: {fileID: 0}
 --- !u!1 &8301776485559587946
 GameObject:
   m_ObjectHideFlags: 0
