@@ -68,59 +68,65 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         }
     }
 
-public void OnEndDrag(PointerEventData eventData)
-{
-    canvasGroup.alpha = 1.0f;
-    canvasGroup.blocksRaycasts = true;
-
-    if (canDrag)
+    public void OnEndDrag(PointerEventData eventData)
     {
-        Transform newParent = eventData.pointerEnter != null ? eventData.pointerEnter.transform : originalParent;
-        JuegoPanelScript panelScript = newParent.GetComponent<JuegoPanelScript>();
+        canvasGroup.alpha = 1.0f;
+        canvasGroup.blocksRaycasts = true;
 
-        // Verificar si el panel tiene espacio antes de mover la carta
-        if (panelScript != null && panelScript.cards.Count > panelScript.maxCards)
+        if (canDrag)
         {
-            Debug.Log("El panel ya tiene el máximo de cartas permitidas.");
-            rectTransform.anchoredPosition = initialPosition;
-            transform.SetParent(originalParent);
-            return;
-        }
+            Transform newParent = eventData.pointerEnter != null ? eventData.pointerEnter.transform : originalParent;
+            JuegoPanelScript panelScript = newParent.GetComponent<JuegoPanelScript>();
 
-        if (!isEnemyCard && newParent.CompareTag("JuegoEnemigo"))
-        {
-            Debug.Log("No puedes colocar cartas del jugador en el panel de juego enemigo.");
-            rectTransform.anchoredPosition = initialPosition;
-            transform.SetParent(originalParent);
-            return;
-        }
-
-        if ((isEnemyCard && newParent.CompareTag("JuegoEnemigo")) || (!isEnemyCard && newParent.CompareTag("Juego")))
-        {
-            if (gameManagement.SpendEnergy(CardCost))
+            // Verificar si el panel tiene espacio antes de mover la carta
+            if (panelScript != null && panelScript.cards.Count > panelScript.maxCards)
             {
-                isPlayed = true;
-                if (originalParent != newParent)
+                Debug.Log("El panel ya tiene el máximo de cartas permitidas.");
+                rectTransform.anchoredPosition = initialPosition;
+                transform.SetParent(originalParent);
+                return;
+            }
+
+            if (!isEnemyCard && newParent.CompareTag("JuegoEnemigo"))
+            {
+                Debug.Log("No puedes colocar cartas del jugador en el panel de juego enemigo.");
+                rectTransform.anchoredPosition = initialPosition;
+                transform.SetParent(originalParent);
+                return;
+            }
+
+            if ((isEnemyCard && newParent.CompareTag("JuegoEnemigo")) || (!isEnemyCard && newParent.CompareTag("Juego")))
+            {
+                if (gameManagement.SpendEnergy(CardCost))
                 {
-                    JuegoPanelScript oldPanelScript = originalParent.GetComponent<JuegoPanelScript>();
-                    if (oldPanelScript != null)
+                    isPlayed = true;
+                    if (originalParent != newParent)
                     {
-                        oldPanelScript.RemoveCard(gameObject);
+                        JuegoPanelScript oldPanelScript = originalParent.GetComponent<JuegoPanelScript>();
+                        if (oldPanelScript != null)
+                        {
+                            oldPanelScript.RemoveCard(gameObject);
+                        }
                     }
+
+                    // Mover la carta al nuevo panel
+                    transform.SetParent(newParent, false);
+                    initialPosition = rectTransform.anchoredPosition;
+                    originalParent = newParent;
+
+                    // Luego agregarla a la lista del nuevo panel si tiene JuegoPanelScript
+                    if (panelScript != null && !panelScript.cards.Contains(gameObject))
+                    {
+                        panelScript.cards.Add(gameObject);
+                    }
+
+                    Debug.Log("La carta se movió correctamente.");
                 }
-
-                // Mover la carta al nuevo panel
-                transform.SetParent(newParent, false);
-                initialPosition = rectTransform.anchoredPosition;
-                originalParent = newParent;
-
-                // Luego agregarla a la lista del nuevo panel si tiene JuegoPanelScript
-                if (panelScript != null && !panelScript.cards.Contains(gameObject))
+                else
                 {
-                    panelScript.cards.Add(gameObject);
+                    rectTransform.anchoredPosition = initialPosition;
+                    transform.SetParent(originalParent);
                 }
-
-                Debug.Log("La carta se movió correctamente.");
             }
             else
             {
@@ -128,16 +134,7 @@ public void OnEndDrag(PointerEventData eventData)
                 transform.SetParent(originalParent);
             }
         }
-        else
-        {
-            rectTransform.anchoredPosition = initialPosition;
-            transform.SetParent(originalParent);
-        }
     }
-}
-
-
-
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -235,6 +232,32 @@ public void OnEndDrag(PointerEventData eventData)
     public void OnClic()
     {
         // Este método está vacío, puede ser eliminado o utilizado para otra función.
+    }
+
+    // Método para usar habilidades de la carta
+    public void UseHabilidad()
+    {
+        if (gameManagement.SpendEnergy(CardHabilidad))
+        {
+            // Implementar la lógica de la habilidad aquí
+            Debug.Log($"{CardName} ha usado su habilidad.");
+            // Ejemplo de implementación de habilidades
+            if (Cardvenenodmg > 0)
+            {
+                // Aplicar veneno a la carta objetivo
+                // target.TakeDamage(Cardvenenodmg);
+            }
+            if (Cardquemadodmg > 0)
+            {
+                // Aplicar quemadura a la carta objetivo
+                // target.TakeDamage(Cardquemadodmg);
+            }
+            // Y así sucesivamente para otras habilidades
+        }
+        else
+        {
+            Debug.Log("No hay suficiente ámbar para usar la habilidad.");
+        }
     }
 
     void Update()

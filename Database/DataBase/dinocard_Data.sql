@@ -75,4 +75,4 @@ INSERT INTO deck (id_jugador, nombre_deck, descripcion_deck, id_carta1, id_carta
 (4, "Deck Enemigo 5", "Quinto deck del enemigo", 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
 
 
-select * from deck;
+select * from carta left join habilidad;

@@ -109,6 +109,7 @@ FROM
     carta c
     LEFT JOIN habilidad h ON c.habilidad = h.id_habilidad;
 
+select * from vista_detalles_cartas; 
 -- VISTA INFORMACION JUGADORES Y ESTADISTICAS
 CREATE VIEW vista_estadisticas_jugadores AS
 SELECT
@@ -198,6 +199,10 @@ FROM
                   d.id_carta10 = c.id_carta
     LEFT JOIN habilidad h ON c.habilidad = h.id_habilidad
     LEFT JOIN habilidadData hd ON h.id_habilidad = hd.id_habilidad;
+    
+    SELECT * FROM vista_cartas_habilidades_por_deck WHERE id_deck = 1;
+    
+    
     
 select
     id_carta,
