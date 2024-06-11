@@ -44,8 +44,7 @@ app.get("/api/cards", async (req, res) => {
 });
 
 
-// Fetch decks for a specific player
-app.get("/api/decks/:id_jugador", async (req, res) => {
+app.post("/api/guardardecks", async (req, res) => {
     let connection = null;
     try {
         connection = await connectToDB();
@@ -109,6 +108,23 @@ app.get("/api/deckjugador/:id_deck", async (req, res) => {
     }
 });
 
+
+// Fetch decks for a specific player
+app.get("/api/decksss/:id_jugador", async (req, res) => {
+    let connection = null;
+    try {
+        connection = await connectToDB();
+        const [results, fields] = await connection.execute("SELECT *     FROM vista_cartas_habilidades_deck WHERE id_jugador = ?", [req.params.id_jugador]);
+        const decks = { "decks": results };
+        res.status(200).json(decks);
+    } catch (error) {
+        res.status(500).json(error);
+    } finally {
+        if (connection) {
+            connection.end();
+        }
+    }
+});
 
 
 app.post("/api/guardardeck", async (req, res) => {
