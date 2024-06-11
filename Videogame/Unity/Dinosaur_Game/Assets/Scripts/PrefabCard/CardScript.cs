@@ -60,6 +60,7 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     {
         if (isEnemyCard)
         {
+            gameManagement.SituacionTexto.text = "No puedes mover cartas enemigas.";
             Debug.Log("No puedes mover cartas enemigas.");
             return;
         }
@@ -74,6 +75,7 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         else
         {
             canDrag = false;
+            gameManagement.SituacionTexto.text = "¡No tienes suficiente energía!";
             Debug.Log("¡No tienes suficiente energía!");
         }
     }
@@ -99,6 +101,7 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
             // Verificar si el panel tiene espacio antes de mover la carta
             if (panelScript != null && panelScript.cards.Count > panelScript.maxCards)
             {
+                gameManagement.SituacionTexto.text = "El panel ya tiene el máximo de cartas permitidas.";
                 Debug.Log("El panel ya tiene el máximo de cartas permitidas.");
                 rectTransform.anchoredPosition = initialPosition;
                 transform.SetParent(originalParent);
@@ -107,6 +110,7 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
 
             if (!isEnemyCard && newParent.CompareTag("JuegoEnemigo"))
             {
+                gameManagement.SituacionTexto.text = "No puedes colocar cartas del jugador en el panel de juego enemigo.";
                 Debug.Log("No puedes colocar cartas del jugador en el panel de juego enemigo.");
                 rectTransform.anchoredPosition = initialPosition;
                 transform.SetParent(originalParent);
@@ -158,6 +162,7 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     {
         if (isEnemyCard && selectedAttacker == null)
         {
+            gameManagement.SituacionTexto.text = "No puedes seleccionar cartas del enemigo sin tener un atacante.";
             Debug.Log("No puedes seleccionar cartas del enemigo sin tener un atacante.");
             return;
         }
@@ -188,6 +193,7 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
             }
             else
             {
+                gameManagement.SituacionTexto.text = "No tienes suficiente energía para usar el boost.";
                 Debug.Log("No tienes suficiente energía para usar el boost.");
             }
         }
@@ -201,6 +207,7 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         }
         selectedAttacker = this;
         canvasGroup.alpha = 0.6f;
+        gameManagement.SituacionTexto.text = $"Carta {CardName} seleccionada como atacante.";
         Debug.Log($"Carta {CardName} seleccionada como atacante.");
     }
 
@@ -210,6 +217,7 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         {
             selectedAttacker = null;
             canvasGroup.alpha = 1.0f;
+            gameManagement.SituacionTexto.text = $"Carta {CardName} ha sido deseleccionada.";
             Debug.Log($"Carta {CardName} ha sido deseleccionada.");
         }
     }
@@ -223,6 +231,7 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
                 int totalAttack = this.CardAttack + this.Cardmordidadmg + this.Cardcolatazodmg;
                 target.CardLife -= totalAttack;
                 target.UpdateLifeDisplay();
+                gameManagement.SituacionTexto.text = $"Atacando a {target.CardName} con {CardName}. Vida restante: {target.CardLife}";
                 Debug.Log($"Atacando a {target.CardName} con {CardName}. Vida restante: {target.CardLife}");
 
                 // Aplicar efectos
@@ -241,6 +250,7 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
 
                 if (target.CardLife <= 0)
                 {
+                    gameManagement.SituacionTexto.text = $"{target.CardName} ha sido destruida.";
                     Debug.Log($"{target.CardName} ha sido destruida.");
                     JuegoEnemigoPanelScript enemyPanel = GameObject.FindGameObjectWithTag("JuegoEnemigo").GetComponent<JuegoEnemigoPanelScript>();
                     if (enemyPanel != null && target.isEnemyCard)
@@ -254,11 +264,13 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
             }
             else
             {
+                gameManagement.SituacionTexto.text = "No hay suficiente ámbar para atacar.";
                 Debug.Log("No hay suficiente ámbar para atacar.");
             }
         }
         else
         {
+            gameManagement.SituacionTexto.text = "Objetivo no válido o ámbar insuficiente.";
             Debug.Log("Objetivo no válido o ámbar insuficiente.");
         }
     }
@@ -305,6 +317,7 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     {
         if (gameManagement.SpendEnergy(CardHabilidad))
         {
+            gameManagement.SituacionTexto.text = $"{CardName} ha usado su habilidad.";
             // Implementar la lógica de la habilidad aquí
             Debug.Log($"{CardName} ha usado su habilidad.");
             // Ejemplo de implementación de habilidades
@@ -322,6 +335,7 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         }
         else
         {
+            gameManagement.SituacionTexto.text = "No hay suficiente ámbar para usar la habilidad.";
             Debug.Log("No hay suficiente ámbar para usar la habilidad.");
         }
     }
@@ -346,6 +360,7 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
                 bleedEffect.alpha = 1;
                 break;
         }
+        gameManagement.SituacionTexto.text = $"{CardName} ha recibido el efecto de {effectType} por {duration} turnos.";
         Debug.Log($"{CardName} ha recibido el efecto de {effectType} por {duration} turnos.");
     }
 
@@ -393,18 +408,21 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         {
             target.CardLife += Cardboostvida;
             target.UpdateLifeDisplay();
+            gameManagement.SituacionTexto.text = $"{CardName} ha aumentado la vida de {target.CardName} en {Cardboostvida} puntos.";
             Debug.Log($"{CardName} ha aumentado la vida de {target.CardName} en {Cardboostvida} puntos.");
         }
         if (Cardboostataquedmg > 0)
         {
             target.CardAttack += Cardboostataquedmg;
             target.UpdateAttackDisplay();
+            gameManagement.SituacionTexto.text = $"{CardName} ha aumentado el ataque de {target.CardName} en {Cardboostataquedmg} puntos.";
             Debug.Log($"{CardName} ha aumentado el ataque de {target.CardName} en {Cardboostataquedmg} puntos.");
         }
         if (Cardboostcosto > 0)
         {
             target.CardCost = Mathf.Max(0, target.CardCost - Cardboostcosto);
             target.UpdateCostDisplay();
+            gameManagement.SituacionTexto.text = $"{CardName} ha reducido el coste de {target.CardName} en {Cardboostcosto} puntos.";
             Debug.Log($"{CardName} ha reducido el coste de {target.CardName} en {Cardboostcosto} puntos.");
         }
 

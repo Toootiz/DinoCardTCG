@@ -80,8 +80,7 @@ CREATE TABLE partida (
     FOREIGN KEY (id_jugador) REFERENCES jugador(id_jugador)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
--- VISTA CARTAS Y HABILIDADES 
+-- Vista para detalles de cartas
 CREATE VIEW vista_detalles_cartas AS
 SELECT
     c.id_carta,
@@ -94,8 +93,7 @@ FROM
     carta c
     LEFT JOIN habilidad h ON c.habilidad = h.id_habilidad;
 
-
--- VISTA INFORMACION JUGADORES Y ESTADISTICAS
+-- Vista para estadísticas de jugadores
 CREATE VIEW vista_estadisticas_jugadores AS
 SELECT
     j.id_jugador,
@@ -106,15 +104,8 @@ SELECT
     j.fecha_modificacion
 FROM
     jugador j;
-    
-    
--- VISTA PARA VER LOS DECKS Y SUS CARTAS
 
- 
-
-
-
--- VISTA PARA OBTENER PARTIDAS Y RESULTADOS 
+-- Vista para resultados de partidas
 CREATE VIEW vista_resultados_partidas AS
 SELECT
     p.id_partida,
@@ -131,13 +122,14 @@ FROM
     LEFT JOIN jugador jg ON p.id_ganador = jg.id_jugador
     LEFT JOIN jugador jp ON p.id_perdedor = jp.id_jugador;
 
+-- Vista para detalle de cartas y habilidades
 CREATE VIEW carta_habilidad_detalle AS
 SELECT 
-	c.id_carta,
-    c.Nombre,
-    c.Puntos_de_Vida,
-    c.Puntos_de_ataque,
-    c.Coste_en_elixir,
+    c.id_carta,
+    c.nombre,
+    c.puntos_de_vida,
+    c.puntos_de_ataque,
+    c.coste_en_elixir,
     h.descripcion,
     h.id_habilidad,
     hd.venenodmg,
@@ -151,20 +143,18 @@ SELECT
     hd.duracion
 FROM 
     carta c
-JOIN 
-    habilidad h ON c.Habilidad = h.id_habilidad
-JOIN 
-    habilidadData hd ON h.id_habilidad = hd.id_habilidad;
+    JOIN habilidad h ON c.habilidad = h.id_habilidad
+    JOIN habilidadData hd ON h.id_habilidad = hd.id_habilidad;
 
-
+-- Vista para ver los decks y sus cartas
 CREATE VIEW vista_cartas_habilidades_por_deck AS
 SELECT
     d.id_deck,
     c.id_carta,
-    c.Nombre,
-    c.Puntos_de_Vida,
-    c.Puntos_de_ataque,
-    c.Coste_en_elixir,
+    c.nombre,
+    c.puntos_de_vida,
+    c.puntos_de_ataque,
+    c.coste_en_elixir,
     h.descripcion,
     h.id_habilidad,
     hd.venenodmg,
@@ -184,10 +174,9 @@ FROM
                   d.id_carta10 = c.id_carta
     LEFT JOIN habilidad h ON c.habilidad = h.id_habilidad
     LEFT JOIN habilidadData hd ON h.id_habilidad = hd.id_habilidad;
-    
-    SELECT * FROM vista_cartas_habilidades_por_deck WHERE id_deck = 1;
-    
-    SELECT * FROM carta_habilidad_detalle ORDER BY id_carta;
+
+-- SELECT * FROM carta_habilidad_detalle ORDER BY id_carta;
+
 select
     id_carta,
     Nombre,
@@ -208,3 +197,46 @@ select
 FROM vista_cartas_habilidades_por_deck
 WHERE id_deck = 1;
 
+-- Crear vista para contar cuántas veces aparece cada carta en los decks
+CREATE VIEW vista_conteo_cartas AS
+SELECT 
+    id_carta, 
+    COUNT(*) AS cantidad_apariciones
+FROM (
+    SELECT id_carta1 AS id_carta FROM deck
+    UNION ALL
+    SELECT id_carta2 AS id_carta FROM deck
+    UNION ALL
+    SELECT id_carta3 AS id_carta FROM deck
+    UNION ALL
+    SELECT id_carta4 AS id_carta FROM deck
+    UNION ALL
+    SELECT id_carta5 AS id_carta FROM deck
+    UNION ALL
+    SELECT id_carta6 AS id_carta FROM deck
+    UNION ALL
+    SELECT id_carta7 AS id_carta FROM deck
+    UNION ALL
+    SELECT id_carta8 AS id_carta FROM deck
+    UNION ALL
+    SELECT id_carta9 AS id_carta FROM deck
+    UNION ALL
+    SELECT id_carta10 AS id_carta FROM deck
+) AS cartas_union
+GROUP BY id_carta;
+
+-- Crear vista para obtener el top 5 de cartas que más aparecen en los decks
+CREATE VIEW vista_top_5_cartas AS
+SELECT 
+    c.id_carta, 
+    c.nombre, 
+    vc.cantidad_apariciones
+FROM 
+    carta c
+JOIN 
+    vista_conteo_cartas vc ON c.id_carta = vc.id_carta
+ORDER BY 
+    vc.cantidad_apariciones DESC
+LIMIT 5;
+
+select * from vista_top_5_cartas;

@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class GameManagement : MonoBehaviour
 {
@@ -15,7 +16,6 @@ public class GameManagement : MonoBehaviour
     public List<GameObject> enemyCards; // Lista de cartas enemigas.
     public BaseEnemiga baseEnemiga; // Referencia a la base enemiga.
     public BasePropia basePropia; // Referencia a la base propia del jugador.
-
     GameObject bancaenemigo; // Referencia al panel de la banca enemiga.
     GameObject ab; // Área de juego del enemigo.
     CardInfo cards; // Información sobre las cartas disponibles.
@@ -26,28 +26,28 @@ public class GameManagement : MonoBehaviour
     public int turnCount; // Contador de turnos totales.
     public int JugadorContadorTurno; // Contador de turnos del jugador.
     public int EnemigoContadorTurno; // Contador de turnos del enemigo.
-
     public int ambar; // Energía de ambar del jugador.
     public int ambarEnemy; // Energía de ambar del enemigo.
     public string apiResultDedck1; // Resultado de la API para las cartas.
     public string apiResultDedck2; // Resultado de la API para las cartas.
     [SerializeField] string url; // URL base para la API.
-    [SerializeField] string getEndpoint; // Endpoint para obtener las cartas del jugador.
-    [SerializeField] string urlEnemigo; // URL para la API de cartas del enemigo.
-    [SerializeField] string getEndpointEnemgo; // Endpoint para obtener las cartas del enemigo.
     [SerializeField] Button endTurnButton; // Botón para terminar el turno.
     [SerializeField] TMP_Text AmbarText; // Texto UI para mostrar el ambar del jugador.
     [SerializeField] TMP_Text AmbarEnemyText; // Texto UI para mostrar el ambar del enemigo.
     [SerializeField] TMP_Text TurnoActualText; // Texto UI para mostrar el turno actual.
+    public TMP_Text SituacionTexto; 
+    [SerializeField] TMP_Text ContadorTurno;
 
     void Start()
 {
+    SituacionTexto.text = " ";
     JugadorContadorTurno = 1;
     EnemigoContadorTurno = 1;
+    ContadorTurno.text = JugadorContadorTurno.ToString();
     ambar = 3;
     ambarEnemy = 3;
-    AmbarText.text = "Ambar: " + ambar.ToString();
-    AmbarEnemyText.text = "Ambar: " + ambarEnemy.ToString(); 
+    AmbarText.text = "= " + ambar.ToString();
+    AmbarEnemyText.text = "= " + ambarEnemy.ToString(); 
     currentTurn = turn.Player;
     TurnoActualText.text = "Turno Actual: Jugador";
     endTurnButton.onClick.AddListener(EndTurn);
@@ -138,12 +138,14 @@ IEnumerator RequestGetEnemigo(string url)
         if (ambar >= amount)
         {
             ambar -= amount;
-            AmbarText.text = "Ambar: " + ambar.ToString();
+            AmbarText.text = "= " + ambar.ToString();
             Debug.Log($"Se gastaron {amount} de ámbar. Ámbar restante: {ambar}");
+            SituacionTexto.text = $"Se gastaron {amount} de ámbar. Ámbar restante: {ambar}";
             return true;
         }
         else
         {
+            SituacionTexto.text = "No hay suficiente ámbar para realizar esta acción.";
             Debug.Log("No hay suficiente ámbar para realizar esta acción.");
             return false;
         }
@@ -154,11 +156,13 @@ IEnumerator RequestGetEnemigo(string url)
         if (ambarEnemy >= amount)
         {
             ambarEnemy -= amount;
+            SituacionTexto.text = $"El enemigo gastó {amount} de ámbar. Ámbar restante del enemigo: {ambarEnemy}";
             Debug.Log($"El enemigo gastó {amount} de ámbar. Ámbar restante del enemigo: {ambarEnemy}");
             return true;
         }
         else
         {
+            SituacionTexto.text = "El enemigo no tiene suficiente ámbar para realizar esta acción.";
             Debug.Log("El enemigo no tiene suficiente ámbar para realizar esta acción.");
             return false;
         }
@@ -206,7 +210,7 @@ IEnumerator RequestGetEnemigo(string url)
     {
         GameObject newcard = Instantiate(CardPrefab, new Vector3(posX, posY, 0), Quaternion.Euler(180, 180, 0));
         newcard.transform.SetParent(bancaenemigo.transform, false);
-        newcard.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+        newcard.transform.localScale = new Vector3(0.14f, 0.14f, 0.14f);
         CardScript cardScript = newcard.GetComponent<CardScript>();
         cardScript.isEnemyCard = true;
 
@@ -256,7 +260,7 @@ IEnumerator RequestGetEnemigo(string url)
     {
         GameObject newcard = Instantiate(CardPrefab, new Vector3(posX, posY, 0), Quaternion.identity);
         newcard.transform.SetParent(banca.transform, false);
-        newcard.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+        newcard.transform.localScale = new Vector3(0.14f, 0.14f, 0.14f);
 
         TextMeshProUGUI nameText = newcard.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI lifeText = newcard.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
@@ -307,22 +311,22 @@ IEnumerator RequestGetEnemigo(string url)
         if (JugadorContadorTurno <= 4)
         {
             ambar += 3;
-            AmbarText.text = "Ambar: " + ambar.ToString();
+            AmbarText.text = "= " + ambar.ToString();
         }
         else if (JugadorContadorTurno <= 8)
         {
             ambar += 6;
-            AmbarText.text = "Ambar: " + ambar.ToString();
+            AmbarText.text = "= " + ambar.ToString();
         }
         else if (JugadorContadorTurno <= 14)
         {
             ambar += 8;
-            AmbarText.text = "Ambar: " + ambar.ToString();
+            AmbarText.text = "= " + ambar.ToString();
         }
         else
         {
             ambar += 10;
-            AmbarText.text = "Ambar: " + ambar.ToString();
+            AmbarText.text = "= " + ambar.ToString();
         }
     }
 
@@ -331,27 +335,28 @@ IEnumerator RequestGetEnemigo(string url)
         if (EnemigoContadorTurno <= 4)
         {
             ambarEnemy += 3;
-            AmbarEnemyText.text = "Ambar: " + ambarEnemy.ToString();
+            AmbarEnemyText.text = "= " + ambarEnemy.ToString();
         }
         else if (EnemigoContadorTurno <= 8)
         {
             ambarEnemy += 6;
-            AmbarEnemyText.text = "Ambar: " + ambarEnemy.ToString();
+            AmbarEnemyText.text = "= " + ambarEnemy.ToString();
         }
         else if (EnemigoContadorTurno <= 14)
         {
             ambarEnemy += 8;
-            AmbarEnemyText.text = "Ambar: " + ambarEnemy.ToString();
+            AmbarEnemyText.text = "= " + ambarEnemy.ToString();
         }
         else
         {
             ambarEnemy += 10;
-            AmbarEnemyText.text = "Ambar: " + ambarEnemy.ToString();
+            AmbarEnemyText.text = "= " + ambarEnemy.ToString();
         }
     }
 
     public void EndTurn()
     {
+        TurnoActualText.text = "Turno Actual: Enemigo";
         endTurnButton.interactable = false;
         DisablePlayerInteractions();
         currentTurn = turn.Enemy;
@@ -379,6 +384,7 @@ IEnumerator RequestGetEnemigo(string url)
 
     if (ambarEnemy < 6)
     {
+        SituacionTexto.text = "El enemigo no tiene suficiente ámbar para jugar cartas.";
         Debug.Log("El enemigo no tiene suficiente ámbar para jugar cartas.");
     }
     else
@@ -411,6 +417,7 @@ IEnumerator RequestGetEnemigo(string url)
                 if (SpendEnemyEnergy(card.CardCost))
                 {
                     cardsPlayed++;
+                    SituacionTexto.text = $"Enemigo juega {card.CardName} con alta vida.";
                     Debug.Log($"Enemigo juega {card.CardName} con alta vida.");
                     playedCards.Add(child.gameObject);
                     if (enemyPanel != null)
@@ -422,6 +429,7 @@ IEnumerator RequestGetEnemigo(string url)
             else if (!playerHasHighAttackCards && SpendEnemyEnergy(card.CardCost))
             {
                 cardsPlayed++;
+                SituacionTexto.text = $"Enemigo juega {card.CardName}.";
                 Debug.Log($"Enemigo juega {card.CardName}.");
                 playedCards.Add(child.gameObject);
                 if (enemyPanel != null)
@@ -455,6 +463,7 @@ IEnumerator RequestGetEnemigo(string url)
                 if (SpendEnemyEnergy(enemyCard.CardCost))
                 {
                     playerCard.TakeDamage(enemyCard.CardAttack);
+                    SituacionTexto.text = $"Enemigo ataca {playerCard.CardName} con {enemyCard.CardName}.";
                     Debug.Log($"Enemigo ataca {playerCard.CardName} con {enemyCard.CardName}.");
 
                     if (playerCard.CardLife <= 0)
@@ -465,6 +474,7 @@ IEnumerator RequestGetEnemigo(string url)
                             playerPanel.RemoveCard(playerCard.gameObject);
                         }
                         Destroy(playerCard.gameObject);
+                        SituacionTexto.text = $"{playerCard.CardName} ha sido destruida.";
                         Debug.Log($"{playerCard.CardName} ha sido destruida.");
                     }
 
@@ -487,6 +497,7 @@ IEnumerator RequestGetEnemigo(string url)
                     if (SpendEnemyEnergy(enemyCard.CardCost))
                     {
                         basePropia.TakeDamage(enemyCard.CardAttack);
+                        SituacionTexto.text = $"Enemigo ataca la base del jugador con {enemyCard.CardName}.";
                         Debug.Log($"Enemigo ataca la base del jugador con {enemyCard.CardName}.");
                         attacksPerformed++;
                         yield return new WaitForSeconds(1.5f); // Tiempo de espera entre ataques a la base
@@ -502,6 +513,7 @@ IEnumerator RequestGetEnemigo(string url)
     }
     else
     {
+        SituacionTexto.text = "El enemigo decide no atacar este turno.";
         Debug.Log("El enemigo decide no atacar este turno.");
     }
 
@@ -525,12 +537,13 @@ IEnumerator RequestGetEnemigo(string url)
 
     public void startPlayerTurn()
     {
-        TurnoActualText.text = "Turno actual: Jugador";
+        TurnoActualText.text = "Turno Actual: Jugador";
         Debug.Log("Turno jugador");
         JugadorContadorTurno += 1;
+        ContadorTurno.text = JugadorContadorTurno.ToString();
         countTourn();
         AmbarTurn();
-        AmbarText.text = "Ambar: " + ambar.ToString();
+        AmbarText.text = "= " + ambar.ToString();
         endTurnButton.interactable = true;
 
         foreach (Transform child in zonaDeJuego.transform)
@@ -594,5 +607,10 @@ IEnumerator RequestGetEnemigo(string url)
                 card.enabled = true;
             }
         }
+    }
+
+    public void Salir()
+    {
+        SceneManager.LoadScene("MenuInicial");
     }
 }
