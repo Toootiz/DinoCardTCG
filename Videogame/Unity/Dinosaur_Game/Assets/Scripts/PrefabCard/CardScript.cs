@@ -217,7 +217,6 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         {
             selectedAttacker = null;
             canvasGroup.alpha = 1.0f;
-            gameManagement.SituacionTexto.text = $"Carta {CardName} ha sido deseleccionada.";
             Debug.Log($"Carta {CardName} ha sido deseleccionada.");
         }
     }

@@ -208,7 +208,7 @@ IEnumerator RequestGetEnemigo(string url)
 
     public void InstantiateCardEnemigo(int id, float posX, float posY)
     {
-        GameObject newcard = Instantiate(CardPrefab, new Vector3(posX, posY, 0), Quaternion.Euler(180, 180, 0));
+        GameObject newcard = Instantiate(CardPrefab, new Vector3(posX, posY, 0), Quaternion.Euler(0, 0, 0));
         newcard.transform.SetParent(bancaenemigo.transform, false);
         newcard.transform.localScale = new Vector3(0.14f, 0.14f, 0.14f);
         CardScript cardScript = newcard.GetComponent<CardScript>();
