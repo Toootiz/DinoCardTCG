@@ -56,11 +56,18 @@ INSERT INTO carta (Nombre, Puntos_de_Vida, Puntos_de_ataque, Coste_en_elixir, Ha
 ('Wyvern', 5, 6, 7, 5);
 
 
+<<<<<<< HEAD
+INSERT INTO jugador (nombre, partidas_ganadas, partidas_perdidas) VALUES 
+("Mesc", 42, 14),
+("Jose", 31, 57),
+("Gatuno7000", 147, 56);
+=======
 INSERT INTO jugador (nombre, contrasena, partidas_ganadas, partidas_perdidas) VALUES 
 ("Mesc", "1234", 2, 3),
 ("Jose", "1234", 2, 1),
 ("Gatuno7000","1234", 2, 1),
 ("Enemigo", "Enemigo", 1, 1);
+>>>>>>> main
 
 select * from jugador;
 
