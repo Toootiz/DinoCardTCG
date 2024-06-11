@@ -81,13 +81,17 @@ INSERT INTO carta (Nombre, Puntos_de_Vida, Puntos_de_ataque, Coste_en_elixir, Ha
 ('Wyvern', 10, 12, 9, 9);
 
 
+
+-- Insertar jugdores dummy y el enemigo
 INSERT INTO jugador (nombre, contrasena, partidas_ganadas, partidas_perdidas) VALUES 
 ("Mesc", "1234", 2, 3),
 ("Jose", "1234", 2, 1),
 ("Gatuno7000","1234", 2, 1),
-("Enemigo", "Enemigo", 1, 1);
-
-
+("Enemigo", "Enemigo", 1, 1),
+("Pedro", "1234", 1, 4),
+("WePlay", "1234", 100, 0),
+("Oscar", "1234", 1, 1),
+("Mitsu", "Mitsu",1, 6);
 -- Insertar decks de los jugaodres y de los que puede usar el enemigo
 INSERT INTO deck (id_jugador, nombre_deck, descripcion_deck, id_carta1, id_carta2, id_carta3, id_carta4, id_carta5, id_carta6, id_carta7, id_carta8, id_carta9, id_carta10) VALUES
 (1,"Deck Chispa", "Para jugar de chill", 1, 19, 14, 4, 5, 16, 7, 8, 9, 10),
@@ -99,3 +103,4 @@ INSERT INTO deck (id_jugador, nombre_deck, descripcion_deck, id_carta1, id_carta
 (4, "Deck Enemigo 4", "Cuarto deck del enemigo", 21, 22, 23, 24, 25, 26, 27, 28, 1, 2),
 (4, "Deck Enemigo 5", "Quinto deck del enemigo", 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
 
+select * from jugador;
