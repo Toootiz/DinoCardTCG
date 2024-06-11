@@ -144,7 +144,7 @@ app.get("/api/deckjugador/:id_deck", async (req, res) => {
     let connection = null;
     try {
         connection = await connectToDB();
-        const [results, fields] = await connection.execute("select id_carta, Nombre, Puntos_de_Vida, Puntos_de_ataque, Coste_en_elixir, id_habilidad, descripcion, venenodmg, quemadodmg, sangradodmg, mordidadmg, colatazodmg, boostvida, boostataquedmg, boostcosto, duracion FROM vista_cartas_habilidades_por_deck WHERE id_deck = 1;", [req.params.id_deck]);
+        const [results, fields] = await connection.execute("select id_carta, Nombre, Puntos_de_Vida, Puntos_de_ataque, Coste_en_elixir, id_habilidad, descripcion, venenodmg, quemadodmg, sangradodmg, mordidadmg, colatazodmg, boostvida, boostataquedmg, boostcosto, duracion FROM vista_cartas_habilidades_por_deck WHERE id_deck = ?;", [req.params.id_deck]);
         const c = { "cards": results };
         res.status(200).json(c);
     } catch (error) {

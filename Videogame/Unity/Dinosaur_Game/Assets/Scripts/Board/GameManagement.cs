@@ -58,15 +58,18 @@ public class GameManagement : MonoBehaviour
     ab = GameObject.FindGameObjectWithTag("JuegoEnemigo");
     bancaenemigo = GameObject.FindGameObjectWithTag("BancaEnemigo");
 
-    int selectedDeckId = PlayerPrefs.GetInt("SelectedDeckId", 0);
-    Debug.Log(selectedDeckId);
+    int deckId = PlayerPrefs.GetInt("SelectedDeckId", 0);
+    Debug.Log(deckId);
 
     int selectedDeckIdEnemigo = Random.Range(4, 9);
     Debug.Log(selectedDeckIdEnemigo);
 
-    string deckUrl = $"{url}/api/deckjugador/{selectedDeckId}";
+    string deckUrl = $"{url}/api/deckjugador/{deckId}";
     string deckUrlEnemigo = $"{url}/api/deckjugador/{selectedDeckIdEnemigo}";
+    
+    Debug.Log(deckUrl);
     GetData(deckUrl);
+
     GetDataEnemigo(deckUrlEnemigo);
 
     baseEnemiga = GameObject.FindGameObjectWithTag("BaseEnemiga").GetComponent<BaseEnemiga>();

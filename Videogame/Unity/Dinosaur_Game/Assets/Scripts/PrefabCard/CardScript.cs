@@ -30,6 +30,11 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     public int DañoQuemadura;
     public int DañoSangrado;
 
+    // CanvasGroup para las imágenes de efectos
+    public CanvasGroup venomEffect;
+    public CanvasGroup burnEffect;
+    public CanvasGroup bleedEffect;
+
     void Start()
     {
         gameManagement = GameObject.FindGameObjectWithTag("GameManagement").GetComponent<GameManagement>();
@@ -37,6 +42,11 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         rectTransform = GetComponent<RectTransform>();
         LifeText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         originalParent = transform.parent;
+
+        // Inicializar CanvasGroup de los efectos
+        venomEffect.alpha = 0;
+        burnEffect.alpha = 0;
+        bleedEffect.alpha = 0;
     }
 
     private void Awake()
@@ -145,43 +155,43 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     }
 
     public void OnPointerDown(PointerEventData eventData)
-{
-    if (isEnemyCard && selectedAttacker == null)
     {
-        Debug.Log("No puedes seleccionar cartas del enemigo sin tener un atacante.");
-        return;
-    }
-
-    if (selectedAttacker == this)
-    {
-        DeselectCard();
-        return;
-    }
-
-    if (!isEnemyCard && transform.parent.CompareTag("Juego") && selectedAttacker == null)
-    {
-        SelectCard();
-    }
-    else if (isEnemyCard && transform.parent.CompareTag("JuegoEnemigo") && selectedAttacker != null)
-    {
-        selectedAttacker.AttackCard(this);
-    }
-    else if (!isEnemyCard && (Cardboostvida > 0 || Cardboostataquedmg > 0 || Cardboostcosto > 0) && selectedAttacker != null && selectedAttacker.transform.parent.CompareTag("Juego"))
-    {
-        // Verificar si hay suficiente energía para usar el boost
-        if (gameManagement.ambar >= CardCost)
+        if (isEnemyCard && selectedAttacker == null)
         {
-            // Realizar boost en una carta aliada
-            ApplyBoost(selectedAttacker);
-            selectedAttacker.DeselectCard();
-            Destroy(gameObject);
+            Debug.Log("No puedes seleccionar cartas del enemigo sin tener un atacante.");
+            return;
         }
-        else
+
+        if (selectedAttacker == this)
         {
-            Debug.Log("No tienes suficiente energía para usar el boost.");
+            DeselectCard();
+            return;
+        }
+
+        if (!isEnemyCard && transform.parent.CompareTag("Juego") && selectedAttacker == null)
+        {
+            SelectCard();
+        }
+        else if (isEnemyCard && transform.parent.CompareTag("JuegoEnemigo") && selectedAttacker != null)
+        {
+            selectedAttacker.AttackCard(this);
+        }
+        else if (!isEnemyCard && (Cardboostvida > 0 || Cardboostataquedmg > 0 || Cardboostcosto > 0) && selectedAttacker != null && selectedAttacker.transform.parent.CompareTag("Juego"))
+        {
+            // Verificar si hay suficiente energía para usar el boost
+            if (gameManagement.ambar >= CardCost)
+            {
+                // Realizar boost en una carta aliada
+                ApplyBoost(selectedAttacker);
+                selectedAttacker.DeselectCard();
+                Destroy(gameObject);
+            }
+            else
+            {
+                Debug.Log("No tienes suficiente energía para usar el boost.");
+            }
         }
     }
-}
 
     private void SelectCard()
     {
@@ -323,14 +333,17 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
             case "Veneno":
                 DañoVeneno += damage;
                 DuracionVeneno = Mathf.Max(DuracionVeneno, duration);
+                venomEffect.alpha = 1;
                 break;
             case "Quemadura":
                 DañoQuemadura += damage;
                 DuracionQuemadura = Mathf.Max(DuracionQuemadura, duration);
+                burnEffect.alpha = 1;
                 break;
             case "Sangrado":
                 DañoSangrado += damage;
                 DuracionSangrado = Mathf.Max(DuracionSangrado, duration);
+                bleedEffect.alpha = 1;
                 break;
         }
         Debug.Log($"{CardName} ha recibido el efecto de {effectType} por {duration} turnos.");
@@ -348,46 +361,57 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         {
             CardLife -= DañoVeneno;
             DuracionVeneno--;
+            if (DuracionVeneno == 0)
+            {
+                venomEffect.alpha = 0;
+            }
         }
         if (DuracionQuemadura > 0)
         {
             CardLife -= DañoQuemadura;
             DuracionQuemadura--;
+            if (DuracionQuemadura == 0)
+            {
+                burnEffect.alpha = 0;
+            }
         }
         if (DuracionSangrado > 0)
         {
             CardLife -= DañoSangrado;
             DuracionSangrado--;
+            if (DuracionSangrado == 0)
+            {
+                bleedEffect.alpha = 0;
+            }
         }
         UpdateLifeDisplay();
     }
 
     public void ApplyBoost(CardScript target)
-{
-    if (Cardboostvida > 0)
     {
-        target.CardLife += Cardboostvida;
-        target.UpdateLifeDisplay();
-        Debug.Log($"{CardName} ha aumentado la vida de {target.CardName} en {Cardboostvida} puntos.");
-    }
-    if (Cardboostataquedmg > 0)
-    {
-        target.CardAttack += Cardboostataquedmg;
-        target.UpdateAttackDisplay();
-        Debug.Log($"{CardName} ha aumentado el ataque de {target.CardName} en {Cardboostataquedmg} puntos.");
-    }
-    if (Cardboostcosto > 0)
-    {
-        target.CardCost = Mathf.Max(0, target.CardCost - Cardboostcosto);
-        target.UpdateCostDisplay();
-        Debug.Log($"{CardName} ha reducido el coste de {target.CardName} en {Cardboostcosto} puntos.");
-    }
+        if (Cardboostvida > 0)
+        {
+            target.CardLife += Cardboostvida;
+            target.UpdateLifeDisplay();
+            Debug.Log($"{CardName} ha aumentado la vida de {target.CardName} en {Cardboostvida} puntos.");
+        }
+        if (Cardboostataquedmg > 0)
+        {
+            target.CardAttack += Cardboostataquedmg;
+            target.UpdateAttackDisplay();
+            Debug.Log($"{CardName} ha aumentado el ataque de {target.CardName} en {Cardboostataquedmg} puntos.");
+        }
+        if (Cardboostcosto > 0)
+        {
+            target.CardCost = Mathf.Max(0, target.CardCost - Cardboostcosto);
+            target.UpdateCostDisplay();
+            Debug.Log($"{CardName} ha reducido el coste de {target.CardName} en {Cardboostcosto} puntos.");
+        }
 
-    // Gastar energía después de aplicar el efecto
-    gameManagement.SpendEnergy(CardCost);
+        // Gastar energía después de aplicar el efecto
+        gameManagement.SpendEnergy(CardCost);
 
-    // Destruir la carta de boost después de aplicar el efecto
-    Destroy(gameObject);
-}
-
+        // Destruir la carta de boost después de aplicar el efecto
+        Destroy(gameObject);
+    }
 }
