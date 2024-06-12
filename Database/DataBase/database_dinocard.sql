@@ -59,6 +59,8 @@ CREATE TABLE turnos (
     PRIMARY KEY (id_partida),
     FOREIGN KEY (id_jugador) REFERENCES jugador(id_jugador)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
 -- Crear tabla para `deck`
 CREATE TABLE deck (
     id_deck INT NOT NULL AUTO_INCREMENT,
@@ -121,7 +123,6 @@ FROM
     
 -- VISTA PARA VER LOS DECKS Y SUS CARTAS
 
- 
 
 
 
@@ -261,6 +262,8 @@ JOIN
 ORDER BY 
     vc.cantidad_apariciones DESC
 LIMIT 5;
+
+SELECT * FROM vista_top_5_cartas;
 
 -- Crear vista para obtener toda la información detallada de las cartas
 CREATE VIEW vista_detalles_cartas_completa AS

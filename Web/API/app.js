@@ -258,28 +258,28 @@ app.post('/register', async (req, res) => {
     }
 });
 
-// app.post('/login', async (req, res) => {
-//     let connection = null;
-//     try {
-//         connection = await connectToDB();
-//         const { nombre, contrasena } = req.body;
-//         console.log(req.body);
-//         const [results] = await connection.execute('SELECT * FROM jugador WHERE nombre = ? AND contrasena = ?', [nombre, contrasena]);
+app.post('/login', async (req, res) => {
+    let connection = null;
+    try {
+        connection = await connectToDB();
+        const { nombre, contrasena } = req.body;
+        console.log(req.body);
+        const [results] = await connection.execute('SELECT * FROM jugador WHERE nombre = ? AND contrasena = ?', [nombre, contrasena]);
 
-//         if (results.length > 0) {
-//             res.send('Usuario autenticado');
-//         } else {
-//             res.send('Usuario no autenticado');
-//         }
-//     } catch (error) {
-//         console.error("Error logging in user:", error);
-//         res.status(500).json(error);
-//     } finally {
-//         if (connection) {
-//             connection.end();
-//         }
-//     }
-// });
+        if (results.length > 0) {
+            res.send('Usuario autenticado');
+        } else {
+            res.send('Usuario no autenticado');
+        }
+    } catch (error) {
+        console.error("Error logging in user:", error);
+        res.status(500).json(error);
+    } finally {
+        if (connection) {
+            connection.end();
+        }
+    }
+});
 
 app.post('/login', async (req, res) => {
     let connection = null;
@@ -305,7 +305,7 @@ app.post('/login', async (req, res) => {
     }
 });
 
-
+// gg
 app.get("/api/players", async (req, res) => {
     let connection = null;
     try {
@@ -323,12 +323,14 @@ app.get("/api/players", async (req, res) => {
     }
 });
 
+//  nop
 app.get("/api/decks", async (req, res) => {
     let connection = null;
     try {
         connection = await connectToDB();
-        const [results, fields] = await connection.execute("SELECT * FROM vista_decks_cartas;");
+        const [results, fields] = await connection.execute("SELECT * FROM vista_top_5_cartas;");
         const c = { "decks": results };
+        console.log(c);
         res.status(200).json(c);
     } catch (error) {
         console.error("Error fetching decks:", error);
@@ -340,11 +342,12 @@ app.get("/api/decks", async (req, res) => {
     }
 });
 
+
 app.get("/api/matches", async (req, res) => {
     let connection = null;
     try {
         connection = await connectToDB();
-        const [results, fields] = await connection.execute("SELECT * FROM vista_resultados_partidas;");
+        const [results, fields] = await connection.execute("SELECT * FROM turnos;");
         const c = { "matches": results };
         res.status(200).json(c);
     } catch (error) {
