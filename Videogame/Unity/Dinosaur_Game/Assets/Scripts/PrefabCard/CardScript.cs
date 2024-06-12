@@ -35,6 +35,8 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     public CanvasGroup burnEffect;
     public CanvasGroup bleedEffect;
 
+
+
     void Start()
     {
         gameManagement = GameObject.FindGameObjectWithTag("GameManagement").GetComponent<GameManagement>();
@@ -84,7 +86,7 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     {
         if (canDrag)
         {
-            rectTransform.anchoredPosition += eventData.delta;
+            rectTransform.anchoredPosition += eventData.delta / 2;
         }
     }
 
