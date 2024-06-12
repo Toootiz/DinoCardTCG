@@ -11,6 +11,7 @@ public class MenuInicial : MonoBehaviour
     public AudioMixer audioMixer;
     public TextMeshProUGUI errorMessage; // Usar TextMeshProUGUI en lugar de Text
 
+
     void Start()
     {
         int userId = PlayerPrefs.GetInt("userId", 0);
