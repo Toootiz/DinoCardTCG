@@ -77,8 +77,8 @@ function random_color(alpha = 1.0) {
       const playerLabels = playersData.players.map((player) => player.nombre_jugador);
       const wins = playersData.players.map((player) => player.partidas_ganadas);
       const losses = playersData.players.map((player) => player.partidas_perdidas);
-      console.log('fijrjgri',playersData);
-      console.log('asdasdasdasdads',playerLabels, wins, losses);
+      //console.log('fijrjgri',playersData);
+      //console.log('asdasdasdasdads',playerLabels, wins, losses);
   
       const ctxPlayers = document.getElementById("playersChart").getContext("2d");
       createChart(
@@ -113,8 +113,8 @@ function random_color(alpha = 1.0) {
       );
   
       // Decks y Cartas
-      const deckLabels = decksData.decks.map((deck) => deck.nombre_deck);
-      const cardCounts = decksData.decks.map((deck) => deck.cantidad_cartas);
+      const deckLabels = decksData.decks.map((deck) => deck.nombre);
+      const cardCounts = decksData.decks.map((deck) => deck.cantidad_apariciones);
       
   
       const ctxDecks = document.getElementById("decksChart").getContext("2d");
@@ -125,7 +125,7 @@ function random_color(alpha = 1.0) {
           labels: deckLabels,
           datasets: [
             {
-              label: "Cantidad de Cartas",
+              label: "Cartas mas Utilizadas",
               data: cardCounts,
               backgroundColor: "rgba(255, 206, 86, 0.2)",
               borderColor: "rgba(255, 206, 86, 1)",
@@ -145,17 +145,20 @@ function random_color(alpha = 1.0) {
       // Resultados de Partidas
       const matchLabels = matchesData.matches.map((match) => `Partida ${match.id_partida}`);
       const turnCounts = matchesData.matches.map((match) => match.cantidad_turnos);
+      const winnerLabels = matchesData.matches.map((match) => match.id_jugador);
+      console.log('matchLabels',matchLabels);
+      console.log('turnCounts',turnCounts);
   
       const ctxMatches = document.getElementById("matchesChart").getContext("2d");
       createChart(
         ctxMatches,
-        "line",
+        "bar",
         {
           labels: matchLabels,
           datasets: [
             {
               label: "Cantidad de Turnos",
-              data: turnCounts,
+              data: turnCounts, winnerLabels,
               backgroundColor: "rgba(75, 192, 192, 0.2)",
               borderColor: "rgba(75, 192, 192, 1)",
               borderWidth: 1,

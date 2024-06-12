@@ -79,14 +79,14 @@ INSERT INTO carta (Nombre, Puntos_de_Vida, Puntos_de_ataque, Coste_en_elixir, Ha
 
 -- Insertar jugadores dummy y el enemigo
 INSERT INTO jugador (nombre, contrasena, partidas_ganadas, partidas_perdidas) VALUES 
-("Mesc", "1234", 2, 3),
-("Jose", "1234", 2, 1),
-("Gatuno7000","1234", 2, 1),
-("Enemigo", "Enemigo", 1, 1),
-("Pedro", "1234", 1, 4),
-("WePlay", "1234", 100, 0),
-("Oscar", "1234", 1, 1),
-("Mitsu", "Mitsu",1, 6);
+("Mesc", "1234", 235, 59),
+("Jose", "1234", 78, 12),
+("Gatuno7000","1234", 29, 21),
+("Enemigo", "Enemigo", 321, 149),
+("Pedro", "1234", 12, 3),
+("WePlay", "1234", 100, 1),
+("Oscar", "1234", 32, 11),
+("Mitsu", "Mitsu", 9, 16);
 
 -- Insertar decks de los jugadores y de los que puede usar el enemigo
 INSERT INTO deck (id_jugador, nombre_deck, descripcion_deck, id_carta1, id_carta2, id_carta3, id_carta4, id_carta5, id_carta6, id_carta7, id_carta8, id_carta9, id_carta10) VALUES
@@ -106,6 +106,7 @@ INSERT INTO deck (id_jugador, nombre_deck, descripcion_deck, id_carta1, id_carta
 
 INSERT INTO turnos (id_jugador, cantidad_turnos) VALUES
 (1, 34),
-(1, 23);
+(1, 18),
+(2, 23);
 
 select * from jugador;
