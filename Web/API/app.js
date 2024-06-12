@@ -1,5 +1,6 @@
 "use strict";
 
+import fs from "fs";
 import express from "express";
 import mysql from "mysql2/promise";
 import bodyParser from 'body-parser';
@@ -11,6 +12,7 @@ const port = 3000;
 app.use(cors()); // Habilitar CORS
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static("public"));
 
 async function connectToDB() {
     return mysql.createConnection({
@@ -22,7 +24,8 @@ async function connectToDB() {
 }
 
 app.get("/", (req, res) => {
-    res.status(200).send("API is running");
+    const file = fs.readFileSync("./public/html/game.html", "utf8")
+    res.status(200).send(file);
 });
 
 // Fetch all cards
