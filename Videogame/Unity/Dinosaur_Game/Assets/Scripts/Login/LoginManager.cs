@@ -19,7 +19,7 @@ public class LoginManager : MonoBehaviour
 
     void Start()
     {
-        PlayerPrefs.SetInt("SelectedDeckId", 0);
+        //PlayerPrefs.SetInt("SelectedDeckId", 0);
         // Asignar listeners a los botones de registro y login
         if (registerButton != null)
         {
@@ -107,8 +107,10 @@ public class LoginManager : MonoBehaviour
             {
                 if (www.downloadHandler.text.Contains("Usuario autenticado"))
                 {
+                    Debug.Log(www.downloadHandler.text);
                     // Extraer user ID de la respuesta
                     string userIdStr = www.downloadHandler.text.Split(':')[1];
+                    Debug.Log(userIdStr);
                     int userId;
                     if (int.TryParse(userIdStr, out userId))
                     {
@@ -118,7 +120,7 @@ public class LoginManager : MonoBehaviour
 
                         // Establecer los valores de deck y deckId a 0
 
-                        ShowMessage("Usuario Uautenticado", false);
+                        ShowMessage("Usuario autenticado", false);
 
                         SceneManager.LoadScene("MenuInicial");
                     }
