@@ -270,29 +270,6 @@ app.post('/login', async (req, res) => {
         const [results] = await connection.execute('SELECT * FROM jugador WHERE nombre = ? AND contrasena = ?', [nombre, contrasena]);
 
         if (results.length > 0) {
-            res.send('Usuario autenticado');
-        } else {
-            res.send('Usuario no autenticado');
-        }
-    } catch (error) {
-        console.error("Error logging in user:", error);
-        res.status(500).json(error);
-    } finally {
-        if (connection) {
-            connection.end();
-        }
-    }
-});
-
-app.post('/login', async (req, res) => {
-    let connection = null;
-    try {
-        connection = await connectToDB();
-        const { nombre, contrasena } = req.body;
-        console.log(req.body);
-        const [results] = await connection.execute('SELECT * FROM jugador WHERE nombre = ? AND contrasena = ?', [nombre, contrasena]);
-
-        if (results.length > 0) {
             const userId = results[0].id_jugador;
             res.send(`Usuario autenticado: ${userId}`);
         } else {
