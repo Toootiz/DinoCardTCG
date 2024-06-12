@@ -19,7 +19,7 @@ public class LoginManager : MonoBehaviour
 
     void Start()
     {
-        PlayerPrefs.SetInt("SelectedDeckId", 0);
+        //PlayerPrefs.SetInt("SelectedDeckId", 0);
         // Asignar listeners a los botones de registro y login
         if (registerButton != null)
         {
