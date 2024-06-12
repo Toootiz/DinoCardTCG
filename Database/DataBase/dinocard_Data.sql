@@ -108,4 +108,4 @@ INSERT INTO turnos (id_jugador, cantidad_turnos) VALUES
 (1, 34),
 (1, 23);
 
-select * from jugador;
+select * from turnos;
