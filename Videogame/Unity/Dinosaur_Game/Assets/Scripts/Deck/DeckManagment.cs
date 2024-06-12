@@ -10,6 +10,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
+using System;
 
 public class DeckManagement : MonoBehaviour
 {
@@ -29,25 +30,31 @@ public class DeckManagement : MonoBehaviour
     void Start()
     {
         cards = GameObject.FindGameObjectWithTag("CardData").GetComponent<CardInfo2>();
+        Debug.Log("hola");
         selectedCards = GameObject.FindGameObjectWithTag("SelectedCards").transform;
         allCards = GameObject.FindGameObjectWithTag("CardsDesck").transform;
-        LoadCardData();
-        GenerateAllCards(); // Generar todas las cartas
+        StartCoroutine(LoadCardDataFromAPI());
         estadoCanvasGroup.alpha = 0; // Asegurarse de que el mensaje de estado esté oculto al inicio
     }
 
-    // Esta función carga los datos de las cartas desde PlayerPrefs.
-    void LoadCardData()
+    // Esta función carga los datos de las cartas desde la API.
+    IEnumerator LoadCardDataFromAPI()
     {
-        if (PlayerPrefs.HasKey("CardData"))
+        UnityWebRequest request = UnityWebRequest.Get("http://localhost:3000/api/cards");
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
         {
-            apiResult = PlayerPrefs.GetString("CardData");
-            cards.Data = apiResult;
-            cards.MakeList();
+            ShowMessage("Error al cargar datos de cartas: " + request.error, true);
+            Debug.Log("Error: " + request.error);
         }
         else
         {
-            ShowMessage("No se encontraron datos de cartas en PlayerPrefs", true);
+            apiResult = request.downloadHandler.text;
+            cards.Data = apiResult;
+            Debug.Log(apiResult);
+            cards.MakeList();
+            GenerateAllCards(); // Generar todas las cartas después de cargar los datos
         }
     }
 

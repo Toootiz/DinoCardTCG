@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+
 public class BaseEnemiga : MonoBehaviour, IPointerClickHandler
 {
     public int maxHealth = 40;
@@ -29,7 +30,14 @@ public class BaseEnemiga : MonoBehaviour, IPointerClickHandler
         if (currentHealth <= 0)
         {
             Debug.Log("La base enemiga ha sido destruida!");
-            // Puedes agregar lo que sucede cuando la base es destruida aquí.
+
+            // Guardar el ID del jugador y cantidad de turnos en PlayerPrefs
+            int playerId = PlayerPrefs.GetInt("userId", 0);
+            PlayerPrefs.SetInt("LastWinningPlayerId", playerId);
+            PlayerPrefs.SetInt("TurnCount", gameManagement.JugadorContadorTurno);
+            PlayerPrefs.Save();
+
+            // Cambiar a la escena de Game Over
             SceneManager.LoadScene("GameOver");
         }
     }
@@ -44,26 +52,23 @@ public class BaseEnemiga : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("Has seleccionado la base enemiga");
-        
-        // Verifica si hay una carta seleccionada como atacante
+
         if (CardScript.selectedAttacker != null)
         {
-            // Verifica si hay cartas en el panel de JuegoEnemigo
             if (enemyGamePanel.childCount > 0)
             {
                 Debug.Log("No se puede atacar debido a que el enemigo aún tiene cartas.");
                 return;
             }
-            
-            // Verifica si el contador de turnos del jugador es menor a 5
+
             if (gameManagement.JugadorContadorTurno < 2)
             {
-                Debug.Log("No puedes atacar antes del turno 5.");
+                Debug.Log("No puedes atacar en primer turno.");
                 return;
             }
 
             CardScript attacker = CardScript.selectedAttacker;
-            
+
             if (gameManagement.ambar >= attacker.CardCost)
             {
                 if (gameManagement.SpendEnergy(attacker.CardCost))

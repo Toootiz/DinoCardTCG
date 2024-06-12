@@ -103,4 +103,9 @@ INSERT INTO deck (id_jugador, nombre_deck, descripcion_deck, id_carta1, id_carta
 (7, "Wiiii", "Wiiiiii", 2, 7, 12, 13, 15, 19, 21, 23, 25, 27),
 (8, "El deck", "El deck", 30, 30, 30, 30, 30, 30, 30, 30, 30, 30);
 
+
+INSERT INTO turnos (id_jugador, cantidad_turnos) VALUES
+(1, 34),
+(1, 23);
+
 select * from jugador;
