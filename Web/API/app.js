@@ -291,7 +291,7 @@ app.post('/login', async (req, res) => {
 
         if (results.length > 0) {
             const userId = results[0].id_jugador;
-            res.send(`Usuario ${userId} autenticado: ${nombre}`);
+            res.send(`Usuario autenticado: ${nombre}`);
         } else {
             res.send('Usuario no autenticado');
         }

@@ -118,7 +118,7 @@ public class LoginManager : MonoBehaviour
 
                         // Establecer los valores de deck y deckId a 0
 
-                        ShowMessage("Usuario autenticado", false);
+                        ShowMessage("Usuario Uautenticado", false);
 
                         SceneManager.LoadScene("MenuInicial");
                     }
