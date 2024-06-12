@@ -49,6 +49,16 @@ CREATE TABLE jugador (
     PRIMARY KEY (id_jugador)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+
+CREATE TABLE turnos (
+    id_partida INT NOT NULL AUTO_INCREMENT,
+    id_jugador INT,
+    cantidad_turnos INT,
+    fecha_creacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fecha_modificacion TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id_partida),
+    FOREIGN KEY (id_jugador) REFERENCES jugador(id_jugador)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 -- Crear tabla para `deck`
 CREATE TABLE deck (
     id_deck INT NOT NULL AUTO_INCREMENT,
@@ -252,4 +262,30 @@ ORDER BY
     vc.cantidad_apariciones DESC
 LIMIT 5;
 
-select * from vista_top_5_cartas;
+-- Crear vista para obtener toda la información detallada de las cartas
+CREATE VIEW vista_detalles_cartas_completa AS
+SELECT 
+    c.id_carta, 
+    c.nombre AS Nombre, 
+    c.puntos_de_vida AS Puntos_de_Vida, 
+    c.puntos_de_ataque AS Puntos_de_ataque, 
+    c.coste_en_elixir AS Coste_en_elixir, 
+    h.descripcion, 
+    h.id_habilidad, 
+    hd.venenodmg, 
+    hd.quemadodmg, 
+    hd.sangradodmg, 
+    hd.mordidadmg, 
+    hd.colatazodmg, 
+    hd.boostvida, 
+    hd.boostataquedmg, 
+    hd.boostcosto, 
+    hd.duracion
+FROM 
+    carta c
+JOIN 
+    habilidad h ON c.habilidad = h.id_habilidad
+JOIN 
+    habilidadData hd ON h.id_habilidad = hd.id_habilidad;
+    
+SELECT * FROM vista_detalles_cartas_completa;

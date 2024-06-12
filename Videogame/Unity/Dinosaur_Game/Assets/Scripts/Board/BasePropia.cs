@@ -33,6 +33,12 @@ public class BasePropia : MonoBehaviour, IPointerClickHandler
         if (vidaActual <= 0) // Chequea si la salud ha llegado a cero o menos.
         {
             Debug.Log("La base del jugador ha sido destruida!");
+
+            // Guardar el ID del jugador como 4 y la cantidad de turnos en PlayerPrefs
+            PlayerPrefs.SetInt("LastWinningPlayerId", 4);
+            PlayerPrefs.SetInt("TurnCount", gameManagement.JugadorContadorTurno);
+            PlayerPrefs.Save();
+
             // Carga la escena de 'GameOver' cuando la base es destruida.
             SceneManager.LoadScene("GameOver");
         }
