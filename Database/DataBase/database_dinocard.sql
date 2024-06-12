@@ -60,7 +60,10 @@ CREATE TABLE turnos (
     FOREIGN KEY (id_jugador) REFERENCES jugador(id_jugador)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> Gabriel
 -- Crear tabla para `deck`
 CREATE TABLE deck (
     id_deck INT NOT NULL AUTO_INCREMENT,
