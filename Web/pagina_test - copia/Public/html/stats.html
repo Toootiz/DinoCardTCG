@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Estadísticas del Juego de Dinosaurios</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jaro:opsz@6..72&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/Public/css/styles.css" />
+    <script
+      type="module"
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.umd.js"
+      integrity="sha512-vCUbejtS+HcWYtDHRF2T5B0BKwVG/CLeuew5uT2AiX4SJ2Wff52+kfgONvtdATqkqQMC9Ye5K+Td0OTaz+P7cw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="main.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <div class="title-bar">
+        <h1 class="title">DinoCard Statistics</h1>
+      </div>
+      <nav>
+        <a href="../pagina_test/game.html" class="nav-button">GAME</a>
+        <a href="../pagina_test/test.html" class="nav-button">TUTORIAL</a>
+      </nav>
+    </header>
+
+    <div class="container">
+      <div id="flex-container">
+        <div class="spacing">
+          <h2>Cartas y Habilidades</h2>
+          <canvas id="cardsChart" width="600" height="400"></canvas>
+        </div>
+        <div class="spacing">
+          <h2>Estadísticas de Jugadores</h2>
+          <canvas id="playersChart" width="600" height="400"></canvas>
+        </div>
+      </div>
+
+      <div id="flex-container">
+        <div class="spacing">
+          <h2>Decks y Cartas</h2>
+          <canvas id="decksChart" width="600" height="400"></canvas>
+        </div>
+        <div class="spacing">
+          <h2>Resultados de Partidas</h2>
+          <canvas id="matchesChart" width="600" height="400"></canvas>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

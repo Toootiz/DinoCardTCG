@@ -4,22 +4,30 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using TMPro;
 
 public class MenuInicial : MonoBehaviour
 {
     public AudioMixer audioMixer;
+    public TextMeshProUGUI errorMessage; // Usar TextMeshProUGUI en lugar de Text
 
     void Start()
     {
         int userId = PlayerPrefs.GetInt("userId", 0);
-        int deckId = PlayerPrefs.GetInt("SelectedDeckId", 0);
         Debug.Log(userId);
-        Debug.Log(deckId);
     }
 
     public void Jugar()
     {
-        SceneManager.LoadScene("Board");
+        int deckId = PlayerPrefs.GetInt("SelectedDeckId", 0);
+        if (deckId != 0)
+        {
+            SceneManager.LoadScene("Board");
+        }
+        else
+        {
+            ShowErrorMessage("Crea o selecciona un deck");
+        }
     }
 
     public void Salir()
@@ -37,5 +45,10 @@ public class MenuInicial : MonoBehaviour
     public void SetVolume(float volume)
     {
         audioMixer.SetFloat("volume", volume);
+    }
+
+    private void ShowErrorMessage(string message)
+    {
+        Debug.Log("Selecciona un deck");
     }
 }

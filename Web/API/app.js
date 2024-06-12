@@ -30,7 +30,7 @@ app.get("/api/cards", async (req, res) => {
     let connection = null;
     try {
         connection = await connectToDB();
-        const [results, fields] = await connection.execute("SELECT * FROM carta_habilidad_detalle ORDER BY id_carta;");
+        const [results, fields] = await connection.execute("SELECT * FROM vista_detalles_cartas_completa");
         const c = { "cards": results };
         res.status(200).json(c);
     } catch (error) {
@@ -360,3 +360,71 @@ app.get("/api/matches", async (req, res) => {
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}/`);
 });
+
+
+app.post("/api/updatePlayerStats", async (req, res) => {
+    const { id_jugador, gano, id_enemigo } = req.body;
+
+    if (typeof id_jugador !== 'number' || typeof gano !== 'boolean' || typeof id_enemigo !== 'number') {
+        return res.status(400).json({ error: "Invalid data format" });
+    }
+
+    let connection = null;
+    try {
+        connection = await connectToDB();
+
+        // Actualizar las estadísticas del jugador
+        const updatePlayerQuery = gano
+            ? 'UPDATE jugador SET partidas_ganadas = partidas_ganadas + 1 WHERE id_jugador = ?'
+            : 'UPDATE jugador SET partidas_perdidas = partidas_perdidas + 1 WHERE id_jugador = ?';
+        
+        await connection.execute(updatePlayerQuery, [id_jugador]);
+
+        // Actualizar las estadísticas del enemigo
+        const updateEnemyQuery = gano
+            ? 'UPDATE jugador SET partidas_perdidas = partidas_perdidas + 1 WHERE id_jugador = ?'
+            : 'UPDATE jugador SET partidas_ganadas = partidas_ganadas + 1 WHERE id_jugador = ?';
+
+        await connection.execute(updateEnemyQuery, [id_enemigo]);
+
+        res.status(200).json({ message: "Player stats updated successfully" });
+    } catch (error) {
+        console.error("Error updating player stats:", error);
+        res.status(500).json({ error: error.message });
+    } finally {
+        if (connection) {
+            connection.end();
+        }
+    }
+});
+
+app.post("/api/saveTurnCount", async (req, res) => {
+    const { id_jugador, cantidad_turnos } = req.body;
+
+    if (typeof id_jugador !== 'number' || typeof cantidad_turnos !== 'number') {
+        return res.status(400).json({ error: "Invalid data format" });
+    }
+
+    let connection = null;
+    try {
+        connection = await connectToDB();
+
+        const insertTurnQuery = `
+            INSERT INTO turnos (id_jugador, cantidad_turnos) 
+            VALUES (?, ?)
+        `;
+        await connection.execute(insertTurnQuery, [id_jugador, cantidad_turnos]);
+
+        res.status(200).json({ message: "Turn count saved successfully" });
+    } catch (error) {
+        console.error("Error saving turn count:", error);
+        res.status(500).json({ error: error.message });
+    } finally {
+        if (connection) {
+            connection.end();
+        }
+    }
+});
+
+
+
