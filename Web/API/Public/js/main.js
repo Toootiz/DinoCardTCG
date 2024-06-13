@@ -112,67 +112,47 @@ function random_color(alpha = 1.0) {
         }
       );
   
-      // Decks y Cartas
-      const deckLabels = decksData.decks.map((deck) => deck.nombre);
-      const cardCounts = decksData.decks.map((deck) => deck.cantidad_apariciones);
-      
-  
-      const ctxDecks = document.getElementById("decksChart").getContext("2d");
-      createChart(
-        ctxDecks,
-        "pie",
-        {
-          labels: deckLabels,
-          datasets: [
-            {
-              label: "Cartas mas Utilizadas",
-              data: cardCounts,
-              backgroundColor: "rgba(255, 206, 86, 0.2)",
-              borderColor: "rgba(255, 206, 86, 1)",
-              borderWidth: 1,
-            },
-          ],
-        },
-        {
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
-          },
-        }
-      );
-  
-      // Resultados de Partidas
-      const matchLabels = matchesData.matches.map((match) => `Partida ${match.id_partida}`);
-      const turnCounts = matchesData.matches.map((match) => match.cantidad_turnos);
-      const winnerLabels = matchesData.matches.map((match) => match.id_jugador);
-      console.log('matchLabels',matchLabels);
-      console.log('turnCounts',turnCounts);
-  
-      const ctxMatches = document.getElementById("matchesChart").getContext("2d");
-      createChart(
-        ctxMatches,
-        "bar",
-        {
-          labels: matchLabels,
-          datasets: [
-            {
-              label: "Cantidad de Turnos",
-              data: turnCounts, winnerLabels,
-              backgroundColor: "rgba(75, 192, 192, 0.2)",
-              borderColor: "rgba(75, 192, 192, 1)",
-              borderWidth: 1,
-            },
-          ],
-        },
-        {
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
-          },
-        }
-      );
+     // Decks y Cartas
+const deckLabels = decksData.decks.map((deck) => deck.nombre);
+const cardCounts = decksData.decks.map((deck) => deck.cantidad_apariciones);
+
+// Función para generar colores aleatorios
+function getRandomColor() {
+  const r = Math.floor(Math.random() * 255);
+  const g = Math.floor(Math.random() * 255);
+  const b = Math.floor(Math.random() * 255);
+  return `rgba(${r}, ${g}, ${b}, 0.2)`;
+}
+
+// Generar colores aleatorios para cada sección de la gráfica
+const backgroundColors = deckLabels.map(() => getRandomColor());
+const borderColors = backgroundColors.map(color => color.replace('0.2', '1'));
+
+const ctxDecks = document.getElementById("decksChart").getContext("2d");
+createChart(
+  ctxDecks,
+  "pie",
+  {
+    labels: deckLabels,
+    datasets: [
+      {
+        label: "Cartas más Utilizadas",
+        data: cardCounts,
+        backgroundColor: backgroundColors,
+        borderColor: borderColors,
+        borderWidth: 1,
+      },
+    ],
+  },
+  {
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  }
+);
+
     }
   });
   
