@@ -4573,7 +4573,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cards: []
-  maxCards: 4
+  maxCards: 5
 --- !u!1 &2058867123
 GameObject:
   m_ObjectHideFlags: 0
