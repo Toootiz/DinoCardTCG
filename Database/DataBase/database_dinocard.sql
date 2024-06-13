@@ -60,10 +60,6 @@ CREATE TABLE turnos (
     FOREIGN KEY (id_jugador) REFERENCES jugador(id_jugador)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> Gabriel
 -- Crear tabla para `deck`
 CREATE TABLE deck (
     id_deck INT NOT NULL AUTO_INCREMENT,
@@ -295,3 +291,5 @@ JOIN
     habilidadData hd ON h.id_habilidad = hd.id_habilidad;
     
 SELECT * FROM vista_detalles_cartas_completa;
+
+SELECT * FROM vista_detalles_cartas_completa ORDER BY id_carta;

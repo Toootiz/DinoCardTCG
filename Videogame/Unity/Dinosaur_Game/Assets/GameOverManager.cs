@@ -102,7 +102,7 @@ public class GameOverManager : MonoBehaviour
 
     public void MainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("MenuInicial");
     }
 }
 

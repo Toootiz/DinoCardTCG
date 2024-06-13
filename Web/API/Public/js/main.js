@@ -153,6 +153,38 @@ createChart(
   }
 );
 
+// Resultados de Partidas
+const matchLabels = matchesData.matches.map((match) => `Partida ${match.id_partida}`);
+const turnCounts = matchesData.matches.map((match) => match.cantidad_turnos);
+const winnerLabels = matchesData.matches.map((match) => match.id_jugador);
+console.log('matchLabels',matchLabels);
+console.log('turnCounts',turnCounts);
+
+const ctxMatches = document.getElementById("matchesChart").getContext("2d");
+createChart(
+  ctxMatches,
+  "bar",
+  {
+    labels: matchLabels,
+    datasets: [
+      {
+        label: "Cantidad de Turnos",
+        data: turnCounts, winnerLabels,
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        borderColor: "rgba(75, 192, 192, 1)",
+        borderWidth: 1,
+      },
+    ],
+  },
+  {
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  }
+);
+
     }
   });
   

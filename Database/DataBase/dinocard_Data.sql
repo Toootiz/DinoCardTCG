@@ -3,23 +3,23 @@ USE dinocard_db;
 -- Insertar habilidades en la tabla habilidad
 INSERT INTO habilidad (descripcion) VALUES 
 (''),
-('Da un mordisco que causa veneno'),
-('Lanza una llamarada de fuego'),
-('Pega una mordida y deja sangrando'),
+('Da un mordisco que causa veneno por un tuno'),
+('Lanza una llamarada de fuego por un tuno'),
+('Pega una mordida y deja sangrando por un tuno'),
 ('Pega una mordida fuerte haciendo uno de daño extra'),
 ('Pega fuertemente con su cola haciendo uno de daño extra'),
-('Da un mordisco que causa veneno '),
-('Lanza una llamarada de fuego'),
-('Pega una mordida y deja sangrando'),
+('Da un mordisco que causa veneno por dos tuno'),
+('Lanza una llamarada de fuego por dos tuno'),
+('Pega una mordida y deja sangrando por dos tuno'),
 ('Pega una mordida fuerte haciendo dos de daño extra'),
 ('Pega fuertemente con su cola haciendo dos de daño extra'),
-('Da un mordisco que causa veneno'),
-('Lanza una llamarada de fuego'),
-('Pega una mordida y deja sangrando'),
+('Da un mordisco que causa veneno por tres tuno'),
+('Lanza una llamarada de fuego por tres tuno'),
+('Pega una mordida y deja sangrando por tres tuno'),
 ('Pega una mordida fuerte haciendo tres de daño extra'),
 ('Pega fuertemente con su cola haciendo tres de daño extra'),
-('Hace un rugido el cual aumenta la vida de una carta'),
-('Hace un rugido el cual aumenta el ataque de un dinosaurio'),
+('Hace un rugido el cual aumenta 4 de vida de una carta'),
+('Hace un rugido el cual aumenta 4 de ataque de un dinosaurio'),
 ('Disminuye el coste de una carta');
 
 -- Insertar datos de habilidades
@@ -40,8 +40,8 @@ INSERT INTO habilidadData (id_habilidad, venenodmg, quemadodmg, sangradodmg, mor
 (14, 0, 0, 3, 0, 0, 0, 0, 0, 3), -- Sangrado
 (15, 0, 0, 0, 3, 0, 0, 0, 0, 1), -- Mordida
 (16, 0, 0, 0, 0, 3, 0, 0, 0, 1), -- Colatazo
-(17, 0, 0, 0, 0, 0, 1, 0, 0, 1), -- Aumenta la vida de una carta
-(18, 0, 0, 0, 0, 0, 0, 1, 0, 1), -- Aumenta el ataque de un dinosaurio
+(17, 0, 0, 0, 0, 0, 4, 0, 0, 1), -- Aumenta la vida de una carta
+(18, 0, 0, 0, 0, 0, 0, 4, 0, 1), -- Aumenta el ataque de un dinosaurio
 (19, 0, 0, 0, 0, 0, 0, 0, 1, 1); -- Disminuye el coste de una carta
 
 -- Insertar cartas con los datos proporcionados

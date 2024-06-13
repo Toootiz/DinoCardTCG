@@ -35,8 +35,6 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
     public CanvasGroup burnEffect;
     public CanvasGroup bleedEffect;
 
-
-
     void Start()
     {
         gameManagement = GameObject.FindGameObjectWithTag("GameManagement").GetComponent<GameManagement>();
@@ -138,6 +136,13 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
                     initialPosition = rectTransform.anchoredPosition;
                     originalParent = newParent;
 
+                    // Reducir el coste si es mayor a 6
+                    if ((newParent.CompareTag("Juego") || newParent.CompareTag("JuegoEnemigo")) && CardCost > 6)
+                    {
+                        CardCost -= 4;
+                        UpdateCostDisplay();
+                    }
+
                     // Luego agregarla a la lista del nuevo panel si tiene JuegoPanelScript
                     if (panelScript != null && !panelScript.cards.Contains(gameObject))
                     {
@@ -225,9 +230,10 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
 
     public void AttackCard(CardScript target)
     {
-        if (target != null && gameManagement.ambar >= CardCost)
+        if (target != null)
         {
-            if (gameManagement.SpendEnergy(CardCost))
+            int attackCost = this.CardCost > 6 ? 2 : this.CardCost;
+            if (gameManagement.SpendEnergy(attackCost))
             {
                 int totalAttack = this.CardAttack + this.Cardmordidadmg + this.Cardcolatazodmg;
                 target.CardLife -= totalAttack;
@@ -299,7 +305,7 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
             Destroy(gameObject);
     }
 
-    private void UpdateCostDisplay()
+    public void UpdateCostDisplay()
     {
         TextMeshProUGUI costText = transform.GetChild(3).GetComponent<TextMeshProUGUI>();
         if (costText != null)
@@ -346,18 +352,18 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         switch (effectType)
         {
             case "Veneno":
-                DañoVeneno += damage;
-                DuracionVeneno = Mathf.Max(DuracionVeneno, duration);
+                DañoVeneno = damage;
+                DuracionVeneno = duration;
                 venomEffect.alpha = 1;
                 break;
             case "Quemadura":
-                DañoQuemadura += damage;
-                DuracionQuemadura = Mathf.Max(DuracionQuemadura, duration);
+                DañoQuemadura = damage;
+                DuracionQuemadura = duration;
                 burnEffect.alpha = 1;
                 break;
             case "Sangrado":
-                DañoSangrado += damage;
-                DuracionSangrado = Mathf.Max(DuracionSangrado, duration);
+                DañoSangrado = damage;
+                DuracionSangrado = duration;
                 bleedEffect.alpha = 1;
                 break;
         }
@@ -365,12 +371,6 @@ public class CardScript : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
         Debug.Log($"{CardName} ha recibido el efecto de {effectType} por {duration} turnos.");
     }
 
-    void Update()
-    {
-        // Este método no tiene funcionalidad actualmente, puede ser eliminado o utilizado para actualizar elementos en tiempo real.
-    }
-
-    // Método para aplicar daño de efectos al inicio de cada turno
     public void ApplyEffectDamage()
     {
         if (DuracionVeneno > 0)
