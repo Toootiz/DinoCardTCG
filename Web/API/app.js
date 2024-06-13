@@ -33,7 +33,7 @@ app.get("/api/cards", async (req, res) => {
     let connection = null;
     try {
         connection = await connectToDB();
-        const [results, fields] = await connection.execute("SELECT * FROM vista_detalles_cartas_completa");
+        const [results, fields] = await connection.execute("SELECT * FROM vista_detalles_cartas_completa ORDER BY id_carta");
         const c = { "cards": results };
         res.status(200).json(c);
     } catch (error) {
