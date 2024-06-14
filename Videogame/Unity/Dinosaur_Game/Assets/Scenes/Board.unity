@@ -1894,6 +1894,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: SettingsController
       objectReference: {fileID: 0}
+    - target: {fileID: 3763700594177560809, guid: b2a6beb14440d42f68df26495d212795, type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3763700594177560809, guid: b2a6beb14440d42f68df26495d212795, type: 3}
+      propertyPath: m_MaxValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3763700594177560809, guid: b2a6beb14440d42f68df26495d212795, type: 3}
+      propertyPath: m_MinValue
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5559158275611651590, guid: b2a6beb14440d42f68df26495d212795, type: 3}
       propertyPath: m_SizeDelta.x
       value: 290

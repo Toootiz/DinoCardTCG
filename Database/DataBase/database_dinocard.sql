@@ -1,8 +1,3 @@
-
-DROP SCHEMA IF EXISTS dinocard_db;
-CREATE SCHEMA dinocard_db;
-USE dinocard_db;
-
 -- Crear tabla para `habilidad`
 CREATE TABLE habilidad (
     id_habilidad INT NOT NULL AUTO_INCREMENT,
