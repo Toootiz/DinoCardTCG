@@ -1,14 +1,14 @@
 # Agents
-- Player
-- Product Owner
-- User
-- Database manager
-- Web manager
-- IA (Enemy)
-- Developers
+- Player: Test the game, provide feedback on the gameplay, identify areas for improvement.
+- Product Owner: Define and prioritize game features, ensure that the final product meets user requirements and expectations.
+- User: Use the login system and make sure that the game progress is working ok.
+- Database manager: Manage the game database, make sure that user data and game statistics are stored safely and efficiently.
+- Web manager: Manage the game statistics, send and show the statistics to the players.
+- IA (Enemy): Develop and improve the artificial intelligence that acts as an enemy in the game, ensuring an adequate level of challenge.
+- Developers: Implement the game features based on user stories, correct errors and optimize game performance.
+
 
 # User Stories
-
 ## Game
 - As a Product Owner, I want an entertaining card game, then people can entertain themselves while thinking about a strategy.
 - As a player, I want to play a strategic card game, so have fun while doing strategy.
@@ -45,25 +45,31 @@
 
 ---
 
-|Start game:||
+|Start Game:||
 |:---|---|
 |Description:|The user starts a new game.|
 |Actors:|User|
 |Main flow:|The user selects the option to start a new game. The system creates a new game and sets the initial state of the game. Cards are distributed to the players.It is determined who starts the game (coin toss or some other method).The system displays the game board and the first turn begins.|
 
-|Play card:||
+|Build Custom Deck:||
+|:---|---|
+|Description:|The player creates a 10 cards deck from de data base.|
+|Actors:|User|
+|Main flow:|The user selects the option Deck. The scene with all the charts available in the database is displayed. The user sleecct 10 of those cards. Saves the deck and then selects it to play with that deck.|
+
+|Play Card:||
 |:---|---|
 |Description:|User plays a card during his turn.|
 |Actors:|User|
 |Main flow:|User selects a card from his hand. The user chooses an action for that card (attack, defend, use ability, etc.). The system checks if the user has the necessary points to play the card. The system applies the effects of the card in the game (damage to the enemy base, self-defense, etc.).|
 
-|Attack enemy base:||
+|Attack Enemy Base:||
 |:---|---|
 |Description:|User decides to attack the enemy base during his turn.|
 |Actors:|User|
 |Main flow:|The user selects the enemy base as the target of his attack. The user chooses the cards to use for the attack, if necessary. The system calculates the total damage inflicted to the enemy base. The amount of hit points of the enemy base is reduced according to the calculated damage.|
 
-|Defend own base:||
+|Defend Own Base:||
 |:---|---|
 |Description:|The user decides to defend his own base during his turn.|
 |Actors:|User|
