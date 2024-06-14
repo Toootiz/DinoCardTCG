@@ -111,8 +111,8 @@ function random_color(alpha = 1.0) {
           },
         }
       );
-  
-     // Decks y Cartas
+
+
 const deckLabels = decksData.decks.map((deck) => deck.nombre);
 const cardCounts = decksData.decks.map((deck) => deck.cantidad_apariciones);
 
